@@ -2,7 +2,7 @@ import pytest
 import json
 import os
 from tempfile import NamedTemporaryFile
-from repositories.repository import Repository
+from src.repositories.repository import Repository
 
 @pytest.fixture
 def temp_repo_file():

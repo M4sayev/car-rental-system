@@ -1,5 +1,5 @@
 import pytest
-from models.car import Car
+from src.models.car import Car
 
 @pytest.fixture
 def car():

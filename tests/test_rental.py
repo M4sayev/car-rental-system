@@ -1,8 +1,8 @@
 import pytest
 from datetime import datetime
-from models.car import Car
-from models.client import Client
-from models.rental import Rental
+from src.models.car import Car
+from src.models.client import Client
+from src.models.rental import Rental
 
 @pytest.fixture
 def rental_setup():
