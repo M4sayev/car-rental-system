@@ -1,0 +1,24 @@
+[
+  {
+    "rental_id": "R001",
+    "car": {
+      "vehicle_id": "C001",
+      "brand": "Toyota",
+      "model": "Camry",
+      "daily_rate": 50.0,
+      "car_type": "Sedan",
+      "seats": 5,
+      "is_available": false
+    },
+    "client": {
+      "client_id": "CL001",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890"
+    },
+    "start_date": "2025-11-19T15:16:25.397305",
+    "end_date": null,
+    "total_cost": 0.0,
+    "is_active": true
+  }
+]
