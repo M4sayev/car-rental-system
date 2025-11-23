@@ -1,4 +1,4 @@
-from base import Vehicle
+from .base import Vehicle
 
 class Car(Vehicle):
     """Represents a car in the rental system. SUVs have a higher rental cost."""
