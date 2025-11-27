@@ -19,8 +19,8 @@ This guide provides instructions for setting up, running, and testing the Car Re
 Clone the project repository to your local machine:
 
 ```bash
-git clone <your-repo-url>
-cd car_rental_project
+git clone https://github.com/M4sayev/car-rental-system.git
+cd car-rental-system
 ```
 
 ---
@@ -75,6 +75,7 @@ Start the application using the main script:
 
 ```bash
 python src/main.py
+python run.py
 ```
 
 Currently, `main.py` serves as the entry point to demonstrate class interactions and basic CRUD operations.
