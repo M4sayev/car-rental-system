@@ -1,9 +1,9 @@
 from datetime import datetime
 from typing import List, Optional
-from ..models.car import Car
-from ..models.client import Client
-from ..models.rental import Rental
-from ..repositories.repository import Repository
+from src.models.car import Car
+from src.models.client import Client
+from src.models.rental import Rental
+from src.repositories.base_repository import Repository
 import logging
 
 logger = logging.getLogger(__name__)

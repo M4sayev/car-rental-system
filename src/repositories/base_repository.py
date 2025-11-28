@@ -42,6 +42,13 @@ class Repository(ABC):
                 json.dump([], f)
             logger.info(f"Created new file: {self.file_path}")
 
+    def _save(self, items: List[dict]):
+        """
+        Private method to persist the current list of items to the JSON file.
+        """
+        with open(self.file_path, "w", encoding="utf-8") as f:
+            json.dump(items, f, indent=2, ensure_ascii=False)
+
     @abstractmethod
     def create(self, item: dict) -> bool:
         """
