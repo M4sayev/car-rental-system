@@ -1,110 +1,208 @@
-Car Rental Management System
+# 🚗 Car Rental Management System
+
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Tests](https://img.shields.io/badge/Tests-Pytest-orange.svg)](https://pytest.org/)
 
 A Python-based Car Rental Management System implementing object-oriented programming principles, repository pattern, and comprehensive unit testing.
 
-Project Overview
+---
+
+## 📋 Project Overview
 
 This system allows management of cars, clients, and rentals, implementing core OOP concepts:
 
-Encapsulation: Classes manage their own data and behavior.
+- **Encapsulation**: Classes manage their own data and behavior
+- **Inheritance & Polymorphism**: Different types of vehicles can extend common behavior (e.g., Car, SUV)
+- **Composition**: Rental objects are composed of Car and Client instances
+- **Repository Pattern**: File-based storage for CRUD operations on cars, clients, and rentals
 
-Inheritance & Polymorphism: Different types of vehicles can extend common behavior (e.g., Car, SUV).
+---
 
-Composition: Rental objects are composed of Car and Client instances.
+## ✨ Features
 
-Repository Pattern: File-based storage for CRUD operations on cars, clients, and rentals.
+- ✅ Add, retrieve, and manage Cars and Clients
+- ✅ Record Rentals and calculate rental costs
+- ✅ Persist data to JSON files using a repository
+- ✅ Logging for repository operations
+- ✅ Fully tested with unit tests for models, services, and repositories
 
-Features
+---
 
-Add, retrieve, and manage Cars and Clients.
+## 🚀 Getting Started
 
-Record Rentals, calculate rental costs.
+### 1. Clone the repository
 
-Persist data to JSON files using a repository.
+```bash
+git clone https://github.com/M4sayev/car-rental-system.git
+cd car-rental-system
+```
 
-Logging for repository operations.
+### 2. Create a virtual environment
 
-Fully tested with unit tests for models, services, and repositories.
+```bash
+python -m venv venv
+```
 
-Getting Started
+### 3. Activate the virtual environment
 
-1. Clone the repository
-   git clone <repo_url>
-   cd <repo_folder>
+**Windows (CMD):**
+```cmd
+venv\Scripts\activate.ps1
+```
 
-2. Create a virtual environment
-   python -m venv venv
+**macOS / Linux:**
+```bash
+source venv/bin/activate.ps1
+```
 
-3. Activate the virtual environment
+### 4. Install dependencies
 
-Windows (CMD):
+```bash
+pip install -r requirements.txt
+```
 
-venv\Scripts\activate
+---
 
-macOS / Linux:
+## 📁 Project Structure
 
-source venv/bin/activate
-
-4. Install dependencies
-   pip install -r requirements.txt
-
-Project Structure
-src/
+```
+car_rental_project/
 │
-├── models/
-│ ├── base.py
-│ ├── car.py
-│ ├── client.py
-│ └── rental.py
+├── data/
+│   ├── cars.json
+│   ├── clients.json
+│   └── rentals.json
 │
-├── repositories/
-│ └── repository.py
+├── docs/
+│   ├── ER (for db).png
+│   ├── UML.png
+│   ├── technical_documentation.md
+│   └── user_guide.md
 │
-├── services/
-│ └── rental_service.py
+├── src/
+│   ├── models/
+│   │   ├── base.py
+│   │   ├── car.py
+│   │   ├── client.py
+│   │   └── rental.py
+│   │
+│   ├── repositories/
+│   │   └── repository.py
+│   │
+│   ├── services/
+│   │   └── rental_service.py
+│   │
+│   └── main.py              # Entry point
 │
-└── main.py # Entry point
-tests/
+├── tests/
+│   ├── test_car.py
+│   ├── test_client.py
+│   ├── test_rental.py
+│   └── test_repository.py
 │
-├── test_car.py
-├── test_client.py
-├── test_rental.py
-└── test_repository.py
+├── run.py
+├── requirements.txt
+└── README.md
+```
 
-Running the Application
+---
+
+## 🎯 Running the Application
 
 Run the main script:
 
+```bash
+python run.py
+or
 python src/main.py
+```
 
-(This currently serves as a starting point; additional CLI or UI features can be added in future sprints.)
+> **Note:** This currently serves as a starting point; additional CLI or UI features can be added in future sprints.
 
-Running Tests
+---
 
-Tests are written with pytest. Run all tests using:
+## 🧪 Running Tests
 
+Tests are written with `pytest`. Run all tests using:
+
+```bash
 pytest
+```
 
-Logging
+## 📊 Data Storage
+
+The application uses JSON files for persistence:
+
+| File | Purpose |
+|------|---------|
+| `data/cars.json` | Stores car information |
+| `data/clients.json` | Stores client information |
+| `data/rentals.json` | Stores rental records |
+
+---
+
+## 📝 Logging
 
 Repository operations are logged for traceability:
 
-File creation
+- File creation
+- CRUD operations
+- Error tracking
 
-CRUD operations
+Logs are displayed in the console during execution at INFO level.
 
-Contributing
+---
 
-Contributions are welcome! Make sure to:
+## 🛣️ Roadmap
 
-Fork the repo
+- [ ] Implement Update and Delete operations
+- [ ] Add data validation and business rules
+- [ ] Develop CLI interface
+- [ ] Add GUI (optional)
+- [ ] Expand test coverage for edge cases
+- [ ] Add database support (PostgreSQL/MySQL)
 
-Create a new branch
+---
 
-Add or update features/tests
+## 🤝 Contributing
 
-Submit a pull request
+Contributions are welcome! To contribute:
 
-License
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-This project is licensed under the MIT License.
+Please ensure:
+- All tests pass
+- Code follows PEP 8 style guidelines
+- New features include unit tests
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License
+
+---
+
+## 👥 Authors
+
+- Eltun Jalilli [https://github.com/EltunLTN](GitHub)
+- Elvin Musayev [https://github.com/M4Sayev](GitHub)
+
+---
+
+## 🙏 Acknowledgments
+
+- Python community
+- Contributors and testers
+- Open source libraries used in this project
+
+---
+
+<div align="center">
+Made with 🐍
+</div>
