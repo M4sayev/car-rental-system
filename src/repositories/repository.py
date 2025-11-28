@@ -59,7 +59,7 @@ class Repository:
                 return item
         return None
 
-    def update(self, item_id: str, updated_item: dict) -> bool:
+    def update(self, item_id: str, updated_fields: dict) -> bool:
         """CRUD - Update"""
         try:
             items = self.read_all()
@@ -68,7 +68,14 @@ class Repository:
                    item.get('vehicle_id') == item_id or \
                    item.get('client_id') == item_id or \
                    item.get('rental_id') == item_id:
-                    items[i] = updated_item
+                    
+                    # Early catch if id is passed in dict 
+                    for key in ['id', 'vehicle_id', 'client_id', 'rental_id']:
+                        if key in updated_fields:
+                            raise ValueError(f"Cannot update the ID field '{key}'.")
+    
+                    item.update(updated_fields)
+
                     with open(self.file_path, 'w', encoding='utf-8') as f:
                         json.dump(items, f, indent=2, ensure_ascii=False)
                     logger.info(f"Item updated: {item_id}")
@@ -89,8 +96,9 @@ class Repository:
                      item.get('vehicle_id') != item_id and
                      item.get('client_id') != item_id and
                      item.get('rental_id') != item_id]
-            
-            if len(items) < original_count:
+            if len(items) == original_count:
+                raise KeyError(f"Item not found for deletion: {item_id}")
+            elif len(items) < original_count:
                 with open(self.file_path, 'w', encoding='utf-8') as f:
                     json.dump(items, f, indent=2, ensure_ascii=False)
                 logger.info(f"Item deleted: {item_id}")

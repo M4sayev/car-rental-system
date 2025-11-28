@@ -2,11 +2,11 @@
   {
     "vehicle_id": "C001",
     "brand": "Toyota",
-    "model": "Camry",
-    "daily_rate": 50.0,
+    "model": "Supra",
+    "daily_rate": 132,
     "car_type": "Sedan",
-    "seats": 5,
-    "is_available": false
+    "seats": 4,
+    "is_available": true
   },
   {
     "vehicle_id": "C002",
@@ -22,15 +22,6 @@
     "brand": "BMW",
     "model": "320i",
     "daily_rate": 100.0,
-    "car_type": "Sedan",
-    "seats": 5,
-    "is_available": true
-  },
-  {
-    "vehicle_id": "C001",
-    "brand": "Toyota",
-    "model": "Camry",
-    "daily_rate": 50.0,
     "car_type": "Sedan",
     "seats": 5,
     "is_available": true
@@ -59,15 +50,6 @@
     "model": "Model3",
     "daily_rate": 90.0,
     "car_type": "sedan",
-    "seats": 5,
-    "is_available": true
-  },
-  {
-    "vehicle_id": "C001",
-    "brand": "Toyota",
-    "model": "Camry",
-    "daily_rate": 50.0,
-    "car_type": "Sedan",
     "seats": 5,
     "is_available": true
   },
