@@ -22,13 +22,15 @@ class RentalService:
     def _generate_id() -> str:
         return str(uuid.uuid4())
 
-    def add_car(self, car: Car) -> bool:
+    def add_car(self, car: Car) -> Car | bool:
         """Add a new car to the system"""
         # Set the id dynamically
         car_id = self._generate_id()
         car = Car(car_id, car.brand, car.model, car.daily_rate, car.car_type, car.seats)
         car_dict = car.to_dict()
-        return self.cars_repo.create(car_dict)
+        if self.cars_repo.create(car_dict):
+            return car
+        return False
 
     def get_car(self, vehicle_id: str) -> Optional[Car]:
         """Get car by ID"""
@@ -37,10 +39,15 @@ class RentalService:
             return Car.from_dict(car_dict)
         return None
     
-    def update_car(self, vehicle_id: str, updated_fields: dict) -> bool:
-        return self.cars_repo.update(vehicle_id, updated_fields)
+    def update_car(self, vehicle_id: str, updated_fields: dict) -> Car | bool:
+        """Update car by ID"""
+        car = self.cars_repo.update(vehicle_id, updated_fields)
+        if not car:
+            return False
+        return Car.from_dict(car)
     
-    def delete_car(self, vehicle_id: str) -> bool:
+    def delete_car(self, vehicle_id: str) -> bool | Car:
+        """Delete car by ID"""
         # Warn if the car is currently rented 
         active_rentals = self.rentals_repo.read_all()
 
@@ -48,7 +55,10 @@ class RentalService:
             if rental["car"]["vehicle_id"] == vehicle_id and rental.get("is_active", True):
                 logger.warning(f"Cannot delete car {vehicle_id}, it is currently rented.")
                 return False
-        return self.cars_repo.delete(vehicle_id)
+        car = self.cars_repo.delete(vehicle_id)
+        if not car:
+            return False
+        return Car.from_dict(car)
 
     def get_available_cars(self) -> List[Car]:
         """Get all available cars"""
@@ -60,21 +70,36 @@ class RentalService:
                 available_cars.append(car)
         return available_cars
     
-
-    def add_client(self, client: Client) -> bool:
-        """Add a new client to the system"""
-        # Set the id dynamically
-        client_id = self._generate_id()
-        client = Client(client_id, client.name, client.email, client.phone)
-        client_dict = client.to_dict()
-        return self.clients_repo.create(client_dict)
-
     def get_client(self, client_id: str) -> Optional[Client]:
         """Get client by ID"""
         client_dict = self.clients_repo.find_by_id(client_id)
         if client_dict:
             return Client.from_dict(client_dict)
         return None
+
+    def get_all_clients(self) -> List[Client]:
+        """Get all client"""
+        all_clients = self.clients_repo.read_all()
+        clients = [Client.from_dict(client) for client in all_clients]
+        return clients
+
+    def add_client(self, client: Client) -> Client | bool:
+        """Add a new client to the system"""
+        # Set the id dynamically
+        client_id = self._generate_id()
+        client = Client(client_id, client.name, client.email, client.phone)
+        client_dict = client.to_dict()
+        if self.clients_repo.create(client_dict):
+            return client
+        return False
+    
+    def delete_client(self, client_id: str) -> Client | bool:
+        """Delete car by ID"""
+        client = self.clients_repo.delete(client_id)
+        if not client:
+            return False 
+        return Client.from_dict(client)
+
 
     def create_rental(self, car_id: str, client_id: str,
                      start_date: Optional[datetime] = None) -> Optional[Rental]:
@@ -117,7 +142,7 @@ class RentalService:
             return rental
         return None
 
-    def complete_rental(self, rental_id: str, end_date: Optional[datetime] = None) -> bool:
+    def complete_rental(self, rental_id: str, end_date: Optional[datetime] = None) -> bool | Rental:
         """Complete a rental and make car available again"""
         rental_dict = self.rentals_repo.find_by_id(rental_id)
         if not rental_dict:
