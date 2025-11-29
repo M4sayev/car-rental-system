@@ -1,0 +1,12 @@
+[
+  {
+    "vehicle_id": "C001",
+    "brand": "Tesla",
+    "model": "Model3",
+    "daily_rate": 90.0,
+    "car_type": "sedan",
+    "seats": 5,
+    "is_available": true,
+    "deletion_date": "2025-11-29"
+  }
+]

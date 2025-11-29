@@ -1,14 +1,5 @@
 [
   {
-    "vehicle_id": "C001",
-    "brand": "Toyota",
-    "model": "Supra",
-    "daily_rate": 132,
-    "car_type": "Sedan",
-    "seats": 4,
-    "is_available": true
-  },
-  {
     "vehicle_id": "C002",
     "brand": "Honda",
     "model": "CR-V",
@@ -23,60 +14,6 @@
     "model": "320i",
     "daily_rate": 100.0,
     "car_type": "Sedan",
-    "seats": 5,
-    "is_available": true
-  },
-  {
-    "vehicle_id": "C002",
-    "brand": "Honda",
-    "model": "CR-V",
-    "daily_rate": 70.0,
-    "car_type": "SUV",
-    "seats": 7,
-    "is_available": true
-  },
-  {
-    "vehicle_id": "C003",
-    "brand": "BMW",
-    "model": "320i",
-    "daily_rate": 100.0,
-    "car_type": "Sedan",
-    "seats": 5,
-    "is_available": true
-  },
-  {
-    "vehicle_id": "C100",
-    "brand": "Tesla",
-    "model": "Model3",
-    "daily_rate": 90.0,
-    "car_type": "sedan",
-    "seats": 5,
-    "is_available": true
-  },
-  {
-    "vehicle_id": "C002",
-    "brand": "Honda",
-    "model": "CR-V",
-    "daily_rate": 70.0,
-    "car_type": "SUV",
-    "seats": 7,
-    "is_available": true
-  },
-  {
-    "vehicle_id": "C003",
-    "brand": "BMW",
-    "model": "320i",
-    "daily_rate": 100.0,
-    "car_type": "Sedan",
-    "seats": 5,
-    "is_available": true
-  },
-  {
-    "vehicle_id": "C004",
-    "brand": "Mazda",
-    "model": "CX-5",
-    "daily_rate": 80.0,
-    "car_type": "SUV",
     "seats": 5,
     "is_available": true
   },

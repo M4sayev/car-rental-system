@@ -3,6 +3,8 @@ from src.repositories.base_repository import Repository
 from typing import List, Optional
 import logging
 import json
+import os
+from datetime import datetime
 
 
 logger = logging.getLogger(__name__)
@@ -24,6 +26,7 @@ class JsonRepository(Repository):
         self.id_field = id_field
         self.deleted_history: List[dict] = []
         self._deleted_history_size = deleted_history_size
+    
 
     def create(self, item: dict) -> bool:
         """Add a new item to the repository."""
@@ -84,6 +87,9 @@ class JsonRepository(Repository):
             for index, item in enumerate(items):
                 if item.get(self.id_field) == item_id:
                     deleted_item = items.pop(index)
+                    # add date of deletion 
+                    current_date = datetime.now().date().isoformat()
+                    deleted_item["deletion_date"] = current_date
                     self.deleted_history.append(deleted_item)
 
                     # Keep the client number max deleted_history_size
@@ -91,6 +97,8 @@ class JsonRepository(Repository):
                         self.deleted_history.pop(0)
                     
                     self._save(items)
+                    # persist deleted data in a seperate json file
+                    self._save_deleted_history()
                     logger.info(f"Item with id {item_id} successfully deleted.")
                     return True
             logger.warning(f"Item with id {item_id} not found")
@@ -98,6 +106,17 @@ class JsonRepository(Repository):
         except Exception as e:
             logger.error(f"Delete error: {e}")
             return False
+        
+    def _save_deleted_history(self):
+        """Persist deleted items to a JSON file."""
+        delete_path = f"deleted_{self.file_path}"
+        
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(delete_path), exist_ok=True)
+
+        with open(delete_path, "w", encoding="utf-8") as f:
+            json.dump(self.deleted_history, f, indent=2)
+        
     
     def get_deleted_history(self) -> List[dict]:
         """Return a list of the last deleted items."""

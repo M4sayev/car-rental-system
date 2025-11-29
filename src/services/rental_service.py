@@ -28,6 +28,19 @@ class RentalService:
         if car_dict:
             return Car.from_dict(car_dict)
         return None
+    
+    def update_car(self, vehicle_id: str, updated_fields: dict) -> bool:
+        return self.cars_repo.update(vehicle_id, updated_fields)
+    
+    def delete_car(self, vehicle_id: str) -> bool:
+        # Warn if the car is currently rented 
+        active_rentals = self.rentals_repo.read_all()
+
+        for rental in active_rentals:
+            if rental["car"]["vehicle_id"] == vehicle_id and rental.get("is_active", True):
+                logger.warning(f"Cannot delete car {vehicle_id}, it is currently rented.")
+                return False
+        return self.cars_repo.delete(vehicle_id)
 
     def get_available_cars(self) -> List[Car]:
         """Get all available cars"""
@@ -38,6 +51,7 @@ class RentalService:
             if car.is_available:
                 available_cars.append(car)
         return available_cars
+    
 
     def add_client(self, client: Client) -> bool:
         """Add a new client to the system"""
@@ -76,6 +90,9 @@ class RentalService:
 
         # Update car availability in repository
         car_dict = car.to_dict()
+
+        # Remove vehicle_id to avoid passing it in update
+        del car_dict["vehicle_id"]
         self.cars_repo.update(car_id, car_dict)
 
         # Save rental
@@ -100,6 +117,10 @@ class RentalService:
 
         # Update car availability
         car_dict = rental.car.to_dict()
+
+        # Remove vehicle_id to avoid passing it in update
+        del car_dict["vehicle_id"]
+
         self.cars_repo.update(rental.car.vehicle_id, car_dict)
 
         # Update rental

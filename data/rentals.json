@@ -20,27 +20,5 @@
     "end_date": null,
     "total_cost": 0.0,
     "is_active": true
-  },
-  {
-    "rental_id": "R002",
-    "car": {
-      "vehicle_id": "C001",
-      "brand": "Toyota",
-      "model": "Supra",
-      "daily_rate": 132,
-      "car_type": "Sedan",
-      "seats": 4,
-      "is_available": false
-    },
-    "client": {
-      "client_id": "CL001",
-      "name": "John Doe",
-      "email": "john@example.com",
-      "phone": "+1234567890"
-    },
-    "start_date": "2025-11-29T02:03:47.125216",
-    "end_date": null,
-    "total_cost": 0.0,
-    "is_active": true
   }
 ]
