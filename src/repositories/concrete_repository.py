@@ -60,7 +60,7 @@ class JsonRepository(Repository):
                 return item
         return None
     
-    def update(self, item_id: str, updated_fields: dict) -> bool:
+    def update(self, item_id: str, updated_fields: dict) -> bool | dict:
         """Update a item's fields except the item_id."""
         try:
             items = self.read_all()
@@ -73,14 +73,14 @@ class JsonRepository(Repository):
                     item.update(updated_fields)
                     self._save(items)
                     logger.info(f"Item with id {item_id} was successfully updated")
-                    return True
+                    return item # Return item
             logger.warning(f"Item with id {item_id} not found.")
             return False
         except Exception as e:
             logger.error(f"Update error: {e}")
             return False
 
-    def delete(self, item_id:str) -> bool:
+    def delete(self, item_id:str) -> bool | dict:
         """Delete a item and store in deleted history."""
         try:
             items = self.read_all()
@@ -100,7 +100,7 @@ class JsonRepository(Repository):
                     # persist deleted data in a seperate json file
                     self._save_deleted_history()
                     logger.info(f"Item with id {item_id} successfully deleted.")
-                    return True
+                    return deleted_item
             logger.warning(f"Item with id {item_id} not found")
             return False
         except Exception as e:
