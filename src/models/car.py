@@ -13,6 +13,10 @@ class Car(Vehicle):
 
         # validate on initialization
         self.validate()
+    
+    def __str__(self):
+        base_str = super().__str__()
+        return f"{base_str} | Type: {self._car_type}, Seats: {self._seats}"
 
     def calculate_rental_cost(self, days: int) -> float:
         """Calculate rental cost; applies SUV multiplier if applicable."""

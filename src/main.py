@@ -17,12 +17,14 @@ from src.repositories.constants import CAR_HISTORY_SIZE, CLIENT_HISTORY_SIZE, RE
 from src.repositories.concrete_repository import JsonRepository
 import logging
 
+# to test validation (for the dev only)
+from src.validation_test import test_validation 
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
 logger = logging.getLogger("src.main")
-
 
 def seed_data(service: RentalService, cars_repo, clients_repo, rentals_repo):
     """Insert sample data only if JSON files are empty."""

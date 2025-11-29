@@ -32,6 +32,10 @@ class Vehicle(ABC):
         # immediate validation
         self._validate()
     
+    def __str__(self):
+        return f"Vehicle[{self._vehicle_id}] {self._brand} {self._model} - ${self._daily_rate}/day | Available: {self._is_available}"
+
+    
     # keep the base validate abstract (expose the inherited validation instead)
     def _validate(self):
         """Internal validation for vehicle attributes."""

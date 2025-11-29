@@ -39,6 +39,11 @@ class Rental:
         # validate on initialization
         self.validate()
 
+    def __str__(self):
+        status = "Active" if self.is_active else "Completed"
+        return f"Rental[{self._rental_id}] Car: {self._car.brand} {self._car.model} | Client: {self._client.name} | Status: {status} | Total: ${self._total_cost:.2f}"
+
+
     def validate(self):
         """Public validation callable by service layer"""
         if not isinstance(self._rental_id, str) or not self._rental_id.strip():

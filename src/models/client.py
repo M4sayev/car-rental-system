@@ -23,6 +23,10 @@ class Client:
 
         # validate on initialization
         self.validate()
+
+    def __str__(self):
+        return f"Client[{self._client_id}] {self._name} | Email: {self._email} | Phone: {self._phone}"
+
     def validate(self):
         """Public validation callable by service layer"""
         if not isinstance(self._client_id, str) or not self._client_id.strip():
