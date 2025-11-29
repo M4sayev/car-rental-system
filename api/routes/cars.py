@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 from api.dependencies import service
 from typing import List
 
@@ -6,7 +6,7 @@ from src.models.car import Car
 
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter()
 
 # Car schema
 class CarSchema(BaseModel):
@@ -16,7 +16,7 @@ class CarSchema(BaseModel):
     car_type: str
     seats: int
 
-@app.get("/cars", response_model=List[dict])
+@router.get("/cars", response_model=dict)
 def get_cars() -> List[dict]:
     # deserialize the cars 
     cars = service.get_available_cars()
@@ -26,7 +26,7 @@ def get_cars() -> List[dict]:
         "data" : data
     }
 
-@app.get("/cars/{vehicle_id}", response_model=dict)
+@router.get("/cars/{vehicle_id}", response_model=dict)
 def get_single_car(vehicle_id: str) -> dict:
     car = service.get_car(vehicle_id)
     if not car:
@@ -36,7 +36,7 @@ def get_single_car(vehicle_id: str) -> dict:
         "message": "success", "data": data
     }
 
-@app.post("/cars", response_model=dict)
+@router.post("/cars", response_model=dict)
 def create_car(data: CarSchema) -> dict:
     # create temp ID to avoid sending id to update 
     temp_car = Car("TEMP", data.brand, data.model, data.daily_rate, data.car_type, data.seats)
@@ -46,7 +46,7 @@ def create_car(data: CarSchema) -> dict:
     data = result.to_dict()
     return {"message": "Car has been successfully created", "data": data}
 
-@app.patch("/cars/{vehicle_id}", response_model=dict)
+@router.patch("/cars/{vehicle_id}", response_model=dict)
 def update_car(vehicle_id: str) -> dict:
     result = service.update_car(vehicle_id)
     if not result:
@@ -54,7 +54,7 @@ def update_car(vehicle_id: str) -> dict:
     data = result.to_dict()
     return {"message": f"Car updated successfully", "data": data}
 
-@app.delete("/cars/{vehicle_id}", response_model=dict)
+@router.delete("/cars/{vehicle_id}", response_model=dict)
 def delete_car(vehicle_id: str) -> dict:
     result = service.delete_car(vehicle_id)
     if not result:

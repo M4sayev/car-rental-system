@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import APIRouter, HTTPException
 from api.dependencies import service
 from typing import List
 
@@ -6,7 +6,7 @@ from src.models.client import Client
 
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter()
 
 # Client schema
 class ClientSchema(BaseModel):
@@ -14,7 +14,7 @@ class ClientSchema(BaseModel):
     email: str
     phone: str
 
-@app.get("/clients", response_model=List[dict])
+@router.get("/clients", response_model=dict)
 def get_clients() -> List[dict]:
     # deserialize the clients 
     clients = service.get_all_clients()
@@ -24,7 +24,7 @@ def get_clients() -> List[dict]:
         "data": data
     }
     
-@app.get("/clients/{client_id}", response_model=dict)
+@router.get("/clients/{client_id}", response_model=dict)
 def get_single_client(client_id: str) -> dict:
     result = service.get_client(client_id)
     if not result:
@@ -35,7 +35,7 @@ def get_single_client(client_id: str) -> dict:
         "data": data
     }
 
-@app.post("/clients", response_model=dict)
+@router.post("/clients", response_model=dict)
 def create_client(data: ClientSchema) -> dict:
     # create temp ID to avoid sending id to update 
     temp_client = Client("TEMP", data.name, data.email, data.phone)
@@ -45,7 +45,7 @@ def create_client(data: ClientSchema) -> dict:
     data = result.to_dict()
     return {"message": "Client has been successfully added", "data": data}
 
-@app.delete("/clients/{client_id}", response_model=dict)
+@router.delete("/clients/{client_id}", response_model=dict)
 def delete_client(client_id: str):
     result = service.delete_client(client_id)
     if not result:
