@@ -11,12 +11,24 @@ class Car(Vehicle):
         self._car_type = car_type
         self._seats = seats
 
+        # validate on initialization
+        self.validate()
+
     def calculate_rental_cost(self, days: int) -> float:
         """Calculate rental cost; applies SUV multiplier if applicable."""
         base_cost = self._daily_rate * days
         if self._car_type.lower() == "suv":
             return base_cost * self.SUV_COST_COEFFICIENT
         return base_cost
+    
+    def validate(self):
+        """Public validation callable by service layer"""
+        if not isinstance(self._car_type, str) or not self._car_type.strip():
+            raise ValueError("Car type must be a non-empty string")
+        if not isinstance(self._seats, int) or self._seats <= 0:
+            raise ValueError("Number of seats must be a positive integer")
+        
+        super()._validate()
 
     @property
     def car_type(self):

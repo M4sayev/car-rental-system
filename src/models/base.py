@@ -29,6 +29,21 @@ class Vehicle(ABC):
         self._daily_rate = daily_rate
         self._is_available = True
 
+        # immediate validation
+        self._validate()
+    
+    # keep the base validate abstract (expose the inherited validation instead)
+    def _validate(self):
+        """Internal validation for vehicle attributes."""
+        if not self._vehicle_id or not isinstance(self._vehicle_id, str):
+            raise ValueError("Vehicle ID must be a non-empty string")
+        if not self._brand or not isinstance(self._brand, str):
+            raise ValueError("Brand must be a non-empty string")
+        if not self._model or not isinstance(self._model, str):
+            raise ValueError("Brand must be a non-empty string")
+        if not isinstance(self._daily_rate, (int, float)) or self._daily_rate <= 0:
+            raise ValueError("Daily rate must be a positive number")
+
     @abstractmethod
     def calculate_rental_cost(self, days: int) -> float:
         """

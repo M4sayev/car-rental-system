@@ -1,38 +1,32 @@
 [
   {
     "client_id": "CL001",
-    "name": "John Doe",
-    "email": "john@example.com",
+    "name": "The Rock",
+    "email": "rocky@example.com",
     "phone": "+1234567890"
   },
   {
     "client_id": "CL002",
+    "name": "Sam Smith",
+    "email": "jane@example.com",
+    "phone": "+0987654321"
+  },
+  {
+    "client_id": "CL003",
     "name": "Jane Smith",
     "email": "jane@example.com",
     "phone": "+0987654321"
   },
   {
-    "client_id": "CL001",
+    "client_id": "CL004",
     "name": "John Doe",
     "email": "john@example.com",
     "phone": "+1234567890"
   },
   {
-    "client_id": "CL002",
-    "name": "Jane Smith",
-    "email": "jane@example.com",
-    "phone": "+0987654321"
-  },
-  {
-    "client_id": "CL001",
-    "name": "John Doe",
-    "email": "john@example.com",
-    "phone": "+1234567890"
-  },
-  {
-    "client_id": "CL002",
-    "name": "Jane Smith",
-    "email": "jane@example.com",
+    "client_id": "CL005",
+    "name": "Skafenao ls",
+    "email": "dsgd@example.com",
     "phone": "+0987654321"
   }
 ]

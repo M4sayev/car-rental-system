@@ -35,7 +35,34 @@ class Rental:
         self._start_date = start_date
         self._end_date = end_date
         self._total_cost = 0.0
-        self._is_active = True
+
+        # validate on initialization
+        self.validate()
+
+    def validate(self):
+        """Public validation callable by service layer"""
+        if not isinstance(self._rental_id, str) or not self._rental_id.strip():
+            raise ValueError("Rental ID must be a non-empty string")
+
+        if not isinstance(self._car, Car):
+            raise TypeError("Car must be a Car object")
+        self._car.validate()  # Validate the car itself
+
+        if not isinstance(self._client, Client):
+            raise TypeError("Client must be a Client object")
+        self._client.validate()  # Validate the client itself
+
+        if not isinstance(self._start_date, datetime):
+            raise TypeError("Start date must be a datetime object")
+        
+        if self._end_date:
+            self._validate_end_date(value=self._end_date)
+            
+    def _validate_end_date(self, value):
+        if not isinstance(value, datetime):
+            raise TypeError("End date must be a datetime object")
+        if value < self._start_date:
+            raise ValueError("End date cannot be before start date")
 
     @property
     def rental_id(self) -> str:
@@ -73,9 +100,9 @@ class Rental:
         Raises:
             TypeError: If value is not a datetime object.
         """
-        if not isinstance(value, datetime):
-            raise TypeError("end_date must be a datetime object")
+        self._validate_end_date(value)
         self._end_date = value
+        self.calculate_total_cost()
 
     @property
     def total_cost(self) -> float:
@@ -85,7 +112,7 @@ class Rental:
     @property
     def is_active(self) -> bool:
         """Return True if the rental is currently active, False otherwise."""
-        return self._is_active
+        return self._end_date is None
 
     def calculate_total_cost(self) -> float:
         """
@@ -109,10 +136,11 @@ class Rental:
         Args:
             end_date (datetime, optional): End date of the rental. Defaults to now.
         """
-        self._end_date = end_date or datetime.now()
-        self._total_cost = self.calculate_total_cost()
-        self._is_active = False
+        if not self.is_active:
+            return False
+        self.end_date = end_date or datetime.now()
         self._car.is_available = True
+        return True
 
     def to_dict(self) -> dict:
         """
@@ -127,8 +155,8 @@ class Rental:
             'client': self._client.to_dict(),
             'start_date': self._start_date.isoformat(),
             'end_date': self._end_date.isoformat() if self._end_date else None,
-            'total_cost': self._total_cost,
-            'is_active': self._is_active
+            'total_cost': self.calculate_total_cost(),
+            'is_active': self.is_active
         }
 
     @classmethod
@@ -151,6 +179,5 @@ class Rental:
             start_date=datetime.fromisoformat(data['start_date']),
             end_date=datetime.fromisoformat(data['end_date']) if data.get('end_date') else None
         )
-        rental._total_cost = data.get('total_cost', 0.0)
-        rental._is_active = data.get('is_active', True)
+        rental.calculate_total_cost() # recalculate to ensure consistency
         return rental

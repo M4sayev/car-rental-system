@@ -3,7 +3,6 @@ Car Rental Management System - Main Entry Point
 Sprint 1 - OOP Implementation
 """
 
-from datetime import datetime
 import sys
 import os
 
@@ -57,7 +56,6 @@ def main():
 
     # Initialize service layer
     service = RentalService(cars_repo, clients_repo, rentals_repo)
-
     # Seed initial data only once
     seed_data(service, cars_repo, clients_repo, rentals_repo)
 
