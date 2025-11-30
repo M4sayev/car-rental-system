@@ -3,9 +3,13 @@ import logging
 from datetime import datetime
 from src.models.car import Car
 from src.models.client import Client
-from src.services.rental_service import RentalService
 from src.repositories.concrete_repository import JsonRepository
 from src.repositories.constants import CAR_HISTORY_SIZE, CLIENT_HISTORY_SIZE, RENTAL_HISTORY_SIZE
+
+# import services
+from src.services.rental_service import RentalService
+from src.services.car_service import CarService
+from src.services.client_service import ClientService
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("cli")
@@ -15,7 +19,9 @@ cars_repo = JsonRepository("data/cars.json", "vehicle_id", CAR_HISTORY_SIZE)
 clients_repo = JsonRepository("data/clients.json", "client_id", CLIENT_HISTORY_SIZE)
 rentals_repo = JsonRepository("data/rentals.json", "rental_id", RENTAL_HISTORY_SIZE)
 
-service = RentalService(cars_repo, clients_repo, rentals_repo)
+car_service = CarService(cars_repo, rentals_repo)
+client_service = ClientService(clients_repo)
+rental_service = RentalService(rentals_repo, car_service, client_service)
 
 @click.group()
 def cli():
@@ -31,7 +37,7 @@ def car():
 @car.command("list")
 def list_cars():
     """List all available cars"""
-    cars = service.get_available_cars()
+    cars = car_service.get_available_cars()
     if not cars:
         click.echo("No cars available.")
         return
@@ -47,13 +53,13 @@ def list_cars():
 def add_car(brand, model, daily_rate, car_type, seats):
     """Add a new car"""
     car_obj = Car("TEMP", brand, model, daily_rate, car_type, seats)
-    service.add_car(car_obj)
+    car_service.add_car(car_obj)
     click.echo(f"Car added: {brand} {model}")
 
 @car.command("delete")
 def delete_car():
     """Delete a car by selecting its brand/model"""
-    cars = service.get_available_cars()
+    cars = car_service.get_available_cars()
     if not cars:
         click.echo("No cars available to delete.")
         return
@@ -66,7 +72,7 @@ def delete_car():
     if 1 <= index <= len(cars):
         vehicle_id = cars[index - 1].vehicle_id
         choice = f"{cars[index - 1].brand} {cars[index - 1].model} ({cars[index - 1].car_type})"
-        if service.delete_car(vehicle_id):
+        if car_service.delete_car(vehicle_id):
             click.echo(f"Car '{choice}' deleted successfully")
         else:
             click.echo(f"Car '{choice}' could not be deleted (maybe it's rented)")
@@ -96,7 +102,7 @@ def list_clients():
 def add_client(name, email, phone):
     """Add a new client"""
     client_obj = Client("TEMP", name, email, phone)
-    service.add_client(client_obj)
+    client_service.add_client(client_obj)
     click.echo(f"Client added: {name}")
 
 # ------------------- RENTALS -------------------
@@ -110,7 +116,7 @@ def rental():
 @click.argument("client_id")
 def create_rental(car_id, client_id):
     """Create a rental"""
-    rental_obj = service.create_rental(car_id, client_id)
+    rental_obj = rental_service.create_rental(car_id, client_id)
     if rental_obj:
         click.echo(f"Rental created: {rental_obj.rental_id}")
     else:
@@ -120,7 +126,7 @@ def create_rental(car_id, client_id):
 @click.argument("rental_id")
 def complete_rental(rental_id):
     """Complete a rental"""
-    if service.complete_rental(rental_id):
+    if rental_service.complete_rental(rental_id):
         click.echo(f"Rental {rental_id} completed.")
     else:
         click.echo(f"Failed to complete rental {rental_id}.")
@@ -128,7 +134,7 @@ def complete_rental(rental_id):
 @rental.command("list")
 def list_rentals():
     """List active rentals"""
-    rentals = service.get_active_rentals()
+    rentals = rental_service.get_active_rentals()
     if not rentals:
         click.echo("No active rentals.")
         return

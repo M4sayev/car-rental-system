@@ -26,7 +26,21 @@ class JsonRepository(Repository):
         self.id_field = id_field
         self.deleted_history: List[dict] = []
         self._deleted_history_size = deleted_history_size
+
+        # Load deleted history if it exists  
+        self._load_deleted_history()
     
+    def _load_deleted_history(self):
+        """Load deleted items from file if it exists."""
+        deleted_path = f"deleted_{self.file_path}"
+        if os.path.exists(deleted_path):
+            try:
+                with open(deleted_path, "r", encoding="utf-8") as f:
+                    self.deleted_history = json.load(f)
+            except json.JSONDecodeError:
+                self.deleted_history = []
+        else:
+            self.deleted_history = []
 
     def create(self, item: dict) -> bool:
         """Add a new item to the repository."""

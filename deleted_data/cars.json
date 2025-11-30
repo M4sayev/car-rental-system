@@ -1,12 +1,32 @@
 [
   {
-    "vehicle_id": "53264057-dba2-4fc6-85ed-2897313cec56",
-    "brand": "isi",
-    "model": "dgssge",
-    "daily_rate": 325.0,
-    "car_type": "tuyur",
-    "seats": 647,
+    "vehicle_id": "C004",
+    "brand": "Mazda",
+    "model": "CX-5",
+    "daily_rate": 80.0,
+    "car_type": "SUV",
+    "seats": 5,
     "is_available": true,
-    "deletion_date": "2025-11-29"
+    "deletion_date": "2025-11-30"
+  },
+  {
+    "vehicle_id": "1a70527e-d8dc-40dd-a71b-80c0198ca4d9",
+    "brand": "Supra",
+    "model": "rgw",
+    "daily_rate": 12.0,
+    "car_type": "egw",
+    "seats": 4,
+    "is_available": true,
+    "deletion_date": "2025-11-30"
+  },
+  {
+    "vehicle_id": "df062fbf-912f-414f-b9a9-92b110005dd3",
+    "brand": "PRIUS2",
+    "model": "PRIUS2",
+    "daily_rate": 200.0,
+    "car_type": "PRIUS",
+    "seats": 10,
+    "is_available": true,
+    "deletion_date": "2025-11-30"
   }
 ]
