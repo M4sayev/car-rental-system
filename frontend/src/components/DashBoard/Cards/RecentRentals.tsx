@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/table";
 import { COLOR_MAP } from "@/constants/colorConstants";
 
-type Status = "active" | "completed";
+type Status = "active" | "complete";
 
 interface Activity {
   rentalId: string;
@@ -51,7 +51,7 @@ const activities: Activity[] = [
     car: "gaegeg",
     startDate: "143-1241-51",
     endDate: "124515325",
-    status: "completed",
+    status: "complete",
   },
   {
     rentalId: "R005",
@@ -67,7 +67,7 @@ const activities: Activity[] = [
     car: "gaegeg",
     startDate: "143-1241-51",
     endDate: "124515325",
-    status: "completed",
+    status: "complete",
   },
   {
     rentalId: "R006",
@@ -81,7 +81,7 @@ const activities: Activity[] = [
 
 function RecentRentals() {
   return (
-    <Card className="max-h-80 overflow-auto">
+    <Card className="max-h-160 overflow-auto mb-20 md:mb-10">
       <CardHeader className="">Recent Rental Activities</CardHeader>
       <CardContent>
         <Table>
@@ -89,9 +89,9 @@ function RecentRentals() {
             <TableRow>
               <TableHead className="w-[100px]">Rental ID</TableHead>
               <TableHead>Client</TableHead>
-              <TableHead>Car</TableHead>
-              <TableHead>Start Date</TableHead>
-              <TableHead>End Date</TableHead>
+              <TableHead className="hidden sm:block">Car</TableHead>
+              <TableHead className="hidden sm:block">Start Date</TableHead>
+              <TableHead className="hidden sm:block">End Date</TableHead>
               <TableHead className="text-right">Status</TableHead>
             </TableRow>
           </TableHeader>
@@ -105,13 +105,13 @@ function RecentRentals() {
                 <TableRow key={rentalId} className="h-12">
                   <TableCell className="font-medium">{rentalId}</TableCell>
                   <TableCell>{client}</TableCell>
-                  <TableCell>{car}</TableCell>
-                  <TableCell>{startDate}</TableCell>
-                  <TableCell>{endDate}</TableCell>
+                  <TableCell className="hidden sm:block">{car}</TableCell>
+                  <TableCell className="hidden sm:block">{startDate}</TableCell>
+                  <TableCell className="hidden sm:block">{endDate}</TableCell>
                   <TableCell className="text-right w-[10%]">
                     <span
                       style={{ backgroundColor: color.bg, color: color.icon }}
-                      className="px-4 py-1 rounded-lg"
+                      className=" px-2 sm:px-4 py-1 rounded-lg"
                     >
                       {status}
                     </span>

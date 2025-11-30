@@ -40,7 +40,7 @@ const results: Result[] = [
 
 function Cards() {
   return (
-    <ul className="flex gap-5">
+    <ul className=" flex flex-col md:flex-row gap-5">
       {results.map((result) => {
         const { id, text, Icon, iconColor, results, description } = result;
         return (
