@@ -103,3 +103,10 @@ class RentalService:
             if rental.is_active:
                 active_rentals.append(rental)
         return active_rentals
+
+    def get_all_rentals(self) -> List[Rental]:
+        """Get all active rentals"""
+        rentals = self.rentals_repo.read_all()
+        result = [Rental.from_dict(rental) for rental in rentals]
+        return result
+    

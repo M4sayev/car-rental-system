@@ -45,3 +45,8 @@ class ClientService:
         if not client:
             return False 
         return Client.from_dict(client)
+
+    def get_deleted_clients(self) -> List[dict]:
+        """Get a list of deleted clients"""
+        deleted_clients = self.clients_repo.get_deleted_history()
+        return deleted_clients

@@ -1,0 +1,125 @@
+{
+  "info": {
+    "_postman_id": "ea96ac6f-c907-49da-b9d4-40688cabe0f1",
+    "name": "Cars",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "get_cars",
+      "id": "e33f8bd6-8485-4217-8ef8-2213ee181303",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/cars",
+          "host": ["{{base_url}}"],
+          "path": ["cars"]
+        },
+        "description": "Fetch all available cars"
+      }
+    },
+    {
+      "name": "get_single_car",
+      "id": "c346f9e0-0a31-4eea-a87e-dc037ec9bbc3",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/cars/C002",
+          "host": ["{{base_url}}"],
+          "path": ["cars", "C002"]
+        }
+      }
+    },
+    {
+      "name": "create_car",
+      "id": "8189dcee-7843-45a0-bf81-b9ab510e40ad",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"brand\": \"PRIUS2\",\r\n    \"model\": \"PRIUS2\",\r\n    \"daily_rate\": 200,\r\n    \"car_type\": \"PRIUS\",\r\n    \"seats\": 10\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/cars/",
+          "host": ["{{base_url}}"],
+          "path": ["cars", ""]
+        }
+      }
+    },
+    {
+      "name": "get_rental_cost",
+      "id": "07b7a6bf-ebd7-4b73-b192-413d54b7d9db",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/cars/C002/rental-cost?days=10",
+          "host": ["{{base_url}}"],
+          "path": ["cars", "C002", "rental-cost"],
+          "query": [
+            {
+              "key": "days",
+              "value": "10"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "update_car",
+      "id": "cca988ae-69bb-4801-89e4-60bfdacddeab",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"brand\": \"bebra\",\r\n    \"model\": \"bebra\",\r\n    \"daily_rate\": 2000000,\r\n    \"car_type\": \"PRIUS\",\r\n    \"seats\": 10\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/cars/C002/",
+          "host": ["{{base_url}}"],
+          "path": ["cars", "C002", ""]
+        }
+      }
+    },
+    {
+      "name": "delete_car",
+      "id": "6ed9f1de-9ba5-46a9-9645-1a473c3ba2fa",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"brand\": \"bebra\",\r\n    \"model\": \"bebra\",\r\n    \"daily_rate\": 2000000,\r\n    \"car_type\": \"PRIUS\",\r\n    \"seats\": 10\r\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/cars/df062fbf-912f-414f-b9a9-92b110005dd3",
+          "host": ["{{base_url}}"],
+          "path": ["cars", "df062fbf-912f-414f-b9a9-92b110005dd3"]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "info": {
+    "_postman_id": "d9e4b92d-5a38-469c-b50e-c0a3231d0469",
+    "name": "Clients",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "get_clients",
+      "id": "6aff2c4e-76c5-417a-a046-f3e2f81ca0a5",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/clients",
+          "host": ["{{base_url}}"],
+          "path": ["clients"]
+        }
+      }
+    },
+    {
+      "name": "get_single_cllient",
+      "id": "e31c105d-3c3e-454f-9a64-3a408bf3801e",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/clients/CL001",
+          "host": ["{{base_url}}"],
+          "path": ["clients", "CL001"]
+        }
+      }
+    },
+    {
+      "name": "create_client",
+      "id": "17d74d37-6ae8-4d81-b2ba-f7fc0c375bd8",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"bebra\",\r\n    \"phone\": \"0000000\",\r\n    \"email\": \"msayev@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/clients",
+          "host": ["{{base_url}}"],
+          "path": ["clients"]
+        }
+      }
+    },
+    {
+      "name": "delete_client",
+      "id": "cfed477e-16e6-4468-a7fe-9426c2bfa1e7",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "url": {
+          "raw": "{{base_url}}/clients/83a61929-37b4-4406-8ae5-041d3748b83c",
+          "host": ["{{base_url}}"],
+          "path": ["clients", "83a61929-37b4-4406-8ae5-041d3748b83c"]
+        }
+      }
+    }
+  ]
+}

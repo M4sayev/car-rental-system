@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import datetime
 
 class ClientSchema(BaseModel):
     name: str   
@@ -10,3 +11,6 @@ class ClientResponse(BaseModel):
     name: str  
     email: str
     phone: str
+
+class DeletedClientSchema(ClientSchema):
+    deletion_date: datetime

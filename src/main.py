@@ -67,6 +67,8 @@ def main():
     # Seed initial data only once
     seed_data(rental_service, car_service, client_service, rentals_repo, cars_repo, clients_repo)
 
+   
+
     # Display available cars
     logger.info("Available cars:")
     for car in car_service.get_available_cars():

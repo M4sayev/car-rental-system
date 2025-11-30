@@ -67,6 +67,11 @@ class CarService:
         if not car:
             return None
         return car.calculate_rental_cost(days)
+    
+    def get_deleted_cars(self) -> List[dict]:
+        """Get a list of deleted cars"""
+        deleted_cars = self.cars_repo.get_deleted_history()
+        return deleted_cars
 
 
 

@@ -1,4 +1,6 @@
 from pydantic import BaseModel
+from datetime import datetime
+
 # Car schema
 class CarSchema(BaseModel):
     brand: str
@@ -15,3 +17,6 @@ class CarResponse(BaseModel):
     car_type: str
     seats: int
     is_available: bool
+
+class DeletedCarSchema(CarSchema):
+    deletion_date: datetime

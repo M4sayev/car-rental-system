@@ -6,11 +6,12 @@ class Car(Vehicle):
     """Represents a car in the rental system. SUVs have a higher rental cost."""
 
     def __init__(self, vehicle_id: str, brand: str, model: str,
-                 daily_rate: float, car_type: str, seats: int):
+                 daily_rate: float, car_type: str, seats: int, is_available: bool = True):
         super().__init__(vehicle_id, brand, model, daily_rate)
         self._car_type = car_type
         self._seats = seats
-
+        self._is_available = is_available
+        
         # choose a base strategy based on car type
         if car_type.lower() == "suv":
             self._rental_cost_strategy: RentalCostStrategy = SUVRentalCost()
