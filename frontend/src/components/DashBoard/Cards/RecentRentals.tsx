@@ -89,9 +89,9 @@ function RecentRentals() {
             <TableRow>
               <TableHead className="w-[100px]">Rental ID</TableHead>
               <TableHead>Client</TableHead>
-              <TableHead className="hidden sm:block">Car</TableHead>
-              <TableHead className="hidden sm:block">Start Date</TableHead>
-              <TableHead className="hidden sm:block">End Date</TableHead>
+              <TableHead className="hidden sm:table-cell">Car</TableHead>
+              <TableHead className="hidden sm:table-cell">Start Date</TableHead>
+              <TableHead className="hidden sm:table-cell">End Date</TableHead>
               <TableHead className="text-right">Status</TableHead>
             </TableRow>
           </TableHeader>
@@ -105,9 +105,13 @@ function RecentRentals() {
                 <TableRow key={rentalId} className="h-12">
                   <TableCell className="font-medium">{rentalId}</TableCell>
                   <TableCell>{client}</TableCell>
-                  <TableCell className="hidden sm:block">{car}</TableCell>
-                  <TableCell className="hidden sm:block">{startDate}</TableCell>
-                  <TableCell className="hidden sm:block">{endDate}</TableCell>
+                  <TableCell className="hidden sm:table-cell">{car}</TableCell>
+                  <TableCell className="hidden sm:table-cell">
+                    {startDate}
+                  </TableCell>
+                  <TableCell className="hidden sm:table-cell">
+                    {endDate}
+                  </TableCell>
                   <TableCell className="text-right w-[10%]">
                     <span
                       style={{ backgroundColor: color.bg, color: color.icon }}

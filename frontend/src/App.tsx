@@ -7,10 +7,13 @@ import Footer from "./components/Footer/Footer";
 import NavbarMobile from "./components/Navbar/NavbarMobile";
 import NavbarDesktop from "./components/Navbar/NavbarDesktop";
 import TopBanner from "./components/ui/TopBanner";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen">
         <div className="hidden md:block">
           <NavbarDesktop />
@@ -30,7 +33,7 @@ function App() {
       <div className="md:hidden">
         <NavbarMobile />
       </div>
-    </>
+    </QueryClientProvider>
   );
 }
 
