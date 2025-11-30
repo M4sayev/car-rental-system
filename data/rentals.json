@@ -8,7 +8,7 @@
       "daily_rate": 50.0,
       "car_type": "Sedan",
       "seats": 5,
-      "is_available": false
+      "is_available": true
     },
     "client": {
       "client_id": "CL001",
@@ -17,8 +17,30 @@
       "phone": "+1234567890"
     },
     "start_date": "2025-11-19T15:16:25.397305",
+    "end_date": "2025-12-01T15:30:00",
+    "total_cost": 510.0,
+    "is_active": false
+  },
+  {
+    "rental_id": "1d9242ab-0b31-4efb-bc4a-2e908a25c269",
+    "car": {
+      "vehicle_id": "C003",
+      "brand": "BMW",
+      "model": "320i",
+      "daily_rate": 100.0,
+      "car_type": "Sedan",
+      "seats": 5,
+      "is_available": false
+    },
+    "client": {
+      "client_id": "CL004",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "phone": "+1234567890"
+    },
+    "start_date": "2025-11-30T13:32:20.432885",
     "end_date": null,
-    "total_cost": 0.0,
+    "total_cost": 100.0,
     "is_active": true
   }
 ]

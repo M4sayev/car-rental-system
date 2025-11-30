@@ -87,7 +87,12 @@ class RentalService:
 
         # Update rental
         rental_dict = rental.to_dict()
-        return self.rentals_repo.update(rental_id, rental_dict)
+        del rental_dict["rental_id"]
+
+        result = self.rentals_repo.update(rental_id, rental_dict)
+        if not result:
+            return False
+        return Rental.from_dict(result)
 
     def get_active_rentals(self) -> List[Rental]:
         """Get all active rentals"""
