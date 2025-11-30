@@ -1,0 +1,349 @@
+{
+  "info": {
+    "_postman_id": "8aebaaa0-41f3-45d8-b286-32616c058138",
+    "name": "PythonAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49478551",
+    "_collection_link": "https://m4sayev-1608219.postman.co/workspace/PythonAPi~d0f9c108-4bd8-45c7-b2b2-1f144be856d1/collection/49478551-8aebaaa0-41f3-45d8-b286-32616c058138?action=share&source=collection_link&creator=49478551"
+  },
+  "item": [
+    {
+      "name": "get_cars",
+      "id": "e33f8bd6-8485-4217-8ef8-2213ee181303",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/cars",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars"
+          ]
+        },
+        "description": "Fetch all available cars"
+      },
+      "response": []
+    },
+    {
+      "name": "get_single_car",
+      "id": "c346f9e0-0a31-4eea-a87e-dc037ec9bbc3",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/cars/C002",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars",
+            "C002"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create_car",
+      "id": "8189dcee-7843-45a0-bf81-b9ab510e40ad",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"brand\": \"PRIUS2\",\r\n    \"model\": \"PRIUS2\",\r\n    \"daily_rate\": 200,\r\n    \"car_type\": \"PRIUS\",\r\n    \"seats\": 10\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/cars/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get_rental_cost",
+      "id": "07b7a6bf-ebd7-4b73-b192-413d54b7d9db",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/cars/C002/rental-cost?days=10",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars",
+            "C002",
+            "rental-cost"
+          ],
+          "query": [
+            {
+              "key": "days",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update_car",
+      "id": "cca988ae-69bb-4801-89e4-60bfdacddeab",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"brand\": \"bebra\",\r\n    \"model\": \"bebra\",\r\n    \"daily_rate\": 2000000,\r\n    \"car_type\": \"PRIUS\",\r\n    \"seats\": 10\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/cars/C002/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars",
+            "C002",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete_car",
+      "id": "6ed9f1de-9ba5-46a9-9645-1a473c3ba2fa",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"brand\": \"bebra\",\r\n    \"model\": \"bebra\",\r\n    \"daily_rate\": 2000000,\r\n    \"car_type\": \"PRIUS\",\r\n    \"seats\": 10\r\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/cars/df062fbf-912f-414f-b9a9-92b110005dd3",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars",
+            "df062fbf-912f-414f-b9a9-92b110005dd3"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get_clients",
+      "id": "6aff2c4e-76c5-417a-a046-f3e2f81ca0a5",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/clients",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "clients"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get_single_cllient",
+      "id": "e31c105d-3c3e-454f-9a64-3a408bf3801e",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/clients/CL001",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "clients",
+            "CL001"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create_client",
+      "id": "17d74d37-6ae8-4d81-b2ba-f7fc0c375bd8",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"bebra\",\r\n    \"phone\": \"0000000\",\r\n    \"email\": \"msayev@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/clients",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "clients"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete_client",
+      "id": "cfed477e-16e6-4468-a7fe-9426c2bfa1e7",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/clients/83a61929-37b4-4406-8ae5-041d3748b83c",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "clients",
+            "83a61929-37b4-4406-8ae5-041d3748b83c"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "complete_rental",
+      "id": "5ca866f3-25c7-4332-81f4-7cb7c4fdff9b",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/rentals/R001/complete?end_date=2025-12-01T15:30:00",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "rentals",
+            "R001",
+            "complete"
+          ],
+          "query": [
+            {
+              "key": "end_date",
+              "value": "2025-12-01T15:30:00"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create_rental",
+      "id": "eb44efb2-0978-4c04-9a53-2bd568274a64",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"rental_id\": \"R001\",\r\n    \"car\": {\r\n        \"vehicle_id\": \"C002\",\r\n        \"brand\": \"Toyota\",\r\n        \"model\": \"Camry\",\r\n        \"daily_rate\": 50.0,\r\n        \"car_type\": \"Sedan\",\r\n        \"seats\": 5,\r\n        \"is_available\": true\r\n    },\r\n    \"client\": {\r\n        \"client_id\": \"CL001\",\r\n        \"name\": \"John Doe\",\r\n        \"email\": \"john@example.com\",\r\n        \"phone\": \"+1234567890\"\r\n    },\r\n    \"start_date\": \"2025-11-19T15:16:25.397305\",\r\n    \"end_date\": \"2025-11-28T15:16:25.397305\",\r\n    \"total_cost\": 425.0,\r\n    \"is_active\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/rentals?car_id=C003&client_id=CL004",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "rentals"
+          ],
+          "query": [
+            {
+              "key": "car_id",
+              "value": "C003"
+            },
+            {
+              "key": "client_id",
+              "value": "CL004"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get_rentals",
+      "id": "e5448001-b36b-44b8-b319-41d83b5dd4d7",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/rentals",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "rentals"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

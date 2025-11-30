@@ -18,5 +18,15 @@
     "seats": 4,
     "is_available": true,
     "deletion_date": "2025-11-30"
+  },
+  {
+    "vehicle_id": "df062fbf-912f-414f-b9a9-92b110005dd3",
+    "brand": "PRIUS2",
+    "model": "PRIUS2",
+    "daily_rate": 200.0,
+    "car_type": "PRIUS",
+    "seats": 10,
+    "is_available": true,
+    "deletion_date": "2025-11-30"
   }
 ]

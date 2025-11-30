@@ -1,32 +1,28 @@
 from fastapi import APIRouter, HTTPException
-from api.dependencies import service
+from api.dependencies import client_service
 from typing import List
 
 from src.models.client import Client
 
-from pydantic import BaseModel
+#import schemas
+from api.schemas.client import ClientResponse, ClientSchema
+from api.schemas.response import ResponseModel
 
 router = APIRouter()
 
-# Client schema
-class ClientSchema(BaseModel):
-    name: str   
-    email: str
-    phone: str
-
-@router.get("/clients", response_model=dict)
+@router.get("/clients", response_model=ResponseModel[List[ClientResponse]])
 def get_clients() -> List[dict]:
     # deserialize the clients 
-    clients = service.get_all_clients()
+    clients = client_service.get_all_clients()
     data = [client.to_dict() for client in clients]
     return {
         "message": "success",
         "data": data
     }
     
-@router.get("/clients/{client_id}", response_model=dict)
+@router.get("/clients/{client_id}", response_model=ResponseModel[ClientResponse])
 def get_single_client(client_id: str) -> dict:
-    result = service.get_client(client_id)
+    result = client_service.get_client(client_id)
     if not result:
         raise HTTPException(status_code=404, detail=f"Client with id {client_id} not found")
     data = result.to_dict()
@@ -39,7 +35,7 @@ def get_single_client(client_id: str) -> dict:
 def create_client(data: ClientSchema) -> dict:
     # create temp ID to avoid sending id to update 
     temp_client = Client("TEMP", data.name, data.email, data.phone)
-    result = service.add_client(temp_client)
+    result = client_service.add_client(temp_client)
     if not result:
         raise HTTPException(status_code=400, detail="Something went wrong")
     data = result.to_dict()
@@ -47,7 +43,7 @@ def create_client(data: ClientSchema) -> dict:
 
 @router.delete("/clients/{client_id}", response_model=dict)
 def delete_client(client_id: str):
-    result = service.delete_client(client_id)
+    result = client_service.delete_client(client_id)
     if not result:
         raise HTTPException(status_code=404, detail="Client not found")
     data = result.to_dict()
