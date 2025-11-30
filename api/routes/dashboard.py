@@ -26,9 +26,30 @@ def get_overview() -> dict:
         "data": overview
     }
 
-# TO BE IMPLEMENTED
-# @router.get("dashboard/recent-rentals", response_model=ResponseModel[List[RecentRentalsResponse]])
-# def get_recent_rentals() -> dict:
-#     rentals = rental_service.get_active_rentals()
+# return recent rentals with car name and client name istead of the whole car, client dict
+@router.get("/dashboard/recent-rentals", response_model=ResponseModel[List[RecentRentalsResponse]])
+def get_recent_rentals() -> dict:
+    rentals = rental_service.get_all_rentals()
+
+    
+    sorted_rentals = sorted(rentals, key=lambda rental: rental.start_date, reverse=True)[:5]
+    # turn car, client objects into their models, names
+    data = [
+        {
+            "rental_id": rental.rental_id,
+            "car_name": f"{rental.car.brand} {rental.car.model} ({rental.car.car_type})",
+            "client_name": rental.client.name,
+            "start_date": rental.start_date,
+            "end_date": rental.end_date,
+            "status": "active" if rental.is_active else "completed" 
+
+        } for rental in sorted_rentals 
+    ]
+
+
+    return {
+        "message": "success",
+        "data": data
+    }
 
         

@@ -10,7 +10,17 @@ from api.schemas.response import ResponseModel
 router = APIRouter()
 
 @router.get("/rentals", response_model=ResponseModel[List[RentalResponse]])
-def get_rentals() -> List[dict]:
+def get_all_rentals() -> List[dict]:
+    # deserialize the rentals 
+    rentals = rental_service.get_all_rentals()
+    data = [rental.to_dict() for rental in rentals]
+    return {
+        "message": "success",
+        "data": data
+    }
+
+@router.get("/rentals/active", response_model=ResponseModel[List[RentalResponse]])
+def get_active_rentals() -> List[dict]:
     # deserialize the rentals 
     rentals = rental_service.get_active_rentals()
     data = [rental.to_dict() for rental in rentals]
@@ -18,6 +28,7 @@ def get_rentals() -> List[dict]:
         "message": "success",
         "data": data
     }
+
 
 @router.patch("/rentals/{rental_id}/complete", response_model=ResponseModel[RentalResponse])
 def complete_rental(rental_id: str, end_date: Optional[datetime] = Query(None)) -> dict:
@@ -35,3 +46,4 @@ def create_rental(car_id: str, client_id: str, start_date: Optional[datetime] = 
         raise HTTPException(status_code=404, detail=f"Car is not available or either id is not found")
     data = result.to_dict()
     return {"message": "Rental has been successfully created", "data": data}
+

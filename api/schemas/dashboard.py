@@ -3,12 +3,12 @@ from datetime import datetime
 from typing import Optional
 
 class OverviewResponse(BaseModel):
-    available_cars: str
-    total_clients: str
-    active_rentals: str
+    available_cars: int
+    total_clients: int
+    active_rentals: int
 
 class RecentRentalsResponse(BaseModel):
-    rentail_id: str
+    rental_id: str
     car_name: str
     client_name: str
     start_date: datetime

@@ -1,0 +1,110 @@
+{
+  "info": {
+    "_postman_id": "9c0cb659-cf94-4e07-871d-32ee79567b36",
+    "name": "Rentals",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "complete_rental",
+      "id": "5ca866f3-25c7-4332-81f4-7cb7c4fdff9b",
+      "request": {
+        "method": "PATCH",
+        "url": {
+          "raw": "{{base_url}}/rentals/R001/complete?end_date=2025-12-01T15:30:00",
+          "host": ["{{base_url}}"],
+          "path": ["rentals", "R001", "complete"],
+          "query": [
+            {
+              "key": "end_date",
+              "value": "2025-12-01T15:30:00"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "create_rental",
+      "id": "eb44efb2-0978-4c04-9a53-2bd568274a64",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"rental_id\": \"R001\",\r\n    \"car\": {\r\n        \"vehicle_id\": \"C002\",\r\n        \"brand\": \"Toyota\",\r\n        \"model\": \"Camry\",\r\n        \"daily_rate\": 50.0,\r\n        \"car_type\": \"Sedan\",\r\n        \"seats\": 5,\r\n        \"is_available\": true\r\n    },\r\n    \"client\": {\r\n        \"client_id\": \"CL001\",\r\n        \"name\": \"John Doe\",\r\n        \"email\": \"john@example.com\",\r\n        \"phone\": \"+1234567890\"\r\n    },\r\n    \"start_date\": \"2025-11-19T15:16:25.397305\",\r\n    \"end_date\": \"2025-11-28T15:16:25.397305\",\r\n    \"total_cost\": 425.0,\r\n    \"is_active\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/rentals?car_id=C003&client_id=CL004",
+          "host": ["{{base_url}}"],
+          "path": ["rentals"],
+          "query": [
+            {
+              "key": "car_id",
+              "value": "C003"
+            },
+            {
+              "key": "client_id",
+              "value": "CL004"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "get_rentals",
+      "id": "e5448001-b36b-44b8-b319-41d83b5dd4d7",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/rentals",
+          "host": ["{{base_url}}"],
+          "path": ["rentals"]
+        }
+      }
+    },
+    {
+      "name": "get_deleted_cars",
+      "id": "3c66e160-b2c3-44ce-a28a-507ee5aeee52",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/cars/deleted",
+          "host": ["{{base_url}}"],
+          "path": ["cars", "deleted"]
+        }
+      }
+    },
+    {
+      "name": "get_deleted_clients",
+      "id": "590c79c0-e3a8-4bb7-ba47-c7cf8f28b224",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/clients/deleted",
+          "host": ["{{base_url}}"],
+          "path": ["clients", "deleted"]
+        }
+      }
+    },
+    {
+      "name": "get_active_rentals",
+      "id": "53a5128f-148e-4d3c-a3d8-3847f099861f",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": ""
+        }
+      }
+    }
+  ]
+}
