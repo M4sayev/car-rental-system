@@ -32,3 +32,14 @@ export const cardTemplates: CardTemplate[] = [
     description: "Currently in use",
   },
 ];
+
+type Status = "active" | "completed";
+
+export interface RecentRentalTemplate {
+  rental_id: string;
+  client_name: string;
+  car_name: string;
+  start_date: string;
+  end_date: string | null;
+  status: Status;
+}

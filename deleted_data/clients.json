@@ -1,16 +1,37 @@
 [
   {
-    "client_id": "57dc7708-0738-4c78-b01a-bc7fa7cfa668",
+    "client_id": "83a61929-37b4-4406-8ae5-041d3748b83c",
     "name": "bebra",
     "email": "msayev@gmail.com",
     "phone": "0000000",
     "deletion_date": "2025-11-30"
   },
   {
-    "client_id": "83a61929-37b4-4406-8ae5-041d3748b83c",
-    "name": "bebra",
-    "email": "msayev@gmail.com",
-    "phone": "0000000",
-    "deletion_date": "2025-11-30"
+    "client_id": "CL005",
+    "name": "Skafenao ls",
+    "email": "dsgd@example.com",
+    "phone": "+0987654321",
+    "deletion_date": "2025-12-01"
+  },
+  {
+    "client_id": "35a5ff45-35e2-47b5-b0c4-9e0b85ad39eb",
+    "name": "fefewge",
+    "email": "egeg@mail.com",
+    "phone": "+3145322",
+    "deletion_date": "2025-12-01"
+  },
+  {
+    "client_id": "46879938-d00d-4abd-bcff-f03dfb97139d",
+    "name": "Islam Cabarli",
+    "email": "isi@mail.ru",
+    "phone": "83525324",
+    "deletion_date": "2025-12-01"
+  },
+  {
+    "client_id": "f90348e0-f6c3-42f4-a04a-f6fa7c46854b",
+    "name": "ijhyvhjbubo",
+    "email": "jhvhvj@hji.com",
+    "phone": "8658757",
+    "deletion_date": "2025-12-01"
   }
 ]
