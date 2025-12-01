@@ -3,7 +3,7 @@ import type { PropsWithChildren } from "react";
 interface ErrorProps extends PropsWithChildren {
   error: Error | null;
 }
-function Error({ error, children }: ErrorProps) {
+function ErrorMessage({ error, children }: ErrorProps) {
   console.error(error);
 
   return (
@@ -17,4 +17,4 @@ function Error({ error, children }: ErrorProps) {
   );
 }
 
-export default Error;
+export default ErrorMessage;

@@ -22,11 +22,5 @@
     "name": "John Doe",
     "email": "john@example.com",
     "phone": "+1234567890"
-  },
-  {
-    "client_id": "CL005",
-    "name": "Skafenao ls",
-    "email": "dsgd@example.com",
-    "phone": "+0987654321"
   }
 ]
