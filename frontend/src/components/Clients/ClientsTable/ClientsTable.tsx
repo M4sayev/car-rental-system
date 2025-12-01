@@ -1,13 +1,13 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Table, TableBody } from "@/components/ui/table";
-import RecentRentalsHeader from "./RecentRentalsHeader";
-import type { RecentRentalTemplate } from "@/constants/dashBoardTemplates";
-import { useRecentRentals } from "@/hooks/queryHooks/dashboard/useRecentRentals";
-import RentalRow from "./RentalRow";
+import ClientsTableHeader from "./ClientsTableHeader";
+import type { ClientTemplate } from "@/constants/clientTemplates";
+import ClientsRow from "./ClientsRow";
+import { useGetClients } from "@/hooks/queryHooks/clients/useGetClients";
 import ErrorMessage from "@/components/API/ErrorMessage";
 
-function RecentRentals() {
-  const { data, isError, isLoading, error } = useRecentRentals();
+function ClientsTable() {
+  const { data, isError, isLoading, error } = useGetClients();
 
   if (isError || !data)
     return (
@@ -20,13 +20,13 @@ function RecentRentals() {
 
   return (
     <Card className="max-h-160 overflow-auto mb-20 md:mb-10">
-      <CardHeader className="">Recent Rental Activities</CardHeader>
+      <CardHeader className="">Clients Overview</CardHeader>
       <CardContent>
         <Table>
-          <RecentRentalsHeader />
+          <ClientsTableHeader />
           <TableBody>
-            {data.map((rental: RecentRentalTemplate) => (
-              <RentalRow key={rental.rental_id} rental={rental} />
+            {data.map((client: ClientTemplate) => (
+              <ClientsRow key={client.client_id} client={client} />
             ))}
           </TableBody>
         </Table>
@@ -35,4 +35,4 @@ function RecentRentals() {
   );
 }
 
-export default RecentRentals;
+export default ClientsTable;

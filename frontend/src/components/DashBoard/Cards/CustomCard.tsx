@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import ClientSideCountUp from "@/components/ui/ClientSideCountUp";
 import CustomIcon from "@/components/ui/CustomIcon";
 import type { ColorTheme } from "@/constants/colorConstants";
 import type { LucideIcon } from "lucide-react";
@@ -35,7 +36,9 @@ function CustomCard({
         </div>
       </CardHeader>
       <CardContent>
-        <span className="text-fluid-3xl font-bold ">{result}</span>
+        <span className="text-fluid-3xl font-bold ">
+          <ClientSideCountUp end={Number(result)} />
+        </span>
         <CardDescription>{description}</CardDescription>
       </CardContent>
     </Card>
