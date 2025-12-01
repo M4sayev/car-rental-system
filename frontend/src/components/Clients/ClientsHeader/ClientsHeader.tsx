@@ -1,4 +1,4 @@
-import AddClientButton from "./AddClientButton";
+import AddClientDropdown from "./AddClientDropdown";
 
 function ClientsHeader() {
   return (
@@ -7,8 +7,7 @@ function ClientsHeader() {
         <h1 className="font-open text-fluid-2xl text-center md:text-start pt-4 mb-5">
           Clients
         </h1>
-
-        <AddClientButton />
+        <AddClientDropdown />
       </header>
     </>
   );

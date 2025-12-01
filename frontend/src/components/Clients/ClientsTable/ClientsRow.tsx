@@ -20,6 +20,7 @@ function ClientsRow({ client }: { client: ClientTemplate }) {
       <TableCell className="text-right">
         <Actions
           type="client"
+          defaultData={client}
           onDelete={() => deleteClientMutation.mutate(client.client_id)}
         />
       </TableCell>
