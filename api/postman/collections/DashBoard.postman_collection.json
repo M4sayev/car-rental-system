@@ -1,0 +1,43 @@
+{
+  "info": {
+    "_postman_id": "99d7a4b1-e884-420d-82b7-30d820950c8b",
+    "name": "DashBoard",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "dashboard_overview",
+      "id": "d86603fb-9160-4568-b2e1-420ceef61788",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/dashboard/overview",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dashboard",
+            "overview"
+          ]
+        }
+      }
+    },
+    {
+      "name": "get_recent_rentals",
+      "id": "2cfb090b-c1ce-47cf-9c9b-3c1534d26b6e",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/dashboard/recent-rentals",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "dashboard",
+            "recent-rentals"
+          ]
+        }
+      }
+    }
+  ]
+}
