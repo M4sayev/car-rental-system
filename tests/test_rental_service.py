@@ -35,7 +35,7 @@ def rental_service(rentals_repo, car_service, client_service):
 @pytest.fixture
 def setup_data(car_service, client_service):
     car = car_service.add_car(Car("T", "Toyota", "Camry", 50.0, "Sedan", 5))
-    client = client_service.add_client(Client("T", "John Doe", "john@example.com", "123"))
+    client = client_service.add_client(Client("T", "John Doe", "john@example.com", "1234567890"))
     return car, client
 
 
