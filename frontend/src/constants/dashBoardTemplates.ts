@@ -1,7 +1,7 @@
 import { Calendar, Car, Users, type LucideIcon } from "lucide-react";
 import type { ColorTheme } from "./colorConstants";
 
-interface CardTemplate {
+export interface CardTemplate {
   text: string;
   Icon: LucideIcon;
   iconColor: ColorTheme;
