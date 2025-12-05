@@ -12,5 +12,8 @@ class ClientResponse(BaseModel):
     email: str
     phone: str
 
-class DeletedClientSchema(ClientSchema):
+class DeletedClientSchema(ClientResponse):
+    deletion_date: datetime
+
+class DeletedClientResponse(ClientResponse):
     deletion_date: datetime

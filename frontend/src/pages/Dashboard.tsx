@@ -1,5 +1,11 @@
 import Cards from "@/components/DashBoard/Cards/Cards";
-import RecentRentals from "@/components/DashBoard/RecentRentals/RecentRentals";
+import RecentRentalsHeader from "@/components/DashBoard/RecentRentals/RecentRentalsHeader";
+import RecentRentalsSkeleton from "@/components/DashBoard/RecentRentals/RecentRentalsSkeleton";
+import RentalRow from "@/components/DashBoard/RecentRentals/RentalRow";
+import DataTableCard from "@/components/DataTableCard/DataTableCard";
+import type { RecentRentalTemplate } from "@/constants/dashBoardTemplates";
+import { useRecentRentals } from "@/hooks/queryHooks/dashboard/useRecentRentals";
+import { CalendarOff } from "lucide-react";
 
 function DashBoard() {
   return (
@@ -11,7 +17,17 @@ function DashBoard() {
         <Cards />
       </div>
 
-      <RecentRentals />
+      <DataTableCard<RecentRentalTemplate>
+        queryFn={useRecentRentals()}
+        emptyIcon={CalendarOff}
+        emptyTitle="Oops..."
+        emptyLabel="no rentals in the database"
+        emptyDescription="No recent rentals in the database."
+        title={"Recent Rental Activities"}
+        Skeleton={RecentRentalsSkeleton}
+        Header={RecentRentalsHeader}
+        Row={(rental) => <RentalRow key={rental.rental_id} rental={rental} />}
+      />
     </div>
   );
 }

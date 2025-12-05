@@ -63,8 +63,9 @@ export function Actions({ onDelete, type, defaultData }: ActionsProps) {
           <Button
             variant="outline"
             className="cursor-pointer"
-            aria-label="Open menu"
+            aria-label="Open actions menu"
             size="icon-sm"
+            data-testid="actions-button"
           >
             <MoreHorizontalIcon />
           </Button>
@@ -87,8 +88,8 @@ export function Actions({ onDelete, type, defaultData }: ActionsProps) {
         onOpenChange={setShowDelete}
         title="Confirm deletion"
         description="Are you sure? The actions are irreversable."
-        actionText="Cancel"
-        closeText="Delete"
+        actionText="Delete"
+        closeText="Cancel"
       />
 
       {type === "client" ? (

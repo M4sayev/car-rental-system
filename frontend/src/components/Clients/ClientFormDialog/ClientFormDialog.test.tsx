@@ -51,7 +51,7 @@ describe("ClientFormDialog", () => {
     expect(phoneInput).toHaveAttribute("aria-invalid", "false");
     expect(phoneInput).toHaveAttribute("autocomplete", "off");
   });
-  it("renders the header  footer correctly on create mode", () => {
+  it("renders the header footer correctly on create mode", () => {
     render(<Wrapper mode="create" />);
     expect(screen.getByText(/Add new client/i)).toBeInTheDocument();
     expect(
@@ -59,15 +59,35 @@ describe("ClientFormDialog", () => {
         /Enter the client's details below to add them to your database./i
       )
     ).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /cancel/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /create/i })).toBeInTheDocument();
+    const cancelButton = screen.getByLabelText(
+      /Cancel actions and close the dialog/i
+    );
+    expect(cancelButton).toBeInTheDocument();
+    expect(cancelButton).toHaveTextContent("Cancel");
+
+    const createEditButton = screen.getByLabelText(/Create a new client/i);
+    expect(createEditButton).toBeInTheDocument();
+
+    expect(createEditButton).toHaveTextContent("Create");
   });
-  it("renders the footer with correct message for both mode", () => {
+  it("renders the header footer correctly on edit mode", () => {
     render(<Wrapper mode="edit" />);
+
     expect(screen.getByText(/Edit client's data/i)).toBeInTheDocument();
     expect(screen.getByText(/Edit the client's data./i)).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /cancel/i })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /update/i })).toBeInTheDocument();
+
+    const cancelButton = screen.getByLabelText(
+      /Cancel actions and close the dialog/i
+    );
+    expect(cancelButton).toBeInTheDocument();
+    expect(cancelButton).toHaveTextContent("Cancel");
+
+    const createEditButton = screen.getByLabelText(
+      /Edit the current client's data/i
+    );
+    expect(createEditButton).toBeInTheDocument();
+
+    expect(createEditButton).toHaveTextContent("Update");
   });
   it("renders default data on edit mode", () => {
     render(<Wrapper mode="edit" />);

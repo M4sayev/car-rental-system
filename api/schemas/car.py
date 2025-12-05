@@ -20,3 +20,6 @@ class CarResponse(BaseModel):
 
 class DeletedCarSchema(CarSchema):
     deletion_date: datetime
+
+class DeletedCarResponse(CarResponse):
+    deletion_date: datetime

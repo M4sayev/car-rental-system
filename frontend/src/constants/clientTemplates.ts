@@ -5,6 +5,7 @@ export interface ClientTemplate {
   name: string;
   email: string;
   phone: string;
+  deletion_date?: string;
 }
 
 export const clientSchema = z.object({

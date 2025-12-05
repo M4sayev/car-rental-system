@@ -5,7 +5,7 @@ from typing import List
 from src.models.car import Car
 
 # import schemas
-from api.schemas.car import CarSchema, CarResponse, DeletedCarSchema
+from api.schemas.car import CarSchema, CarResponse, DeletedCarResponse
 from api.schemas.response import ResponseModel  
 
 router = APIRouter()
@@ -21,7 +21,7 @@ def get_cars() -> List[dict]:
     }
 
 
-@router.get("/cars/deleted", response_model=ResponseModel[List[DeletedCarSchema]])
+@router.get("/cars/deleted", response_model=ResponseModel[List[DeletedCarResponse]])
 def get_deleted_cars() -> List[dict]:
      # no need to deserialize cuz get_deleted_cars returns dict
     data = car_service.get_deleted_cars()

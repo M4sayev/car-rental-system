@@ -8,7 +8,11 @@ function Cards() {
   const { data, isError, isLoading, error } = useDashboardOverview();
 
   if (isError) {
-    return <ErrorMessage error={error}>Error loading dashboard</ErrorMessage>;
+    return (
+      <ErrorMessage error={error}>
+        <span className="pt-10">Error loading dashboard</span>
+      </ErrorMessage>
+    );
   }
 
   if (isLoading) {

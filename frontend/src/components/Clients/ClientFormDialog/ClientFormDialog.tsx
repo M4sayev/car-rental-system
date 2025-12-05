@@ -119,11 +119,23 @@ function ClientFormDialog({
         <br />
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline" className="cursor-pointer">
+            <Button
+              variant="outline"
+              className="cursor-pointer"
+              aria-label="Cancel actions and close the dialog"
+            >
               Cancel
             </Button>
           </DialogClose>
-          <Button type="submit" className="cursor-pointer">
+          <Button
+            type="submit"
+            className="cursor-pointer"
+            aria-label={
+              mode === "edit"
+                ? "Edit the current client's data"
+                : "Create a new client"
+            }
+          >
             {mode === "edit" ? "Update" : "Create"}
           </Button>
         </DialogFooter>
