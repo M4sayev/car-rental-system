@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, Query, Body
+from fastapi import APIRouter, HTTPException, Query, Body, Form, File, UploadFile
 from api.dependencies import car_service
 from typing import List
 
@@ -42,9 +42,27 @@ def get_single_car(vehicle_id: str) -> dict:
 
 
 @router.post("/cars", response_model=dict)
-def create_car(data: CarSchema) -> dict:
+def create_car(brand: str = Form(...),
+               model: str = Form(...),
+               daily_rate: float = Form(),
+               car_type: str = Form(...),
+               seats: int = Form(...),
+               image_url: UploadFile = File(None)) -> dict:
     # create temp ID to avoid sending id to update 
-    temp_car = Car("TEMP", data.brand, data.model, data.daily_rate, data.car_type, data.seats)
+
+    # Save image if provided
+    image_path = None
+    if image_url:
+        import uuid, shutil
+        filename = f"cars/{uuid.uuid4()}_{image_url.filename}"
+        filepath = f"media/{filename}"
+        with open(filepath, "wb") as f:
+            shutil.copyfileobj(image_url.file, f)
+        image_path =  f"/media/{filename}"
+
+
+    temp_car = Car("TEMP", brand, model, daily_rate, car_type, seats, image_url = image_path)
+    
     result = car_service.add_car(temp_car)
     if not result:
         raise HTTPException(status_code=400, detail="Something went wrong")
@@ -77,5 +95,7 @@ def get_rental_cost(vehicle_id: str, days: int = Query(..., gt=0)):
         "message": "success",
         "data": cost
     }
+
+    
     
     

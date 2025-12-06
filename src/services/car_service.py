@@ -3,6 +3,7 @@ from src.models.car import Car
 from src.repositories.base_repository import Repository
 import uuid
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 class CarService:
@@ -18,7 +19,7 @@ class CarService:
         """Add a new car to the system"""
         # Set the id dynamically
         car_id = self._generate_id()
-        car = Car(car_id, car.brand, car.model, car.daily_rate, car.car_type, car.seats)
+        car = Car(car_id, car.brand, car.model, car.daily_rate, car.car_type, car.seats, car.is_available, car.image_url)
         car_dict = car.to_dict()
         if self.cars_repo.create(car_dict):
             return car
@@ -50,6 +51,16 @@ class CarService:
         car = self.cars_repo.delete(vehicle_id)
         if not car:
             return False
+        
+        image_url = car["image_url"]
+        if image_url and not image_url.endswith("default_car.jpg"):
+            try:
+                file_path = os.path.join("media/cars", os.path.basename(image_url))
+                if os.path.exists(file_path):
+                    os.remove(file_path)
+            except Exception as e:
+                logger.error(f"Failed to delete image {image_url}: {e}")
+
         return Car.from_dict(car)
 
     def get_available_cars(self) -> List[Car]:

@@ -6,7 +6,8 @@
     "daily_rate": 50.0,
     "car_type": "Sedan",
     "seats": 5,
-    "is_available": true
+    "is_available": true,
+    "image_url": "/media/cars/toyota_camry"
   },
   {
     "vehicle_id": "C002",
@@ -15,7 +16,8 @@
     "daily_rate": 2000000,
     "car_type": "PRIUS",
     "seats": 10,
-    "is_available": true
+    "is_available": true,
+    "image_url": "/media/cars/car_default"
   },
   {
     "vehicle_id": "C003",
@@ -24,15 +26,17 @@
     "daily_rate": 100.0,
     "car_type": "Sedan",
     "seats": 5,
-    "is_available": true
+    "is_available": true,
+    "image_url": "/media/cars/bmw320i"
   },
   {
-    "vehicle_id": "f0703d04-cb0f-4785-80bb-998f4d19ffaf",
-    "brand": "PRIUS",
-    "model": "PRIUS",
-    "daily_rate": 2.5,
-    "car_type": "PRIUS",
-    "seats": 10,
-    "is_available": true
+    "vehicle_id": "aa8bdcff-37a1-4728-a69b-8840d40ba78f",
+    "brand": "lada",
+    "model": "07",
+    "daily_rate": 2003.0,
+    "car_type": "best",
+    "seats": 4,
+    "is_available": true,
+    "image_url": "/media/cars/08f9fdc6-d07f-4fba-ad62-c1f4625b5f4b_lada_07.jpg"
   }
 ]

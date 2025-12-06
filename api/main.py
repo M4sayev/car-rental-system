@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from api.routes import cars, clients, rentals, dashboard
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -8,6 +9,8 @@ origins = [
 ]
 
 app = FastAPI(title="Car Rental API")
+
+app.mount("/media", StaticFiles(directory="media"), name="media")
 
 app.add_middleware(
     CORSMiddleware,
