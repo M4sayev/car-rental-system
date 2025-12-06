@@ -17,6 +17,7 @@ class CarResponse(BaseModel):
     car_type: str
     seats: int
     is_available: bool
+    image_url: str
 
 class DeletedCarSchema(CarSchema):
     deletion_date: datetime

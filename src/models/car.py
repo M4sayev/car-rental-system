@@ -6,11 +6,12 @@ class Car(Vehicle):
     """Represents a car in the rental system. SUVs have a higher rental cost."""
 
     def __init__(self, vehicle_id: str, brand: str, model: str,
-                 daily_rate: float, car_type: str, seats: int, is_available: bool = True):
+                 daily_rate: float, car_type: str, seats: int, is_available: bool = True, image_url = None):
         super().__init__(vehicle_id, brand, model, daily_rate)
         self._car_type = car_type
         self._seats = seats
         self._is_available = is_available
+        self.image_url = image_url
         
         # choose a base strategy based on car type
         if car_type.lower() == "suv":
@@ -62,7 +63,8 @@ class Car(Vehicle):
             'daily_rate': self._daily_rate,
             'car_type': self._car_type,
             'seats': self._seats,
-            'is_available': self._is_available
+            'is_available': self._is_available,
+            "image_url": self.image_url or "/media/cars/default_car.jpg"
         }
 
     @classmethod
@@ -74,7 +76,9 @@ class Car(Vehicle):
             model=data['model'],
             daily_rate=data['daily_rate'],
             car_type=data['car_type'],
-            seats=data['seats']
+            seats=data['seats'],
+            # extra fallback
+            image_url=data.get('image_url', "/media/cars/default_car.jpg")
         )
         car._is_available = data.get('is_available', True)
         return car
