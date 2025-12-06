@@ -36,8 +36,8 @@ def test_round_trip(client):
 
 # Edge cases
 def test_empty_strings():
-    client = Client('', '', '', '')
-    assert client.client_id == ''
+    with pytest.raises(ValueError):
+        Client('', '', '', '')
 
 def test_special_characters():
     client = Client('CL-001', "O'Brien", 'test+tag@example.com', '+1 (555) 123-4567')

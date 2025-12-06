@@ -33,12 +33,14 @@ def test_calculate_cost_suv():
 def test_calculate_cost_no_end_date(rental_setup):
     rental, _, _ = rental_setup
     cost = rental.calculate_total_cost()
-    assert cost == 0.0 or cost is None
+    assert isinstance(cost, float)
+    assert cost > 0.0
 
 def test_calculate_cost_same_day(rental_setup):
     rental, _, _ = rental_setup
     rental.end_date = datetime(2024, 1, 1)
-    assert rental.calculate_total_cost() == 0.0
+    # same-day rental counts as 1 day minimum
+    assert rental.calculate_total_cost() == 50.0
 
 # Complete rental
 def test_complete_rental(rental_setup):
@@ -87,5 +89,5 @@ def test_round_trip(rental_setup):
 def test_empty_rental_id():
     car = Car('C004', 'Ford', 'Focus', 40.0, 'Sedan', 5)
     client = Client('CL004', 'Test', 'test@test.com', '123')
-    rental = Rental('', car, client, datetime(2024, 1, 1))
-    assert rental.rental_id == ''
+    with pytest.raises(ValueError):
+        Rental('', car, client, datetime(2024, 1, 1))

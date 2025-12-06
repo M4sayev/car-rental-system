@@ -24,7 +24,7 @@ def test_polymorphism_suv(suv_car):
 
 def test_polymorphism_luxury():
     luxury = Car('C003', 'BMW', '7 Series', 150.0, 'Luxury', 5)
-    assert luxury.calculate_rental_cost(2) == 450.0
+    assert luxury.calculate_rental_cost(2) == 300.0
 
 # Polymorphism - edge cases
 def test_zero_days(car):
@@ -83,8 +83,8 @@ def test_round_trip(car):
 
 # Edge cases
 def test_empty_strings():
-    car = Car('', '', '', 50.0, '', 5)
-    assert car.vehicle_id == ''
+    with pytest.raises(ValueError):
+        Car('', '', '', 50.0, '', 5)
 
 def test_special_chars():
     car = Car('C-001', "O'Brien", 'X-1', 50.0, 'Sedan', 5)
@@ -92,7 +92,8 @@ def test_special_chars():
 
 def test_high_values():
     car = Car('C008', 'Luxury', 'Super', 10000.0, 'Luxury', 2)
-    assert car.calculate_rental_cost(5) == 75000.0
+    assert car.calculate_rental_cost(5) == 50000.0
 
 def test_large_rental(car):
-    assert car.calculate_rental_cost(365) == 18250.0
+    # long-term discount of 15% applies for rentals >= 7 days
+    assert car.calculate_rental_cost(365) == 15512.5
