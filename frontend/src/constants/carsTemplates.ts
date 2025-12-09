@@ -8,7 +8,7 @@ export interface CarTemplate {
   car_type: string;
   seats: number;
   is_available: boolean;
-  image_url: File | undefined;
+  image_url?: File | undefined;
   deletion_date?: string;
 }
 
@@ -19,6 +19,25 @@ export const carSchema = z.object({
   car_type: z.string().min(1, "Type is required"),
   seats: z.number().positive("Seats must be positive").max(50),
   image_url: z.file().optional(),
+  is_available: z.boolean(),
 });
 
+// for form hooks
+export const clientDefaultValues = {
+  brand: "",
+  model: "",
+  daily_rate: 0,
+  car_type: "",
+  seats: "",
+  image_url: undefined,
+};
+
+// for the toggle buttons
 export type CarFormData = z.infer<typeof carSchema>;
+
+export type AvailabilityStatus = "all" | "available" | "rented";
+export const availabilityCategories: AvailabilityStatus[] = [
+  "all",
+  "available",
+  "rented",
+];

@@ -7,17 +7,7 @@
     "car_type": "Sedan",
     "seats": 5,
     "is_available": false,
-    "image_url": "/media/cars/toyota_camry"
-  },
-  {
-    "vehicle_id": "C002",
-    "brand": "bebra",
-    "model": "bebra",
-    "daily_rate": 2000000,
-    "car_type": "PRIUS",
-    "seats": 10,
-    "is_available": true,
-    "image_url": "/media/cars/car_default"
+    "image_url": "/media/cars/toyota_camry.jpg"
   },
   {
     "vehicle_id": "C003",
@@ -27,7 +17,7 @@
     "car_type": "Sedan",
     "seats": 5,
     "is_available": true,
-    "image_url": "/media/cars/bmw320i"
+    "image_url": "/media/cars/bmw_320i.jpg"
   },
   {
     "vehicle_id": "aa8bdcff-37a1-4728-a69b-8840d40ba78f",

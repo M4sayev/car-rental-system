@@ -8,44 +8,49 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import ClientFormDialog from "../../../Clients/ClientFormDialog/ClientFormDialog";
-import { Dialog } from "../../dialog";
-import {
-  clientSchema,
-  type ClientFormData,
-  type ClientTemplate,
-} from "@/constants/clientTemplates";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUpdateClient } from "@/hooks/queryHooks/clients/useUpdateClient";
-import ConfirmationDialog from "../ConfirmDialog";
+import CarFormDialog from "../CarFormDialog/CarFormDialog";
+import {
+  carSchema,
+  type CarFormData,
+  type CarTemplate,
+} from "@/constants/carsTemplates";
+import ConfirmationDialog from "@/components/ui/custom/ConfirmDialog";
+import { Dialog } from "@/components/ui/dialog";
+import { useUpdateCar } from "@/hooks/queryHooks/cars/useUpdateCar";
 
 // make it reusable later for now skip
 
 interface ActionsProps {
   onDelete: () => void;
-  defaultData: ClientTemplate;
+  defaultData: CarTemplate;
 }
-export function Actions({ onDelete, defaultData }: ActionsProps) {
+export function CarActions({ onDelete, defaultData }: ActionsProps) {
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
 
-  const updateClientMutation = useUpdateClient();
+  const updateCarMutation = useUpdateCar();
 
-  const form = useForm<ClientFormData>({
-    resolver: zodResolver(clientSchema),
+  const form = useForm<CarFormData>({
+    resolver: zodResolver(carSchema),
     defaultValues: {
-      name: defaultData.name ?? "",
-      email: defaultData.email ?? "",
-      phone: defaultData.phone ?? "",
+      brand: defaultData.brand ?? "",
+      model: defaultData.model ?? "",
+      daily_rate: defaultData["daily_rate"] ?? 0,
+      car_type: defaultData["car_type"] ?? "",
+      seats: defaultData.seats ?? 0,
+      image_url: defaultData["image_url"] ?? undefined,
+      is_available: defaultData["is_available"] ?? false,
     },
     mode: "onChange",
   });
 
-  const onSubmit = (data: ClientFormData) => {
+  const onSubmit = (data: CarFormData) => {
     console.log("Validated form data:", data);
-    updateClientMutation.mutate(
-      { id: defaultData["client_id"], data },
+    updateCarMutation.mutate(
+      { id: defaultData["vehicle_id"], data },
       {
         onSuccess: () => {
           setShowEdit(false);
@@ -92,7 +97,7 @@ export function Actions({ onDelete, defaultData }: ActionsProps) {
       />
 
       <Dialog open={showEdit} onOpenChange={setShowEdit}>
-        <ClientFormDialog mode="edit" form={form} onSubmit={onSubmit} />
+        <CarFormDialog mode="edit" form={form} onSubmit={onSubmit} />
       </Dialog>
     </>
   );

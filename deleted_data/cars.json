@@ -7,7 +7,8 @@
     "car_type": "SUV",
     "seats": 5,
     "is_available": true,
-    "deletion_date": "2025-11-30"
+    "deletion_date": "2025-11-30",
+    "image_url": "/media/cars/car_default.jpg"
   },
   {
     "vehicle_id": "1a70527e-d8dc-40dd-a71b-80c0198ca4d9",
@@ -17,7 +18,8 @@
     "car_type": "egw",
     "seats": 4,
     "is_available": true,
-    "deletion_date": "2025-11-30"
+    "deletion_date": "2025-11-30",
+    "image_url": "/media/cars/car_default.jpg"
   },
   {
     "vehicle_id": "df062fbf-912f-414f-b9a9-92b110005dd3",
@@ -27,6 +29,18 @@
     "car_type": "PRIUS",
     "seats": 10,
     "is_available": true,
-    "deletion_date": "2025-11-30"
+    "deletion_date": "2025-11-30",
+    "image_url": "/media/cars/car_default.jpg"
+  },
+  {
+    "vehicle_id": "C002",
+    "brand": "bebra",
+    "model": "bebra",
+    "daily_rate": 2000000,
+    "car_type": "PRIUS",
+    "seats": 10,
+    "is_available": true,
+    "image_url": "/media/cars/car_default.jpg",
+    "deletion_date": "2025-12-09"
   }
 ]

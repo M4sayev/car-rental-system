@@ -13,7 +13,6 @@ interface CarFormDialogProps {
   form: UseFormReturn<CarFormData>;
   onSubmit: (data: CarFormData) => void;
   mode: modeType;
-  defaultData?: CarFormData;
 }
 
 function CarFormDialog({

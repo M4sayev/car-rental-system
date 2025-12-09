@@ -2,19 +2,19 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { COLOR_MAP, type ColorTheme } from "@/constants/colorConstants";
 import type { SetStateAction } from "react";
 
-interface ToggleButtonsProps {
-  value: string;
-  setValue: React.Dispatch<SetStateAction<string>>;
-  values: string[];
+interface ToggleButtonsProps<T> {
+  value: T;
+  setValue: React.Dispatch<SetStateAction<T>>;
+  values: T[];
 }
 
 // display different colors for different categories
 const indexToColor: ColorTheme[] = ["blue", "green", "red"];
 
-function ToggleButtons({ value, setValue, values }: ToggleButtonsProps) {
+function ToggleButtons<T>({ value, setValue, values }: ToggleButtonsProps<T>) {
   return (
     <ToggleGroup
-      value={value}
+      value={value as string}
       type="single"
       variant="outline"
       spacing={2}
@@ -29,7 +29,7 @@ function ToggleButtons({ value, setValue, values }: ToggleButtonsProps) {
         return (
           <ToggleGroupItem
             key={`toggle-group-${itemValue}`}
-            value={itemValue}
+            value={itemValue as string}
             aria-label={`Toggle ${itemValue}`}
             style={
               itemValue === value
@@ -42,7 +42,7 @@ function ToggleButtons({ value, setValue, values }: ToggleButtonsProps) {
             className="capitalize border-0 shadow-0 bg-sidebar cursor-pointer"
             onClick={() => setValue(itemValue)}
           >
-            {itemValue}
+            {itemValue as string}
           </ToggleGroupItem>
         );
       })}
