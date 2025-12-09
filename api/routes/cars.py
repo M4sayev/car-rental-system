@@ -13,13 +13,22 @@ router = APIRouter()
 @router.get("/cars", response_model=ResponseModel[List[CarResponse]])
 def get_cars() -> List[dict]:
     # deserialize the cars 
-    cars = car_service.get_available_cars()
+    cars = car_service.get_cars()
     data = [car.to_dict() for car in cars]
     return {
         "message": "success",
         "data" : data
     }
 
+@router.get("/cars/available", response_model=ResponseModel[List[CarResponse]])
+def get_available_cars() -> List[dict]:
+    # get all the available cars 
+    cars = car_service.get_available_cars()
+    data = [car.to_dict() for car in cars]
+    return {
+        "message": "success",
+        "data" : data
+    }
 
 @router.get("/cars/deleted", response_model=ResponseModel[List[DeletedCarResponse]])
 def get_deleted_cars() -> List[dict]:
@@ -50,7 +59,7 @@ def create_car(brand: str = Form(...),
                image_url: UploadFile = File(None)) -> dict:
     # create temp ID to avoid sending id to update 
 
-    # Save image if provided
+    # save image if provided
     image_path = None
     if image_url:
         import uuid, shutil
