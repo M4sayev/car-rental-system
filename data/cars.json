@@ -6,7 +6,7 @@
     "daily_rate": 50.0,
     "car_type": "Sedan",
     "seats": 5,
-    "is_available": true,
+    "is_available": false,
     "image_url": "/media/cars/toyota_camry"
   },
   {

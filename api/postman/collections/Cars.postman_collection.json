@@ -12,8 +12,12 @@
         "method": "GET",
         "url": {
           "raw": "{{base_url}}/cars",
-          "host": ["{{base_url}}"],
-          "path": ["cars"]
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars"
+          ]
         },
         "description": "Fetch all available cars"
       }
@@ -28,8 +32,13 @@
         "method": "GET",
         "url": {
           "raw": "{{base_url}}/cars/C002",
-          "host": ["{{base_url}}"],
-          "path": ["cars", "C002"]
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars",
+            "C002"
+          ]
         }
       }
     },
@@ -52,8 +61,13 @@
         },
         "url": {
           "raw": "{{base_url}}/cars/",
-          "host": ["{{base_url}}"],
-          "path": ["cars", ""]
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars",
+            ""
+          ]
         }
       }
     },
@@ -67,8 +81,14 @@
         "method": "GET",
         "url": {
           "raw": "{{base_url}}/cars/C002/rental-cost?days=10",
-          "host": ["{{base_url}}"],
-          "path": ["cars", "C002", "rental-cost"],
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars",
+            "C002",
+            "rental-cost"
+          ],
           "query": [
             {
               "key": "days",
@@ -97,8 +117,14 @@
         },
         "url": {
           "raw": "{{base_url}}/cars/C002/",
-          "host": ["{{base_url}}"],
-          "path": ["cars", "C002", ""]
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars",
+            "C002",
+            ""
+          ]
         }
       }
     },
@@ -116,8 +142,30 @@
         },
         "url": {
           "raw": "{{base_url}}/cars/df062fbf-912f-414f-b9a9-92b110005dd3",
-          "host": ["{{base_url}}"],
-          "path": ["cars", "df062fbf-912f-414f-b9a9-92b110005dd3"]
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars",
+            "df062fbf-912f-414f-b9a9-92b110005dd3"
+          ]
+        }
+      }
+    },
+    {
+      "name": "get_available_cars",
+      "id": "0be750e9-2542-4c7b-a3c5-c79560a3d1f4",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{base_url}}/cars/available",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cars",
+            "available"
+          ]
         }
       }
     }

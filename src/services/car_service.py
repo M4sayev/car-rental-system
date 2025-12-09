@@ -73,6 +73,12 @@ class CarService:
                 available_cars.append(car)
         return available_cars
     
+    def get_cars(self) -> List[Car]:
+        """Get all cars"""
+        all_cars = self.cars_repo.read_all()
+        cars = [Car.from_dict(car) for car in all_cars]
+        return cars 
+    
     def calculate_rental_cost(self,vehicle_id: str, days: int) -> Optional[float]:
         car = self.get_car(vehicle_id)
         if not car:
