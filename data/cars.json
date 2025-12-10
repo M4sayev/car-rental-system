@@ -41,10 +41,10 @@
   },
   {
     "vehicle_id": "15b6fc90-098e-4e9e-bca1-5f87bb41b42c",
-    "brand": "435",
-    "model": "GRG",
-    "daily_rate": 221.0,
-    "car_type": "TWTT",
+    "brand": "tr",
+    "model": "manattig",
+    "daily_rate": 1,
+    "car_type": "Tegaegae",
     "seats": 24,
     "is_available": true,
     "image_url": "/media/cars/41d3fcd3-9e04-4328-98a8-44bc5ef2fcd0_cybertruck.webp"
