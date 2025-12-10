@@ -6,6 +6,7 @@ import logging
 import os
 
 logger = logging.getLogger(__name__)
+
 class CarService:
     def __init__(self, cars_repo: Repository, rentals_repo: Repository):
         self.cars_repo = cars_repo
@@ -13,6 +14,7 @@ class CarService:
     
     @staticmethod
     def _generate_id() -> str:
+        """Generate random id"""
         return str(uuid.uuid4())
     
     def add_car(self, car: Car) -> Car | bool:
@@ -40,7 +42,7 @@ class CarService:
         return Car.from_dict(car)
     
     def delete_car(self, vehicle_id: str) -> Car | bool:
-        """Delete car by ID"""
+        """Delete car by ID, and the image if provided"""
         # Warn if the car is currently rented 
         active_rentals = self.rentals_repo.read_all()
 
@@ -53,7 +55,7 @@ class CarService:
             return False
         
         image_url = car["image_url"]
-        if image_url and not image_url.endswith("default_car.jpg"):
+        if image_url and not image_url.endswith("car_default.jpg"):
             try:
                 file_path = os.path.join("media/cars", os.path.basename(image_url))
                 if os.path.exists(file_path):
@@ -80,6 +82,7 @@ class CarService:
         return cars 
     
     def calculate_rental_cost(self,vehicle_id: str, days: int) -> Optional[float]:
+        """Calculate rental cost based on the strategy"""
         car = self.get_car(vehicle_id)
         if not car:
             return None

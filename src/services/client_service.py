@@ -4,16 +4,17 @@ from src.repositories.base_repository import Repository
 import uuid
 import logging
 
-logger = logging.getLogger(__name__)
 
 class ClientService: 
     """Service layer - Business logic"""
 
     def __init__(self, clients_repo: Repository):
         self.clients_repo = clients_repo
+    logger = logging.getLogger(__name__)
 
     @staticmethod
     def _generate_id() -> str:
+        """Generate random id"""
         return str(uuid.uuid4())
     
     def get_client(self, client_id: str) -> Optional[Client]:

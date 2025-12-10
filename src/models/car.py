@@ -64,7 +64,7 @@ class Car(Vehicle):
             'car_type': self._car_type,
             'seats': self._seats,
             'is_available': self._is_available,
-            "image_url": self.image_url or "/media/cars/default_car.jpg"
+            "image_url": self.image_url or "/media/cars/car_default.jpg"
         }
 
     @classmethod
@@ -78,7 +78,7 @@ class Car(Vehicle):
             car_type=data['car_type'],
             seats=data['seats'],
             # extra fallback
-            image_url=data.get('image_url', "/media/cars/default_car.jpg")
+            image_url=data.get('image_url', "/media/cars/car_default.jpg")
         )
         car._is_available = data.get('is_available', True)
         return car
