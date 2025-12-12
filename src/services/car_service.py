@@ -48,6 +48,9 @@ class CarService:
             if rental["car"]["vehicle_id"] == vehicle_id and rental.get("is_active", True):
                 logger.warning(f"Cannot delete car {vehicle_id}, it is currently rented.")
                 return False
+        # set the image of the car to unavailable
+        self.update_car(vehicle_id, updated_fields={"image_url": "/media/cars/car_default"})
+
         car = self.cars_repo.delete(vehicle_id)
         if not car:
             return False

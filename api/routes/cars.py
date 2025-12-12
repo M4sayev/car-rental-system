@@ -1,12 +1,14 @@
-from fastapi import APIRouter, HTTPException, Query, Body, Form, File, UploadFile
+from fastapi import APIRouter, HTTPException, Query, Form, File, UploadFile
 from api.dependencies import car_service
 from typing import List
 
 from src.models.car import Car
 
 # import schemas
-from api.schemas.car import CarSchema, CarResponse, DeletedCarResponse
+from api.schemas.car import CarResponse, DeletedCarResponse
 from api.schemas.response import ResponseModel  
+
+from api.utils.file_utils import save_image
 
 router = APIRouter()
 
@@ -57,19 +59,11 @@ def create_car(brand: str = Form(...),
                car_type: str = Form(...),
                seats: int = Form(...),
                image_url: UploadFile = File(None)) -> dict:
-    # create temp ID to avoid sending id to update 
 
     # save image if provided
-    image_path = None
-    if image_url:
-        import uuid, shutil
-        filename = f"cars/{uuid.uuid4()}_{image_url.filename}"
-        filepath = f"media/{filename}"
-        with open(filepath, "wb") as f:
-            shutil.copyfileobj(image_url.file, f)
-        image_path =  f"/media/{filename}"
+    image_path = save_image(image_url)
 
-
+    # create temp ID to avoid sending id to update 
     temp_car = Car("TEMP", brand, model, daily_rate, car_type, seats, image_url = image_path)
     
     result = car_service.add_car(temp_car)
@@ -79,8 +73,30 @@ def create_car(brand: str = Form(...),
     return {"message": "Car has been successfully created", "data": data}
 
 @router.patch("/cars/{vehicle_id}", response_model=dict)
-def update_car(vehicle_id: str, updated_fields: dict = Body(...)) -> dict:
-    result = car_service.update_car(vehicle_id, updated_fields)
+def update_car(vehicle_id: str, 
+               brand: str = Form(None),
+               model: str = Form(None),
+               daily_rate: float = Form(None),
+               car_type: str = Form(None),
+               seats: int = Form(None),
+               image_url: UploadFile = File(None)) -> dict:
+
+    # convert the data to the dict
+    data_dict = {
+        "brand": brand,
+        "model": model,
+        "daily_rate": daily_rate,
+        "car_type": car_type,
+        "seats": seats,
+        # turn image into a url if provided
+        "image_url": save_image(image_url) if image_url else None
+    }
+
+    # remove the empty None fields 
+    updated_fields = {key: value for key, value in data_dict.items() if value is not None}
+
+    result = car_service.update_car(vehicle_id, updated_fields) 
+
     if not result:
         raise HTTPException(status_code=404, detail=f"Car with id {vehicle_id} not found")
     data = result.to_dict()
