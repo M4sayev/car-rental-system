@@ -42,5 +42,27 @@
     "is_available": true,
     "image_url": "/media/cars/car_default.jpg",
     "deletion_date": "2025-12-09"
+  },
+  {
+    "vehicle_id": "ba3ab4c5-b12e-44aa-a080-8e999d934e3e",
+    "brand": "MAgic",
+    "model": "egw",
+    "daily_rate": 124.0,
+    "car_type": "31rgeg",
+    "seats": 12,
+    "is_available": true,
+    "image_url": "/media/cars/car_default.jpg",
+    "deletion_date": "2025-12-10"
+  },
+  {
+    "vehicle_id": "09daf623-e8e3-4db8-92f4-25574cedaac2",
+    "brand": "dwqf",
+    "model": "egwg",
+    "daily_rate": 134.0,
+    "car_type": "gt2",
+    "seats": 13,
+    "is_available": true,
+    "image_url": "/media/cars/car_default.jpg",
+    "deletion_date": "2025-12-12"
   }
 ]

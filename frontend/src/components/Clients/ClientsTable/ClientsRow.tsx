@@ -1,10 +1,16 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import ShortID from "@/components/ui/custom/ShortID";
-import type { ClientTemplate } from "@/constants/clientTemplates";
+import {
+  clientSchema,
+  type ClientFormData,
+  type ClientTemplate,
+} from "@/constants/clientTemplates";
 
-import { Actions } from "@/components/ui/custom/Action/Action";
 import { useDeleteClient } from "@/hooks/queryHooks/clients/useDeleteClient";
 import { formatStringToISO } from "@/utils/utils";
+import { ActionsButton } from "@/components/ActionsButton/ActionsButton";
+import { useUpdateClient } from "@/hooks/queryHooks/clients/useUpdateClient";
+import ClientFormDialog from "../ClientFormDialog/ClientFormDialog";
 
 interface ClientsRow {
   client: ClientTemplate;
@@ -17,9 +23,10 @@ function ClientsRow({
   deleted = false,
   deletedAt = "unknown",
 }: ClientsRow) {
+  const deleteClientMutation = useDeleteClient();
+  const updateCLientMutation = useUpdateClient();
   const { client_id, name, email, phone } = client;
 
-  const deleteClientMutation = useDeleteClient();
   return (
     <TableRow key={client_id} className="h-12">
       <TableCell className="font-medium">
@@ -33,10 +40,13 @@ function ClientsRow({
           // convert the date into readable format
           formatStringToISO(deletedAt)
         ) : (
-          <Actions
-            type="client"
-            defaultData={client}
+          <ActionsButton<ClientFormData>
+            defaultData={{ name, email, phone }}
+            id={client_id}
             onDelete={() => deleteClientMutation.mutate(client.client_id)}
+            mutation={updateCLientMutation}
+            schema={clientSchema}
+            EntityFormDialog={ClientFormDialog}
           />
         )}
       </TableCell>

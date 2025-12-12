@@ -25,7 +25,7 @@ function Clients() {
         setShowDeleted={setShowDeletedClients}
       />
       <DataTableCard<ClientTemplate, { deleted?: boolean }>
-        queryFn={queryToUse}
+        query={queryToUse}
         emptyLabel={
           showDeletedClients
             ? "no deleted clients in the database"

@@ -9,7 +9,7 @@ import { Table, TableBody } from "../ui/table";
 import type { UseQueryResult } from "@tanstack/react-query";
 
 interface DataTableCardProps<T, H> {
-  queryFn: UseQueryResult<T[], unknown>;
+  query: UseQueryResult<T[], unknown>;
   title: string;
   Header: React.FC<H>;
   Skeleton: React.FC;
@@ -22,7 +22,7 @@ interface DataTableCardProps<T, H> {
 }
 
 function DataTableCard<T, H extends object = {}>({
-  queryFn,
+  query,
   title,
   Header,
   Skeleton,
@@ -33,7 +33,7 @@ function DataTableCard<T, H extends object = {}>({
   emptyDescription,
   headerProps,
 }: DataTableCardProps<T, H>) {
-  const { data, isError, isLoading, error } = queryFn;
+  const { data, isError, isLoading, error } = query;
 
   if (isError) {
     const err = error instanceof Error ? error : new Error("Unknown error");

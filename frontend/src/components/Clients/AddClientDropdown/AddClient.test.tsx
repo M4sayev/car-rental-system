@@ -1,6 +1,6 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
-import AddClientDropdown from "../AddClientDropdown";
 import userEvent from "@testing-library/user-event";
+import AddClientDropdown from "./AddClientDropdown";
 
 const mockMutate = vi.fn();
 

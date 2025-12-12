@@ -18,7 +18,7 @@ function DashBoard() {
       </div>
 
       <DataTableCard<RecentRentalTemplate>
-        queryFn={useRecentRentals()}
+        query={useRecentRentals()}
         emptyIcon={CalendarOff}
         emptyTitle="Oops..."
         emptyLabel="no rentals in the database"

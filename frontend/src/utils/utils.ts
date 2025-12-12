@@ -1,3 +1,5 @@
+import type { CarFormData } from "@/constants/carsTemplates";
+
 export function shortenId(id: string) {
   if (id.length < 10) return id;
   return `${id.slice(0, 8)}…${id.slice(-4)}`;
@@ -18,3 +20,19 @@ export function formatStringToISO(str: string) {
 
   return "-";
 }
+
+// to transorm edit or create car data into a formData for generic components such as AddEntityDropdown, ActionButtons
+export const preTransformCarData = (data: CarFormData) => {
+  const formData = new FormData();
+  formData.append("brand", data.brand);
+  formData.append("model", data.model);
+  formData.append("daily_rate", String(data.daily_rate));
+  formData.append("car_type", data.car_type);
+  formData.append("seats", String(data.seats));
+  const imageFile = data.image_url;
+
+  if (imageFile instanceof File) {
+    formData.append("image_url", imageFile, imageFile.name);
+  }
+  return formData;
+};

@@ -5,21 +5,14 @@ import ImageField from "@/components/FormField/ImageField";
 import { DialogContent } from "@/components/ui/dialog";
 import { FieldGroup } from "@/components/ui/field";
 import type { CarFormData } from "@/constants/carsTemplates";
-import type { modeType } from "@/types/forms";
-
-import { type UseFormReturn } from "react-hook-form";
-
-interface CarFormDialogProps {
-  form: UseFormReturn<CarFormData>;
-  onSubmit: (data: CarFormData) => void;
-  mode: modeType;
-}
+import type { EntityFormDialogProps } from "@/types/entityTypes";
 
 function CarFormDialog({
   form,
   onSubmit,
   mode = "create",
-}: CarFormDialogProps) {
+  imageSrc,
+}: EntityFormDialogProps<CarFormData>) {
   return (
     <DialogContent data-testid="car-form-dialog" className="sm:max-w-[425px]">
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -84,6 +77,7 @@ function CarFormDialog({
           name="image_url"
           label="Car Image"
           actionText="Upload an image or drag and drop here"
+          imageSrc={imageSrc}
         />
         <br />
         <FormDialogFooter

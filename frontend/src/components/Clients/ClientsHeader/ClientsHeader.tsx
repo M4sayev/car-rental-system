@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import AddClientDropdown from "./AddClientDropdown";
+import AddClientDropdown from "../AddClientDropdown/AddClientDropdown";
 import { Button } from "@/components/ui/button";
 
 interface ClientsHeaderProps {
@@ -27,23 +27,6 @@ function ClientsHeader({ showDeleted, setShowDeleted }: ClientsHeaderProps) {
           {showDeleted ? "Go Back" : "Show Deleted"}
         </Button>
         <AddClientDropdown />
-        {/*   
-        <AddEntityDropdown<ClientTemplate, Omit<ClientTemplate, "client_id">>
-          mutation={useAddNewClient()}
-          DropdownTrigger={
-            <Button
-              type="button"
-              className="cursor-pointer"
-              aria-label="Add a new client"
-            >
-              <Plus aria-hidden="true" />
-              <span>Add client</span>
-            </Button>
-          }
-          schema={clientSchema}
-          EntityForm={ClientFormDialog}
-          defaultValues={clientDefaultValues}
-        /> */}
       </div>
     </header>
   );

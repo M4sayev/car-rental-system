@@ -3,16 +3,23 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
-  CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-import type { CarTemplate } from "@/constants/carsTemplates";
+import {
+  carSchema,
+  type CarFormData,
+  type CarTemplate,
+} from "@/constants/carsTemplates";
 import { COLOR_MAP } from "@/constants/colorConstants";
 import { useDeleteCar } from "@/hooks/queryHooks/cars/useDeleteCar";
-import { CarActions } from "../CarCards/CarActions";
+import CarCardHeader from "./CarCardHeader";
+import { ActionsButton } from "@/components/ActionsButton/ActionsButton";
+import { useUpdateCar } from "@/hooks/queryHooks/cars/useUpdateCar";
+import CarFormDialog from "../CarFormDialog/CarFormDialog";
+import { preTransformCarData } from "@/utils/utils";
 
 interface CarCardProps extends CarTemplate {
   isDeleted?: boolean;
+  is_available: boolean;
 }
 
 function CarCard({
@@ -28,6 +35,7 @@ function CarCard({
   isDeleted = false,
 }: CarCardProps) {
   const deleteCarMutation = useDeleteCar();
+  const updateCarMutation = useUpdateCar();
   const name = `${brand} ${model}`;
   const description = `type: ${car_type} | seats: ${seats}`;
   // for color map to access colors
@@ -35,21 +43,12 @@ function CarCard({
 
   return (
     <Card className="pt-0! overflow-hidden">
-      <CardHeader className="p-0!">
-        <div className="h-48">
-          <img
-            className="w-full h-full object-cover"
-            src={`http://127.0.0.1:8000${image_url}`}
-            alt={`Car ${name}`}
-          />
-        </div>
-        <div className="pl-6 pt-2 flex flex-col gap-2">
-          <CardTitle className="text-2xl md:text-lg">{name}</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </div>
-      </CardHeader>
+      <CarCardHeader
+        name={name}
+        description={description}
+        image_url={image_url}
+      />
       <CardContent className="p-6! pt-0! pb-1!">
-        <span className="text-fluid-3xl font-bold "></span>
         <CardDescription className="flex items-center justify-between">
           <span
             style={{
@@ -77,18 +76,21 @@ function CarCard({
         " "
       ) : (
         <CardFooter className="border-t flex justify-end">
-          <CarActions
+          <ActionsButton<CarFormData>
             defaultData={{
               brand,
               model,
-              image_url,
               daily_rate,
               seats,
-              vehicle_id,
               car_type,
-              is_available,
             }}
+            id={vehicle_id}
+            mutation={updateCarMutation}
             onDelete={() => deleteCarMutation.mutate(vehicle_id)}
+            schema={carSchema}
+            imageSrc={image_url}
+            EntityFormDialog={CarFormDialog}
+            preTransformData={preTransformCarData}
           />
         </CardFooter>
       )}

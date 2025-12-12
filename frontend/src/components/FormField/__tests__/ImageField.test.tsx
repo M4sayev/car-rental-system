@@ -4,20 +4,24 @@ import { useForm } from "react-hook-form";
 import ImageField from "../ImageField";
 import { vi } from "vitest";
 
-vi.mock("react-dropzone", () => {
-  return {
-    useDropzone: vi.fn().mockImplementation(({ onDrop }) => ({
-      getRootProps: () => ({ "data-testid": "dropzone-root" }),
-      getInputProps: () => ({ "data-testid": "dropzone-input" }),
-      open: vi.fn(),
-      onDrop,
-    })),
-  };
-});
+// Mock URL.createObjectURL
+vi.spyOn(URL, "createObjectURL").mockReturnValue("blob://mock-preview");
 
-const mockCreate = vi
-  .spyOn(URL, "createObjectURL")
-  .mockReturnValue("blob://mock-preview");
+// Mock react-dropzone properly
+vi.mock("react-dropzone", () => ({
+  useDropzone: ({ onDrop }: any) => ({
+    getRootProps: () => ({ "data-testid": "dropzone-root" }),
+    getInputProps: () => ({
+      "data-testid": "dropzone-input",
+      onChange: (e: any) => {
+        if (e.target.files && e.target.files.length > 0) {
+          onDrop(e.target.files);
+        }
+      },
+    }),
+    open: vi.fn(),
+  }),
+}));
 
 describe("ImageField", () => {
   afterEach(() => {
@@ -53,12 +57,16 @@ describe("ImageField", () => {
 
     const input = screen.getByTestId("dropzone-input") as HTMLInputElement;
 
+    // Upload the file
     await user.upload(input, file);
 
+    // Form value should be updated
     expect(result.current.getValues("img")).toBe(file);
 
-    expect(mockCreate).toHaveBeenCalledTimes(1);
+    // URL.createObjectURL called for preview
+    expect(URL.createObjectURL).toHaveBeenCalledTimes(1);
 
+    // Preview image should appear
     const preview = screen.getByAltText("preview") as HTMLImageElement;
     expect(preview).toBeInTheDocument();
     expect(preview.src).toContain("blob://mock-preview");

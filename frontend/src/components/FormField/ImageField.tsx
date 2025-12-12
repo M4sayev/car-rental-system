@@ -16,6 +16,7 @@ interface ImageFieldProps<TForm extends FieldValues> {
   label?: string;
   actionText?: string;
   accept?: string;
+  imageSrc?: string;
 }
 
 function ImageField<TForm extends FieldValues>({
@@ -24,6 +25,7 @@ function ImageField<TForm extends FieldValues>({
   label = "Image",
   actionText = "Upload an image or drag and drop here",
   accept = ".png, .jpg, .jpeg, .webp",
+  imageSrc = "",
 }: ImageFieldProps<TForm>) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -50,6 +52,12 @@ function ImageField<TForm extends FieldValues>({
     return () => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
+  useEffect(() => {
+    if (!selectedFile && imageSrc) {
+      setPreviewUrl(`http://127.0.0.1:8000${imageSrc}`);
+    }
+  }, [imageSrc, selectedFile]);
+
   return (
     <Controller
       name={name}
@@ -60,12 +68,18 @@ function ImageField<TForm extends FieldValues>({
             const file = acceptedFiles[0];
             setSelectedFile(file);
             field.onChange(file);
+          } else {
+            setSelectedFile(null);
+            field.onChange(null);
           }
         };
 
         const { getRootProps, getInputProps } = useDropzone({
           onDrop: handleDrop,
         });
+
+        console.log({ imageSrc });
+
         return (
           <Field
             data-invalid={fieldState.invalid}
@@ -73,7 +87,7 @@ function ImageField<TForm extends FieldValues>({
             onChange={handleFileChange}
           >
             <FieldLabel htmlFor={name}>{label}</FieldLabel>
-            <label
+            <div
               {...getRootProps()}
               className="group border-dashed rounded border-2 grid place-items-center p-7 cursor-pointer"
             >
@@ -83,7 +97,6 @@ function ImageField<TForm extends FieldValues>({
                 id={name}
                 type="file"
                 accept={accept}
-                onChange={(e) => field.onChange(e.target.files?.[0] ?? null)}
               />
               <div className="flex flex-col items-center justify-center text-center gap-2 max-w-[80%] ">
                 {previewUrl ? (
@@ -107,7 +120,7 @@ function ImageField<TForm extends FieldValues>({
                   </>
                 )}
               </div>
-            </label>
+            </div>
           </Field>
         );
       }}

@@ -18,7 +18,7 @@ const renderDataTableCard = (
   return render(
     <QueryClientProvider client={queryClient}>
       <DataTableCard<ClientTemplate>
-        queryFn={queryResult}
+        query={queryResult}
         title="Test Table"
         Header={() => <thead data-testid="header"></thead>}
         Skeleton={() => <div data-testid="skeleton"></div>}

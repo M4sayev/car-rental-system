@@ -7,9 +7,9 @@ export interface CarTemplate {
   daily_rate: number;
   car_type: string;
   seats: number;
-  is_available: boolean;
-  image_url?: File | undefined;
+  image_url?: string;
   deletion_date?: string;
+  is_available?: boolean;
 }
 
 export const carSchema = z.object({
@@ -25,9 +25,9 @@ export const carSchema = z.object({
 export const carDefaultValues = {
   brand: "",
   model: "",
-  daily_rate: 0.1,
+  daily_rate: 0,
   car_type: "",
-  seats: 1,
+  seats: 0,
   image_url: undefined,
 };
 // for the toggle buttons

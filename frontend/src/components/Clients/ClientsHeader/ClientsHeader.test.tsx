@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import ClientsHeader from "../ClientsHeader";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ClientsHeader from "./ClientsHeader";
 
 const setShowDeleted = vi.fn();
 
