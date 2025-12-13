@@ -9,7 +9,7 @@ export interface CarTemplate {
   seats: number;
   image_url?: string;
   deletion_date?: string;
-  is_available?: boolean;
+  is_available: boolean;
 }
 
 export const carSchema = z.object({

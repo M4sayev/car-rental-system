@@ -1,7 +1,7 @@
 import { render, renderHook, screen, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useForm } from "react-hook-form";
-import ImageField from "../ImageField";
+import ImageField from "./ImageField";
 import { vi } from "vitest";
 
 // Mock URL.createObjectURL
@@ -9,10 +9,12 @@ vi.spyOn(URL, "createObjectURL").mockReturnValue("blob://mock-preview");
 
 // Mock react-dropzone properly
 vi.mock("react-dropzone", () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   useDropzone: ({ onDrop }: any) => ({
     getRootProps: () => ({ "data-testid": "dropzone-root" }),
     getInputProps: () => ({
       "data-testid": "dropzone-input",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChange: (e: any) => {
         if (e.target.files && e.target.files.length > 0) {
           onDrop(e.target.files);

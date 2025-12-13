@@ -1,7 +1,7 @@
 import FormDialogFooter from "@/components/FormDialog/FormDialogFooter";
 import FormDialogHeader from "@/components/FormDialog/FormDialogHeader";
 import FormField from "@/components/FormField/FormField";
-import ImageField from "@/components/FormField/ImageField";
+import ImageField from "@/components/ImageField/ImageField";
 import { DialogContent } from "@/components/ui/dialog";
 import { FieldGroup } from "@/components/ui/field";
 import type { CarFormData } from "@/constants/carsTemplates";

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CountUp from "react-countup";
 
 interface CountUpProps {
@@ -14,11 +14,7 @@ function ClientSideCountUp({
   duration = 2.0,
   suffix = "",
 }: CountUpProps) {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const [isClient] = useState(() => typeof window !== "undefined");
 
   if (!isClient) return <span>0</span>;
 

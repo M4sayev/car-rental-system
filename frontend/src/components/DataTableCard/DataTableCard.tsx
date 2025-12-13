@@ -21,7 +21,10 @@ interface DataTableCardProps<T, H> {
   headerProps?: H;
 }
 
-function DataTableCard<T, H extends object = {}>({
+function DataTableCard<
+  T,
+  H extends Record<string, unknown> = Record<string, never>
+>({
   query,
   title,
   Header,

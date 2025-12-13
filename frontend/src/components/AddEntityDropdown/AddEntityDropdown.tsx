@@ -12,11 +12,20 @@ import type { EntityFormDialogProps } from "@/types/entityTypes";
 
 interface AddEntityDropdownProps<TForm extends FieldValues> {
   defaultValues: TForm;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formSchema: ZodObject<any>;
   preTransformData?: (data: TForm) => TForm | FormData;
   buttonLabel: string;
   buttonText: string;
-  mutation: UseMutationResult<AxiosResponse<any, any, {}>, Error, any, unknown>;
+
+  mutation: UseMutationResult<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    AxiosResponse<any, any, Record<string, unknown>>,
+    Error,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    any,
+    unknown
+  >;
   EntityFormDialog: React.ComponentType<EntityFormDialogProps<TForm>>;
 }
 
@@ -33,7 +42,9 @@ function AddEntityDropdown<TForm extends FieldValues>({
   const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm<TForm>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(formSchema as any),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     defaultValues: defaultValues as any,
     mode: "onChange",
   });

@@ -19,7 +19,6 @@ import { preTransformCarData } from "@/utils/utils";
 
 interface CarCardProps extends CarTemplate {
   isDeleted?: boolean;
-  is_available: boolean;
 }
 
 function CarCard({

@@ -1,7 +1,7 @@
 import { render, renderHook, screen } from "@testing-library/react";
 import { useForm } from "react-hook-form";
-import FormField from "../FormField";
 import userEvent from "@testing-library/user-event";
+import FormField from "./FormField";
 
 describe("FormField", () => {
   it("hides error even if the input is falsy on hideError true", async () => {

@@ -19,7 +19,9 @@ import type { EntityFormDialogProps } from "@/types/entityTypes";
 interface ActionsButtonProps<TForm extends FieldValues> {
   onDelete: () => void;
   defaultData: TForm;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   mutation: UseMutationResult<any, Error, any, unknown>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   schema: ZodObject<any>;
   id: string;
   EntityFormDialog: React.ComponentType<EntityFormDialogProps<TForm>>;
@@ -40,7 +42,9 @@ export function ActionsButton<TForm extends FieldValues>({
   const [showEdit, setShowEdit] = useState(false);
 
   const form = useForm<TForm>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(schema as any),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     defaultValues: defaultData as any,
     mode: "onChange",
   });
