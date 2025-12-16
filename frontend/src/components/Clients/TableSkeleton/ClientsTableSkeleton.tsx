@@ -1,10 +1,11 @@
 import { Skeleton } from "@/components/ui/skeleton";
+import { SKELETON_TABLE_ROW_COUNT } from "@/constants/skeleton";
 
 function ClientsTableSkeleton() {
   return (
     <div data-testid="clients-table-skeleton" className="p-4">
       <div className="space-y-3">
-        {[...Array(5)].map((_, i) => (
+        {[...Array(SKELETON_TABLE_ROW_COUNT)].map((_, i) => (
           <div
             key={i}
             className={`flex items-center gap-1 space-x-4 ${

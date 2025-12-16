@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import ToggleButtons from "./ToggleButtons";
 import { mockToggleButtonValues } from "@/test/mockData";
 import userEvent from "@testing-library/user-event";
@@ -31,7 +31,8 @@ describe("ToggleButtons", () => {
   it("calls setValue on click", async () => {
     const user = userEvent.setup();
     const btns = toggleBtns.querySelectorAll("button");
-    for (let i = 0; i < btns.length; i++) await user.click(btns[i]);
+    for (let i = 0; i < btns.length; i++)
+      await act(async () => await user.click(btns[i]));
 
     expect(mockSetValue).toHaveBeenCalledTimes(btns.length);
   });

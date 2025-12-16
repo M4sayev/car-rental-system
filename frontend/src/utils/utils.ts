@@ -5,7 +5,7 @@ export function shortenId(id: string) {
   return `${id.slice(0, 8)}…${id.slice(-4)}`;
 }
 
-export function formatStringToISO(str: string) {
+export function formatStringToISO(str: string): string {
   // If it's already ISO-ish
   if (/^\d{4}-\d{2}-\d{2}/.test(str)) {
     return str.split("T")[0];

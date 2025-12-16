@@ -11,7 +11,6 @@ import type { AxiosResponse } from "axios";
 import type { EntityFormDialogProps } from "@/types/entityTypes";
 
 interface AddEntityDropdownProps<TForm extends FieldValues> {
-  defaultValues: TForm;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formSchema: ZodObject<any>;
   preTransformData?: (data: TForm) => TForm | FormData;
@@ -30,7 +29,6 @@ interface AddEntityDropdownProps<TForm extends FieldValues> {
 }
 
 function AddEntityDropdown<TForm extends FieldValues>({
-  defaultValues,
   formSchema,
   // return the same data to keep the function logic
   preTransformData = (data: TForm) => data,
@@ -44,8 +42,6 @@ function AddEntityDropdown<TForm extends FieldValues>({
   const form = useForm<TForm>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(formSchema as any),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    defaultValues: defaultValues as any,
     mode: "onChange",
   });
 

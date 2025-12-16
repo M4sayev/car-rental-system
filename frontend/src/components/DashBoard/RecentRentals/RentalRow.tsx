@@ -3,6 +3,7 @@ import ShortID from "../../ui/custom/ShortID";
 import type { RecentRentalTemplate } from "@/constants/dashBoardTemplates";
 import { COLOR_MAP } from "@/constants/colorConstants";
 import { formatStringToISO } from "@/utils/utils";
+import DateTime from "@/components/A11y/DateTime";
 
 function RentalRow({ rental }: { rental: RecentRentalTemplate }) {
   const { rental_id, client_name, car_name, start_date, end_date, status } =
@@ -17,10 +18,14 @@ function RentalRow({ rental }: { rental: RecentRentalTemplate }) {
       <TableCell>{client_name}</TableCell>
       <TableCell className="hidden lg:table-cell">{car_name}</TableCell>
       <TableCell className="hidden sm:table-cell">
-        {formatStringToISO(start_date)}
+        <DateTime date={formatStringToISO(start_date)} />
       </TableCell>
       <TableCell className="hidden lg:table-cell">
-        {end_date ? formatStringToISO(end_date) : "-"}
+        {end_date ? (
+          <DateTime date={formatStringToISO(end_date)} />
+        ) : (
+          <span aria-label="No end date for this rental">-</span>
+        )}
       </TableCell>
       <TableCell className="text-right w-[10%]">
         <span

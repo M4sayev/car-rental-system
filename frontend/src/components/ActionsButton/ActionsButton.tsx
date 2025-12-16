@@ -81,7 +81,7 @@ export function ActionsButton<TForm extends FieldValues>({
             size="icon-sm"
             data-testid="actions-button"
           >
-            <MoreHorizontalIcon />
+            <MoreHorizontalIcon aria-hidden="true" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-40" align="end">

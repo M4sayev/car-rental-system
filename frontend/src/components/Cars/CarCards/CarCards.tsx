@@ -6,10 +6,13 @@ import {
   type CarTemplate,
 } from "@/constants/carsTemplates";
 import { useGetAllCars } from "@/hooks/queryHooks/cars/useGetAllCars";
-import useGetAvailableCars from "@/hooks/queryHooks/cars/useGetAvailableCars";
+import { useGetAvailableCars } from "@/hooks/queryHooks/cars/useGetAvailableCars";
 import { Car } from "lucide-react";
 import { useMemo } from "react";
 import CarCard from "../CarCard/CarCard";
+import CarCardsSkeleton from "../CardSkeleton/CarCardsSkeleton";
+import LoadingSR from "@/components/A11y/LoadingSR";
+import ConnectionError from "@/components/ui/custom/API/ConnectionError";
 
 interface CarCardsProps {
   availability: AvailabilityStatus;
@@ -50,24 +53,30 @@ function CarCards({ availability }: CarCardsProps) {
     const combinedError = error ?? avError;
 
     return (
-      <ErrorMessage error={combinedError}>
-        <span className="pt-10">Error loading cars</span>
+      <ErrorMessage error={combinedError} className="min-h-[70dvh]">
+        <ConnectionError />
       </ErrorMessage>
     );
   }
 
   if ((needsAllCars && isLoading) || (needsAvailableCars && avIsLoadings))
-    return <div>Loading cars...</div>;
+    return (
+      <>
+        <LoadingSR text="loading cars" />
+        <CarCardsSkeleton />
+      </>
+    );
 
   if (
-    (needsAllCars && !allCars && !isLoading) ||
-    (needsAvailableCars && !availableCars && !avIsLoadings)
+    (needsAllCars && !allCars?.length && !isLoading) ||
+    (needsAvailableCars && !availableCars?.length && !avIsLoadings)
   )
     return (
-      <EmptyResponse label={`No ${carPage} cars in the database`}>
+      <EmptyResponse labelledBy="empty-cars-title" className="h-135">
         <EmptyState
           Icon={Car}
-          title={`Oopss.. No ${carPage} in the database`}
+          titleId="empty-cars-title"
+          title={`Oopss.. No ${carPage} cars in the database`}
           description="Try adding one"
           iconTestId="no-data-icon"
         />

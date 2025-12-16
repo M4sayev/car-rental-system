@@ -1,0 +1,2 @@
+export const SKELETON_TABLE_ROW_COUNT = 6;
+export const SKELETON_CAR_CARD_COUNT = 10;

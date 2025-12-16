@@ -1,4 +1,4 @@
-import { render, renderHook, screen } from "@testing-library/react";
+import { act, render, renderHook, screen } from "@testing-library/react";
 import { useForm } from "react-hook-form";
 import userEvent from "@testing-library/user-event";
 import FormField from "./FormField";
@@ -25,8 +25,8 @@ describe("FormField", () => {
 
     const input = screen.getByLabelText("Age");
 
-    await user.clear(input);
-    await user.type(input, "1");
+    await act(async () => await user.clear(input));
+    await act(async () => await user.type(input, "1"));
 
     const error = screen.queryByText(/error/i);
     expect(error).toBeNull();
@@ -83,7 +83,7 @@ describe("FormField", () => {
 
     const input = screen.getByLabelText("Age") as HTMLInputElement;
 
-    await userEvent.type(input, "42");
+    await act(async () => await userEvent.type(input, "42"));
 
     expect(result.current.getValues("age")).toBe(42);
   });

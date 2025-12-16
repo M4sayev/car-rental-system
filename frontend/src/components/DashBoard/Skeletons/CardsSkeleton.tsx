@@ -8,12 +8,12 @@ function CardsSkeleton({ count = 3 }: CardsSkeletonProps) {
   const items = Array.from({ length: count });
 
   return (
-    <ul
+    <div
       data-testid="cards-skeleton"
       className="flex flex-col md:flex-row gap-5"
     >
       {items.map((_, i) => (
-        <li key={i} className="w-full">
+        <div key={i} className="w-full">
           <div className="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm flex-1">
             <div className="grid gap-4 px-6">
               <div className="flex justify-between items-center gap-2">
@@ -26,9 +26,9 @@ function CardsSkeleton({ count = 3 }: CardsSkeletonProps) {
               </div>
             </div>
           </div>
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 

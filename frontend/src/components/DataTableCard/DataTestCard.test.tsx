@@ -35,7 +35,7 @@ const renderDataTableCard = (
 };
 
 describe("DataTableCard", () => {
-  it("renders skeleton loader on isLoading true", () => {
+  it("renders skeleton loader and sr-loading on isLoading true", () => {
     renderDataTableCard({
       data: undefined,
       isLoading: true,
@@ -44,11 +44,12 @@ describe("DataTableCard", () => {
     } as Partial<UseQueryResult<ClientTemplate[]>> as UseQueryResult<ClientTemplate[]>);
 
     expect(screen.getByTestId("skeleton")).toBeInTheDocument();
+    expect(screen.getByTestId("loading-state-sr")).toBeInTheDocument();
   });
 
   it("renders empty response on data falsy", () => {
     renderDataTableCard({
-      data: undefined,
+      data: [],
       isLoading: false,
       isError: false,
       error: null,

@@ -1,7 +1,7 @@
 import Cards from "@/components/DashBoard/Cards/Cards";
 import RecentRentalsHeader from "@/components/DashBoard/RecentRentals/RecentRentalsHeader";
-import RecentRentalsSkeleton from "@/components/DashBoard/RecentRentals/RecentRentalsSkeleton";
 import RentalRow from "@/components/DashBoard/RecentRentals/RentalRow";
+import RecentRentalsSkeleton from "@/components/DashBoard/Skeletons/RecentRentalsSkeleton";
 import DataTableCard from "@/components/DataTableCard/DataTableCard";
 import type { RecentRentalTemplate } from "@/constants/dashBoardTemplates";
 import { useRecentRentals } from "@/hooks/queryHooks/dashboard/useRecentRentals";
@@ -21,7 +21,6 @@ function DashBoard() {
         query={useRecentRentals()}
         emptyIcon={CalendarOff}
         emptyTitle="Oops..."
-        emptyLabel="no rentals in the database"
         emptyDescription="No recent rentals in the database."
         title={"Recent Rental Activities"}
         Skeleton={RecentRentalsSkeleton}

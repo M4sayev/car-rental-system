@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from "../ui/card";
 import { Table, TableBody } from "../ui/table";
 
 import type { UseQueryResult } from "@tanstack/react-query";
+import LoadingSR from "../A11y/LoadingSR";
 
 interface DataTableCardProps<T, H> {
   query: UseQueryResult<T[], unknown>;
@@ -15,7 +16,6 @@ interface DataTableCardProps<T, H> {
   Skeleton: React.FC;
   Row: (item: T) => React.ReactNode;
   emptyIcon: LucideIcon;
-  emptyLabel: string;
   emptyTitle: string;
   emptyDescription: string;
   headerProps?: H;
@@ -31,7 +31,6 @@ function DataTableCard<
   Skeleton,
   Row,
   emptyIcon,
-  emptyLabel,
   emptyTitle,
   emptyDescription,
   headerProps,
@@ -48,9 +47,9 @@ function DataTableCard<
     );
   }
 
-  if (!data && !isLoading)
+  if (!data?.length && !isLoading)
     return (
-      <EmptyResponse label={emptyLabel}>
+      <EmptyResponse labelledBy="empty-state-title" className="h-135">
         <EmptyState
           Icon={emptyIcon}
           title={emptyTitle}
@@ -62,10 +61,15 @@ function DataTableCard<
 
   return (
     <Card className="max-h-160 overflow-auto mb-20 md:mb-10">
-      <CardHeader className="">{title}</CardHeader>
+      <CardHeader>
+        <h2>{title}</h2>
+      </CardHeader>
       <CardContent>
         {isLoading ? (
-          <Skeleton />
+          <>
+            <LoadingSR />
+            <Skeleton />
+          </>
         ) : (
           <Table>
             <Header {...(headerProps || ({} as H))} />

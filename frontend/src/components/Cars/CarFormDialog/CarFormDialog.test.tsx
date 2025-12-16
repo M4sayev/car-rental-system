@@ -4,28 +4,15 @@ import { useForm } from "react-hook-form";
 import CarFormDialog from "./CarFormDialog";
 import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import type { CarFormData } from "@/constants/carsTemplates";
+import { type CarFormData } from "@/constants/carsTemplates";
 import { Dialog } from "@radix-ui/react-dialog";
 
 const client = new QueryClient();
 
 function Wrapper({ mode }: { mode: modeType }) {
-  const defaultValues =
-    mode === "edit"
-      ? mockCar
-      : {
-          vehicle_id: "",
-          brand: "",
-          model: "",
-          daily_rate: 0.0,
-          car_type: "",
-          seats: 0,
-          is_available: false,
-          image_url: undefined,
-        };
-
   const form = useForm<CarFormData>({
-    defaultValues,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    defaultValues: mockCar as any,
   });
 
   const onSubmit = vi.fn();

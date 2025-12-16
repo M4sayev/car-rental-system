@@ -33,7 +33,24 @@ export const mockCar: CarTemplate = {
   model: "Supra",
   car_type: "Sedan",
   image_url: undefined,
+  deletion_date: "21/21/2121",
 };
+
+const mockCarAv: CarTemplate = {
+  ...mockCar,
+  is_available: true,
+  vehicle_id: "car-test-id-two",
+  brand: "KIA",
+  model: "RIO",
+};
+
+export const mockCars: CarTemplate[] = [mockCar, mockCarAv];
+
+export const mockAvCars: CarTemplate[] = [mockCarAv];
+
+export const mockDeletedCars: CarTemplate[] = [
+  { ...mockCar, deletion_date: "test-date" },
+];
 
 export const mockDate = "2024-06-01T08:30";
 export const mockDateIso = "2024-06-01";

@@ -1,8 +1,9 @@
 import CustomCard from "./CustomCard";
 import { cardTemplates } from "@/constants/dashBoardTemplates";
-import CardsSkeleton from "./CardsSkeleton";
 import { useDashboardOverview } from "@/hooks/queryHooks/dashboard/useDashboardOverview";
 import ErrorMessage from "@/components/ui/custom/API/ErrorMessage";
+import CardsSkeleton from "../Skeletons/CardsSkeleton";
+import LoadingSR from "@/components/A11y/LoadingSR";
 
 function Cards() {
   const { data, isError, isLoading, error } = useDashboardOverview();
@@ -16,7 +17,12 @@ function Cards() {
   }
 
   if (isLoading) {
-    return <CardsSkeleton />;
+    return (
+      <>
+        <LoadingSR text="loading dashboard cards" />
+        <CardsSkeleton />
+      </>
+    );
   }
 
   return (

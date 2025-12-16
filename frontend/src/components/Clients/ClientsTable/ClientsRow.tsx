@@ -7,10 +7,13 @@ import {
 } from "@/constants/clientTemplates";
 
 import { useDeleteClient } from "@/hooks/queryHooks/clients/useDeleteClient";
-import { formatStringToISO } from "@/utils/utils";
 import { ActionsButton } from "@/components/ActionsButton/ActionsButton";
 import { useUpdateClient } from "@/hooks/queryHooks/clients/useUpdateClient";
 import ClientFormDialog from "../ClientFormDialog/ClientFormDialog";
+import EmailLink from "@/components/A11y/EmailLink";
+import PhoneLink from "@/components/A11y/PhoneLink";
+import DateTime from "@/components/A11y/DateTime";
+import { formatStringToISO } from "@/utils/utils";
 
 interface ClientsRow {
   client: ClientTemplate;
@@ -33,12 +36,15 @@ function ClientsRow({
         <ShortID id={client_id} />
       </TableCell>
       <TableCell>{name}</TableCell>
-      <TableCell>{email}</TableCell>
-      <TableCell className="hidden sm:table-cell">{phone}</TableCell>
+      <TableCell>
+        <EmailLink email={email} />
+      </TableCell>
+      <TableCell className="hidden sm:table-cell">
+        <PhoneLink phone={phone} />
+      </TableCell>
       <TableCell className="text-right">
         {deleted ? (
-          // convert the date into readable format
-          formatStringToISO(deletedAt)
+          <DateTime date={formatStringToISO(deletedAt)} />
         ) : (
           <ActionsButton<ClientFormData>
             defaultData={{ name, email, phone }}

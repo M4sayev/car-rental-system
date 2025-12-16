@@ -15,7 +15,9 @@ import CarCardHeader from "./CarCardHeader";
 import { ActionsButton } from "@/components/ActionsButton/ActionsButton";
 import { useUpdateCar } from "@/hooks/queryHooks/cars/useUpdateCar";
 import CarFormDialog from "../CarFormDialog/CarFormDialog";
-import { preTransformCarData } from "@/utils/utils";
+import { formatStringToISO, preTransformCarData } from "@/utils/utils";
+import { Fragment } from "react/jsx-runtime";
+import DateTime from "@/components/A11y/DateTime";
 
 interface CarCardProps extends CarTemplate {
   isDeleted?: boolean;
@@ -32,6 +34,7 @@ function CarCard({
   is_available,
   image_url,
   isDeleted = false,
+  deletion_date,
 }: CarCardProps) {
   const deleteCarMutation = useDeleteCar();
   const updateCarMutation = useUpdateCar();
@@ -50,6 +53,7 @@ function CarCard({
       <CardContent className="p-6! pt-0! pb-1!">
         <CardDescription className="flex items-center justify-between">
           <span
+            data-testid="availability-span"
             style={{
               backgroundColor: isDeleted
                 ? COLOR_MAP["blue"].bg
@@ -71,10 +75,19 @@ function CarCard({
           </span>
         </CardDescription>
       </CardContent>
-      {isDeleted ? (
-        " "
-      ) : (
-        <CardFooter className="border-t flex justify-end">
+      <CardFooter
+        className={`border-t flex justify-end ${
+          isDeleted ? "justify-between" : ""
+        }`}
+      >
+        {isDeleted ? (
+          <Fragment>
+            <span>Deleted at: </span>
+            <span style={{ color: COLOR_MAP["red"].icon }}>
+              <DateTime date={formatStringToISO(deletion_date ?? "")} />
+            </span>
+          </Fragment>
+        ) : (
           <ActionsButton<CarFormData>
             defaultData={{
               brand,
@@ -91,8 +104,8 @@ function CarCard({
             EntityFormDialog={CarFormDialog}
             preTransformData={preTransformCarData}
           />
-        </CardFooter>
-      )}
+        )}
+      </CardFooter>
     </Card>
   );
 }
