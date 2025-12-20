@@ -101,18 +101,12 @@ class JsonRepository(Repository):
             for index, item in enumerate(items):
                 if item.get(self.id_field) == item_id:
                     deleted_item = items.pop(index)
-                    # add date of deletion 
-                    current_date = datetime.now().date().isoformat()
-                    deleted_item["deletion_date"] = current_date
-                    self.deleted_history.append(deleted_item)
-
-                    # Keep the client number max deleted_history_size
-                    if len(self.deleted_history) > self._deleted_history_size:
-                        self.deleted_history.pop(0)
-                    
                     self._save(items)
-                    # persist deleted data in a seperate json file
-                    self._save_deleted_history()
+
+                    # skip the saving if deleting rental (because no deleted history)    
+                    if self.id_field != "rental_id":
+                        self._handle_deleted_history(deleted_item)
+
                     logger.info(f"Item with id {item_id} successfully deleted.")
                     return deleted_item
             logger.warning(f"Item with id {item_id} not found")
@@ -120,6 +114,20 @@ class JsonRepository(Repository):
         except Exception as e:
             logger.error(f"Delete error: {e}")
             return False
+        
+    def _handle_deleted_history(self, item: dict):
+        """Private helper to manage the history stack."""
+        # add date of deletion 
+        current_date = datetime.now().date().isoformat()
+        item["deletion_date"] = current_date
+        self.deleted_history.append(item)
+
+        # Keep the number max deleted_history_size
+        if len(self.deleted_history) > self._deleted_history_size:
+            self.deleted_history.pop(0)
+        
+        # persist deleted data in a seperate json file
+        self._save_deleted_history()
         
     def _save_deleted_history(self):
         """Persist deleted items to a JSON file."""
