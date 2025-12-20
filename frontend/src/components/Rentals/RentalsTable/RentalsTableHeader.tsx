@@ -1,6 +1,6 @@
 import { TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
-function RecentRentalsHeader() {
+function RentalsTableHeader() {
   return (
     <TableHeader>
       <TableRow>
@@ -15,4 +15,4 @@ function RecentRentalsHeader() {
   );
 }
 
-export default RecentRentalsHeader;
+export default RentalsTableHeader;

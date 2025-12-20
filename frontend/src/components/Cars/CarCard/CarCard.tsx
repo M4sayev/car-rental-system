@@ -15,9 +15,14 @@ import CarCardHeader from "./CarCardHeader";
 import { ActionsButton } from "@/components/ActionsButton/ActionsButton";
 import { useUpdateCar } from "@/hooks/queryHooks/cars/useUpdateCar";
 import CarFormDialog from "../CarFormDialog/CarFormDialog";
-import { formatStringToISO, preTransformCarData } from "@/utils/utils";
+import {
+  formatStringToISO,
+  getStatusColor,
+  preTransformCarData,
+} from "@/utils/utils";
 import { Fragment } from "react/jsx-runtime";
 import DateTime from "@/components/A11y/DateTime";
+import StatusSpan from "@/components/ui/custom/StatusSpan";
 
 interface CarCardProps extends CarTemplate {
   isDeleted?: boolean;
@@ -41,7 +46,13 @@ function CarCard({
   const name = `${brand} ${model}`;
   const description = `type: ${car_type} | seats: ${seats}`;
   // for color map to access colors
-  const color = is_available ? "green" : "red";
+
+  const availabilityStatus = isDeleted
+    ? "deleted"
+    : is_available
+    ? "available"
+    : "rented";
+  const color = getStatusColor(availabilityStatus);
 
   return (
     <Card className="pt-0! overflow-hidden">
@@ -52,18 +63,7 @@ function CarCard({
       />
       <CardContent className="p-6! pt-0! pb-1!">
         <CardDescription className="flex items-center justify-between">
-          <span
-            data-testid="availability-span"
-            style={{
-              backgroundColor: isDeleted
-                ? COLOR_MAP["blue"].bg
-                : COLOR_MAP[color].bg,
-              color: isDeleted ? COLOR_MAP["blue"].icon : COLOR_MAP[color].icon,
-            }}
-            className="px-3 py-1 rounded-lg"
-          >
-            {isDeleted ? "Deleted" : is_available ? "Available" : "Rented"}
-          </span>
+          <StatusSpan color={color} status={availabilityStatus} />
           <span className="font-bold">
             <span
               style={{ color: COLOR_MAP["blue"].icon }}

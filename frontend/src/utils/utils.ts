@@ -1,4 +1,9 @@
-import type { CarFormData } from "@/constants/carsTemplates";
+import type {
+  AvailabilityStatus,
+  CarFormData,
+} from "@/constants/carsTemplates";
+import { COLOR_MAP } from "@/constants/colorConstants";
+import type { Status } from "@/constants/rentalsTemplates";
 
 export function shortenId(id: string) {
   if (id.length < 10) return id;
@@ -36,3 +41,23 @@ export const preTransformCarData = (data: CarFormData) => {
   }
   return formData;
 };
+
+export const covertFromSnakeCaseToTitle = (str: string): string =>
+  str.split("_").join(" ");
+
+export function getStatusColor(
+  status: Status | AvailabilityStatus | "deleted"
+) {
+  switch (status) {
+    case "available":
+      return COLOR_MAP.green;
+    case "rented":
+      return COLOR_MAP.red;
+    case "active":
+      return COLOR_MAP.green;
+    case "completed":
+      return COLOR_MAP.blue;
+    default:
+      return COLOR_MAP.blue;
+  }
+}

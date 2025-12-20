@@ -1,5 +1,5 @@
 import FormDialogFooter from "@/components/FormDialog/FormDialogFooter";
-import FormDialogHeader from "@/components/FormDialog/FormDialogHeader";
+import FormDialogHeader from "@/components/FormDialog/CustomDialogHeader";
 import FormField from "@/components/FormField/FormField";
 import ImageField from "@/components/ImageField/ImageField";
 import { DialogContent } from "@/components/ui/dialog";
@@ -14,7 +14,10 @@ function CarFormDialog({
   imageSrc,
 }: EntityFormDialogProps<CarFormData>) {
   return (
-    <DialogContent data-testid="car-form-dialog" className="sm:max-w-[425px]">
+    <DialogContent
+      data-testid="car-form-dialog"
+      className="sm:max-w-[425px]  overflow-y-scroll max-h-120 [@media(max-height:400px)]:max-h-75 sm:max-h-screen sm:overflow-auto"
+    >
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormDialogHeader
           title={mode === "edit" ? "Edit car data" : "Add new car"}

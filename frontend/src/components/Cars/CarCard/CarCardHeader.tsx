@@ -1,4 +1,5 @@
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { API_BASE_URL } from "@/config";
 
 interface CarCardHeaderProps {
   image_url: string | undefined;
@@ -12,7 +13,7 @@ function CarCardHeader({ name, image_url, description }: CarCardHeaderProps) {
       <div className="h-48">
         <img
           className="w-full h-full object-cover"
-          src={`http://127.0.0.1:8000${image_url}`}
+          src={`${API_BASE_URL}${image_url}`}
           alt={`Car ${name}`}
         />
       </div>

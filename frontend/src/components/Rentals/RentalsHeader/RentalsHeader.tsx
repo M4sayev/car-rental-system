@@ -9,7 +9,7 @@ interface RentalsHeaderProps {
 
 function RentalsHeader({ searchQuery, setSearchQuery }: RentalsHeaderProps) {
   return (
-    <header className="flex flex-col justify-between items-start mb-2">
+    <header className="flex flex-col justify-between items-start mb-5">
       <h1 className="font-open text-fluid-2xl text-center md:text-start pt-4 mb-5">
         Rentals Management
       </h1>

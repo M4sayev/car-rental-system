@@ -7,6 +7,7 @@ import {
 import { useEffect, useState, type ChangeEvent } from "react";
 
 import { DropDozeField } from "./DropZoneField";
+import { API_BASE_URL } from "@/config";
 
 export interface ImageFieldProps<TForm extends FieldValues> {
   control: UseFormReturn<TForm>["control"];
@@ -54,7 +55,7 @@ function ImageField<TForm extends FieldValues>({
   useEffect(() => {
     if (!selectedFile && imageSrc) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setPreviewUrl(`http://127.0.0.1:8000${imageSrc}`);
+      setPreviewUrl(`${API_BASE_URL}${imageSrc}`);
     }
   }, [imageSrc, selectedFile]);
 

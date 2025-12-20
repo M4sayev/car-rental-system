@@ -3,7 +3,7 @@ import type { ClientFormData } from "@/constants/clientTemplates";
 import { FieldGroup } from "@/components/ui/field";
 import FormField from "@/components/FormField/FormField";
 import FormDialogFooter from "@/components/FormDialog/FormDialogFooter";
-import FormDialogHeader from "@/components/FormDialog/FormDialogHeader";
+import FormDialogHeader from "@/components/FormDialog/CustomDialogHeader";
 import type { EntityFormDialogProps } from "@/types/entityTypes";
 
 function ClientFormDialog({
@@ -14,7 +14,7 @@ function ClientFormDialog({
   return (
     <DialogContent
       data-testid="client-form-dialog"
-      className="sm:max-w-[425px]"
+      className="sm:max-w-[425px] overflow-y-scroll max-h-120 [@media(max-height:400px)]:max-h-75 sm:max-h-screen sm:overflow-auto"
     >
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormDialogHeader

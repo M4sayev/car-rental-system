@@ -9,7 +9,7 @@ interface ClientsHeaderProps {
 
 function ClientsHeader({ showDeleted, setShowDeleted }: ClientsHeaderProps) {
   return (
-    <header className="flex flex-col md:flex-row mb-2 md:mb-0 items-start md:justify-between md:items-center">
+    <header className="flex flex-col md:flex-row mb-5 md:mb-0 items-start md:justify-between md:items-center">
       <h1 className="font-open text-fluid-2xl text-center md:text-start pt-4 mb-5">
         {showDeleted ? "Deleted Clients" : "Clients"}
       </h1>

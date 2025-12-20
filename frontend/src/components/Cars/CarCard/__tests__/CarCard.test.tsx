@@ -71,7 +71,7 @@ describe("CarCard", () => {
   it("render Deleted, Available, Rented on isDeleted false, true respectively", () => {
     const { rerender } = render(renderCarCard(false, true));
 
-    const availabilitySpan = screen.getByTestId("availability-span");
+    const availabilitySpan = screen.getByTestId("status-span");
     expect(availabilitySpan).toHaveTextContent(/deleted/i);
 
     // not available, not deleted

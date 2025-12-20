@@ -1,5 +1,12 @@
+import DataTableCard from "@/components/DataTableCard/DataTableCard";
 import RentalsHeader from "@/components/Rentals/RentalsHeader/RentalsHeader";
+import RentalRow from "@/components/Rentals/RentalsTable/RentalRow";
+import type { RentalTemplate } from "@/constants/rentalsTemplates";
+import { useGetRentals } from "@/hooks/queryHooks/rentals/useGetRentals";
+import { CalendarOff } from "lucide-react";
 import { useState } from "react";
+import RentalsTableHeader from "@/components/Rentals/RentalsTable/RentalsTableHeader";
+import RentalsTableSkeleton from "@/components/Rentals/Skeletons/RentalsTableSkeleton";
 
 function Rentals() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -8,6 +15,16 @@ function Rentals() {
       <RentalsHeader
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+      />
+      <DataTableCard<RentalTemplate>
+        query={useGetRentals()}
+        emptyIcon={CalendarOff}
+        emptyTitle="Oops..."
+        emptyDescription="No rentals in the database."
+        title="Rental Activities"
+        Skeleton={RentalsTableSkeleton}
+        Row={(rental) => <RentalRow key={rental.rental_id} rental={rental} />}
+        Header={RentalsTableHeader}
       />
     </section>
   );
