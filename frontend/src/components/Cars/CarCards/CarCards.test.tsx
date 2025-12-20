@@ -184,8 +184,7 @@ describe("CarCards", () => {
       availability: "all",
     });
 
-    let emptyIcon = screen.getByTestId("no-data-icon");
-    expect(emptyIcon).toBeInTheDocument();
+    expect(screen.getByTestId("no-data-icon")).toBeInTheDocument();
 
     expect(screen.getByText(/Oopss.. No cars in the database/i));
 

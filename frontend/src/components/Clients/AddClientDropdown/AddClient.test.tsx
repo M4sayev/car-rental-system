@@ -15,7 +15,7 @@ describe("AddClientDropdown", () => {
   let button: HTMLButtonElement;
   beforeEach(() => {
     render(<AddClientDropdown />);
-    button = screen.getByText(/Add Client/i);
+    button = screen.getByTestId("add-button");
   });
   it("renders Add Client button", () => {
     expect(button).toBeInTheDocument();

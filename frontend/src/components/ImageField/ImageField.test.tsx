@@ -1,4 +1,10 @@
-import { render, renderHook, screen, cleanup } from "@testing-library/react";
+import {
+  render,
+  renderHook,
+  screen,
+  cleanup,
+  act,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useForm } from "react-hook-form";
 import ImageField from "./ImageField";
@@ -60,7 +66,7 @@ describe("ImageField", () => {
     const input = screen.getByTestId("dropzone-input") as HTMLInputElement;
 
     // Upload the file
-    await user.upload(input, file);
+    await act(async () => await user.upload(input, file));
 
     // Form value should be updated
     expect(result.current.getValues("img")).toBe(file);

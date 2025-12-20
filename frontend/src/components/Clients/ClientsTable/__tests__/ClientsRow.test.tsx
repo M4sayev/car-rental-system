@@ -33,7 +33,6 @@ describe("ClientsRow", () => {
   };
   it("renders date on deleted true", () => {
     renderClientsRow(true, mockDate);
-    screen.debug();
     expect(screen.getByText(mockDateIso)).toBeInTheDocument();
   });
   it("renders actions button on deleted false", () => {

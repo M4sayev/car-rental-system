@@ -9,6 +9,7 @@ import type { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useDropzone } from "react-dropzone";
 import { Field, FieldLabel } from "../ui/field";
 import { ImageUp } from "lucide-react";
+import { Input } from "../ui/input";
 
 interface DropZoneFieldProps<TForm extends FieldValues>
   extends Omit<ImageFieldProps<TForm>, "control"> {
@@ -56,7 +57,7 @@ export function DropDozeField<TForm extends FieldValues>({
         {...getRootProps()}
         className="group border-dashed rounded border-2 grid place-items-center p-7 cursor-pointer"
       >
-        <input
+        <Input
           {...getInputProps()}
           className="hidden"
           id={name}

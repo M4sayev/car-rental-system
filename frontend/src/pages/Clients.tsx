@@ -19,7 +19,7 @@ function Clients() {
   const queryToUse = showDeletedClients ? deletedClientsQuery : clientsQuery;
 
   return (
-    <div className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl  mx-auto">
+    <section className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl  mx-auto">
       <ClientsHeader
         showDeleted={showDeletedClients}
         setShowDeleted={setShowDeletedClients}
@@ -51,7 +51,7 @@ function Clients() {
           />
         )}
       />
-    </div>
+    </section>
   );
 }
 

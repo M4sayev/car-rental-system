@@ -10,11 +10,8 @@ vi.mock("@/hooks/queryHooks/cars/useGetDeletedCars", () => ({
 }));
 
 import { useGetDeletedCars } from "@/hooks/queryHooks/cars/useGetDeletedCars";
-import { mockAvCars, mockCars, mockDeletedCars } from "@/test/mockData";
-import type {
-  AvailabilityStatus,
-  CarTemplate,
-} from "@/constants/carsTemplates";
+import { mockDeletedCars } from "@/test/mockData";
+import type { CarTemplate } from "@/constants/carsTemplates";
 import DeletedCarCards from "./DeletedCars";
 
 const client = new QueryClient();
@@ -83,8 +80,7 @@ describe("CarCards", () => {
       isError: false,
     });
 
-    let emptyIcon = screen.getByTestId("no-data-icon");
-    expect(emptyIcon).toBeInTheDocument();
+    expect(screen.getByTestId("no-data-icon")).toBeInTheDocument();
 
     expect(screen.getByText(/Oopss.. No deleted cars in the database/i));
   });

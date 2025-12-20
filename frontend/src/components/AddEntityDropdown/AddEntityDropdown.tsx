@@ -3,12 +3,11 @@ import { useState } from "react";
 import { useForm, type FieldValues } from "react-hook-form";
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import { DropdownMenu } from "../ui/dropdown-menu";
-import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
 import type { ZodObject } from "zod";
 import type { UseMutationResult } from "@tanstack/react-query";
 import type { AxiosResponse } from "axios";
 import type { EntityFormDialogProps } from "@/types/entityTypes";
+import AddButton from "../ui/custom/AddButton/AddButton";
 
 interface AddEntityDropdownProps<TForm extends FieldValues> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -60,14 +59,11 @@ function AddEntityDropdown<TForm extends FieldValues>({
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenu>
         <DialogTrigger asChild>
-          <Button
+          <AddButton
+            ariaLabel={buttonLabel}
+            actionText={buttonText}
             type="button"
-            className="cursor-pointer"
-            aria-label={buttonLabel}
-          >
-            <Plus aria-hidden="true" />
-            {buttonText}
-          </Button>
+          />
         </DialogTrigger>
         <EntityFormDialog form={form} onSubmit={onSubmit} mode="create" />
       </DropdownMenu>

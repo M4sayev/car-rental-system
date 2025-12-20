@@ -9,7 +9,7 @@ import { CalendarOff } from "lucide-react";
 
 function DashBoard() {
   return (
-    <div className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl mx-auto">
+    <section className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl mx-auto">
       <h1 className="font-open text-fluid-2xl text-center md:text-start pt-4 mb-5">
         Dashboard overview
       </h1>
@@ -27,7 +27,7 @@ function DashBoard() {
         Header={RecentRentalsHeader}
         Row={(rental) => <RentalRow key={rental.rental_id} rental={rental} />}
       />
-    </div>
+    </section>
   );
 }
 
