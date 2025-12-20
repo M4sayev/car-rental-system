@@ -4,7 +4,7 @@ class Client:
 
     # regex patterns for validation
     _email_pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" 
-    _phone_pattern = r"^\+?\d{7,15}$"  
+    _phone_pattern = r"^\+?\d{3,20}$"  
 
     def __init__(self, client_id: str, name: str, email: str, phone: str):
         """

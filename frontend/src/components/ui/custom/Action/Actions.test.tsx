@@ -79,12 +79,12 @@ describe("Actions", () => {
     });
   });
   it("opens edit dialog on edit clicked", async () => {
-    act(async () => {
+    await act(async () => {
       const user = userEvent.setup();
       const actionsButton = screen.getByTestId("actions-button");
       await user.click(actionsButton);
 
-      const editBtn = screen.getByText(/update/i);
+      const editBtn = screen.getByText(/edit/i);
       await user.click(editBtn);
 
       const editDialog = screen.getByTestId("client-form-dialog");

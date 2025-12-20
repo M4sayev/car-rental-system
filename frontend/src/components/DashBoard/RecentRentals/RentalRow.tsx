@@ -15,11 +15,11 @@ function RentalRow({ rental }: { rental: RecentRentalTemplate }) {
         <ShortID id={rental_id} />
       </TableCell>
       <TableCell>{client_name}</TableCell>
-      <TableCell className="hidden sm:table-cell">{car_name}</TableCell>
+      <TableCell className="hidden lg:table-cell">{car_name}</TableCell>
       <TableCell className="hidden sm:table-cell">
         {formatStringToISO(start_date)}
       </TableCell>
-      <TableCell className="hidden sm:table-cell">
+      <TableCell className="hidden lg:table-cell">
         {end_date ? formatStringToISO(end_date) : "-"}
       </TableCell>
       <TableCell className="text-right w-[10%]">

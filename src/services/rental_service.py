@@ -20,6 +20,7 @@ class RentalService:
     
     @staticmethod
     def _generate_id() -> str:
+        """Generate random id"""
         return str(uuid.uuid4())
     
 

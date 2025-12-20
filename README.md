@@ -1,208 +1,317 @@
 # 🚗 Car Rental Management System
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue.svg)](https://www.python.org/)
+[![React](https://img.shields.io/badge/React-18.x-61DAFB.svg)](https://reactjs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688.svg)](https://fastapi.tiangolo.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6.svg)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/Tests-Pytest-orange.svg)](https://pytest.org/)
 
-A Python-based Car Rental Management System implementing object-oriented programming principles, repository pattern, and comprehensive unit testing.
-
----
-
-## 📋 Project Overview
-
-This system allows management of cars, clients, and rentals, implementing core OOP concepts:
-
-- **Encapsulation**: Classes manage their own data and behavior
-- **Inheritance & Polymorphism**: Different types of vehicles can extend common behavior (e.g., Car, SUV)
-- **Composition**: Rental objects are composed of Car and Client instances
-- **Repository Pattern**: File-based storage for CRUD operations on cars, clients, and rentals
+A full-stack car rental management system with intelligent cost calculation, modern UI, and comprehensive API. Built as an OOP course project implementing design patterns, microservices architecture, and best practices.
 
 ---
 
-## ✨ Features
+## 🎯 Overview
 
-- ✅ Add, retrieve, and manage Cars and Clients
-- ✅ Record Rentals and calculate rental costs
-- ✅ Persist data to JSON files using a repository
-- ✅ Logging for repository operations
-- ✅ Fully tested with unit tests for models, services, and repositories
+**Backend:** FastAPI REST API with microservices, Strategy/Decorator patterns for rental cost calculation, JSON-based repository pattern, and CLI interface.
+
+**Frontend:** React + TypeScript SPA with shadcn/ui components, React Query for data fetching, Zod validation, and comprehensive testing.
+
+**Key Features:**
+- 🚙 Complete car inventory management with image uploads
+- 👥 Client management system
+- 📝 Rental creation and tracking
+- 💰 Smart cost calculation (SUV premium, long-term discounts, holiday deals)
+- 📊 Dashboard with real-time statistics
+- 🗑️ Soft delete with recovery archives
+- 🖥️ CLI for system management
+- 🧪 Full test coverage (Pytest + Vitest)
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
-### 1. Clone the repository
+### Prerequisites
+- Python 3.9+
+- Node.js 18+
+- pip & npm
 
+### 1. Clone Repository
 ```bash
 git clone https://github.com/M4sayev/car-rental-system.git
 cd car-rental-system
 ```
 
-### 2. Create a virtual environment
-
+### 2. Backend Setup (navigate to api folder for a more feature specific readme)
 ```bash
-python -m venv venv
-```
-
-### 3. Activate the virtual environment
-
-**Windows (CMD):**
-```cmd
-venv\Scripts\activate.ps1
-```
-
-**macOS / Linux:**
-```bash
-source venv/bin/activate.ps1
-```
-
-### 4. Install dependencies
-
-```bash
+# Install Python dependencies
 pip install -r requirements.txt
+
+# Start API server
+python run_api.py
 ```
+API runs at: **http://localhost:8000**  
+Docs: **http://localhost:8000/docs**
+
+### 3. Frontend Setup (navigate to frontend folder for a more feature specific readme)
+```bash
+cd frontend
+
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+```
+App runs at: **http://localhost:5173**
 
 ---
 
 ## 📁 Project Structure
 
 ```
-car_rental_project/
+car-rental-system/
 │
-├── data/
+├── api/                          # FastAPI application
+│   ├── main.py                   # App entry with CORS & static files
+│   ├── routes/                   # API endpoints (cars, clients, rentals, dashboard)
+│   ├── schemas/                  # Pydantic validation models
+│   ...
+│   └── collections/              # Postman test collections (4 collections)
+│
+├── src/                          # Core business logic
+│   ├── models/                   # Domain models
+│   │   ├── car.py
+│   │   ├── client.py
+│   │   ├── rental.py
+│   │   └── strategies/           # Cost calculation (Strategy + Decorator patterns)
+│   ├── repositories/             # Data access layer (JSON storage)
+│   └── services/                 # Business logic (car, client, rental services)
+│
+├── frontend/                     # React + TypeScript SPA
+│   ├── src/
+│   │   ├── components/           # UI components (shadcn/ui + custom)
+│   │   ├── pages/                # Pages (dashboard, cars, clients, rentals)
+│   │   ├── hooks/                # React Query hooks
+│   │   ...
+│   │   ├── schemas/              # Zod validation
+│   │   └── lib/                  # Utilities (axios, queryClient)
+│   └── tests/                    # Vitest tests
+│
+├── data/                         # JSON data storage
 │   ├── cars.json
 │   ├── clients.json
 │   └── rentals.json
 │
-├── docs/
-│   ├── ER (for db).png
+├── deleted_data/                 # Soft-deleted records archive
+│
+├── media/                        # Uploaded car images
+│   └── cars/
+│
+├── docs/                         # Documentation
 │   ├── UML.png
+│   ├── ER (for db).png
 │   ├── technical_documentation.md
 │   └── user_guide.md
 │
-├── src/
-│   ├── models/
-│   │   ├── base.py
-│   │   ├── car.py
-│   │   ├── client.py
-│   │   └── rental.py
-│   │
-│   ├── repositories/
-│   │   └── repository.py
-│   │
-│   ├── services/
-│   │   └── rental_service.py
-│   │
-│   └── main.py              # Entry point
+├── tests/                        # Backend tests (Pytest)
 │
-├── tests/
-│   ├── test_car.py
-│   ├── test_client.py
-│   ├── test_rental.py
-│   └── test_repository.py
-│
-├── run.py
-├── requirements.txt
-└── README.md
+├── cli.py                        # Command-line interface
+├── run_api.py                    # API launcher
+├── run.py                        # CLI launcher
+└── requirements.txt              # Python dependencies
 ```
 
 ---
 
-## 🎯 Running the Application
+## 💻 Usage
 
-Run the main script:
+### Web Interface
+Navigate to **http://localhost:5173** for the full UI:
+- Dashboard with statistics
+- Manage cars (CRUD + image upload)
+- Manage clients (CRUD + validation)
+- View rentals (mock data, integration coming soon)
+
+### API
+Access **http://localhost:8000/docs** for interactive API documentation with:
+- 8 car endpoints (including cost calculator)
+- 6 client endpoints
+- 4 rental endpoints
+- 2 dashboard endpoints
+
+### Command Line
+Quick operations via CLI:
 
 ```bash
-python run.py
-or
-python src/main.py
-```
+# List available cars
+python cli.py car list
 
-> **Note:** This currently serves as a starting point; additional CLI or UI features can be added in future sprints.
+# Add a car interactively
+python cli.py car add
+
+# Delete a car (select from list)
+python cli.py car delete
+
+# List all clients
+python cli.py client list
+
+# Add a client
+python cli.py client add
+
+# Create a rental
+python cli.py rental create C001 CL001
+
+# Complete a rental
+python cli.py rental complete R001
+
+# List active rentals
+python cli.py rental list
+```
 
 ---
 
-## 🧪 Running Tests
+## 🎨 Design Patterns
 
-Tests are written with `pytest`. Run all tests using:
+### Strategy Pattern
+Different cost strategies based on car type:
+```python
+StandardCarCost      # Base daily rate
+SUVRentalCost        # 20% premium for SUVs
+```
 
+### Decorator Pattern
+Stackable discounts:
+```python
+LongTermRentalCost   # 15% off for 7+ days
+HolidayDiscount      # 10% off on Azerbaijan holidays
+```
+
+**Example:** SUV rented for 10 days on a holiday = base × 1.2 × 0.85 × 0.9
+
+---
+
+## 🧪 Testing
+
+### Backend Tests
 ```bash
-pytest
+pytest                    # Run all tests
+pytest --cov=src          # With coverage
 ```
 
-## 📊 Data Storage
-
-The application uses JSON files for persistence:
-
-| File | Purpose |
-|------|---------|
-| `data/cars.json` | Stores car information |
-| `data/clients.json` | Stores client information |
-| `data/rentals.json` | Stores rental records |
+### Frontend Tests
+```bash
+cd frontend
+npm run test              # Run all tests
+npm run test:coverage     # With coverage
+```
 
 ---
 
-## 📝 Logging
+## 📚 Documentation
 
-Repository operations are logged for traceability:
+Detailed documentation available:
 
-- File creation
-- CRUD operations
-- Error tracking
-
-Logs are displayed in the console during execution at INFO level.
+- **[API Documentation](api/README.md)** - Endpoints, examples, Postman collections, design patterns
+- **[Frontend Documentation](frontend/README.md)** - Setup, components, testing, architecture
+- **[Technical Docs](docs/technical_documentation.md)** - System design and architecture
+- **[User Guide](docs/user_guide.md)** - End-user instructions
 
 ---
 
 ## 🛣️ Roadmap
 
-- [ ] Implement Update and Delete operations
-- [ ] Add data validation and business rules
-- [ ] Develop CLI interface
-- [ ] Add GUI (optional)
-- [ ] Expand test coverage for edge cases
-- [ ] Add database support (PostgreSQL/MySQL)
+### Current Status ✅
+- [x] Backend API with microservices
+- [x] Intelligent cost calculation
+- [x] Cars & Clients full CRUD
+- [x] Dashboard with statistics
+- [x] Frontend UI with React + TypeScript
+- [x] Form validation (Zod)
+- [x] Image uploads
+- [x] Soft delete with archives
+- [x] CLI interface
+- [x] Comprehensive testing
+
+### In Progress 🚧
+- [ ] Complete rentals integration (currently mock data)
+- [ ] Authentication & authorization (JWT)
+
+### Planned 🎯
+- [ ] Dashboard analytics charts
+- [ ] Advanced search & filtering
+- [ ] Export data (PDF/Excel)
+- [ ] AI integration
+- [ ] Database migration (PostgreSQL)
+
+---
+
+## 🔧 Tech Stack
+
+**Backend:**
+- FastAPI - High-performance async API framework
+- Python 3.9+ - Core language
+- Pydantic - Data validation
+- Pytest - Testing framework
+- Click - CLI framework
+
+**Frontend:**
+- React 18 - UI library
+- TypeScript - Type safety
+- Vite - Build tool
+- TailwindCSS - Styling
+- shadcn/ui - Component library
+- React Query - Data fetching
+- React Hook Form + Zod - Form validation
+- Vitest - Testing framework
+
+**Data Storage:**
+- JSON files with repository pattern
+- Configurable history tracking for deleted items
+- Media storage for uploaded images
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! To contribute:
+Contributions welcome! Please:
 
 1. Fork the repository
-2. Create a new branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-Please ensure:
-- All tests pass
-- Code follows PEP 8 style guidelines
-- New features include unit tests
+Ensure all tests pass before submitting:
+```bash
+# Backend
+pytest
+
+# Frontend
+cd frontend && npm run test && npm run lint
+```
 
 ---
 
 ## 📄 License
 
-This project is licensed under the MIT License
+This project is licensed under the MIT License.
 
 ---
 
 ## 👥 Authors
 
-- Eltun Jalilli [https://github.com/EltunLTN](GitHub)
-- Elvin Musayev [https://github.com/M4Sayev](GitHub)
+- **Elvin Musayev** - [@M4Sayev](https://github.com/M4Sayev)
+- **Eltun Jalilli** - [@EltunLTN](https://github.com/EltunLTN)
 
 ---
 
 ## 🙏 Acknowledgments
 
-- Python community
-- Contributors and testers
-- Open source libraries used in this project
+Built as part of an OOP course project, demonstrating:
+- Object-oriented programming principles
+- Design patterns (Strategy, Decorator, Repository)
+- Microservices architecture
+- Modern web development practices
+- Test-driven development
 
 ---
-
-<div align="center">
-Made with 🐍
-</div>

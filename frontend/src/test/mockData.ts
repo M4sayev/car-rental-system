@@ -1,11 +1,12 @@
+import type { CarTemplate } from "@/constants/carsTemplates";
 import type { ClientTemplate } from "@/constants/clientTemplates";
 import type { RecentRentalTemplate } from "@/constants/dashBoardTemplates";
 
 export const mockClient: ClientTemplate = {
-  client_id: "test-client",
-  name: "test",
-  email: "test@mail.ru",
-  phone: "+123456789",
+  client_id: "test-id",
+  name: "Pablo Pablissimooo",
+  email: "youremail@gmail.com",
+  phone: "+992546823252",
 };
 
 export const mockDashBoardOverviewReturn = {
@@ -23,5 +24,19 @@ export const mockRental: RecentRentalTemplate = {
   status: "active",
 };
 
+export const mockCar: CarTemplate = {
+  vehicle_id: "car-test-id",
+  daily_rate: 212.0,
+  seats: 4,
+  is_available: false,
+  brand: "Toyota",
+  model: "Supra",
+  car_type: "Sedan",
+  image_url: undefined,
+};
+
 export const mockDate = "2024-06-01T08:30";
 export const mockDateIso = "2024-06-01";
+
+// ToggleButtons
+export const mockToggleButtonValues = ["one", "two", "three", "four"];

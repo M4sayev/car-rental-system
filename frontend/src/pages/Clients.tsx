@@ -11,14 +11,21 @@ import { useState } from "react";
 
 function Clients() {
   const [showDeletedClients, setShowDeletedClients] = useState(false);
+
+  // call both to avoid calling hooks conditionally
+  const clientsQuery = useGetClients();
+  const deletedClientsQuery = useGetDeletedClients();
+
+  const queryToUse = showDeletedClients ? deletedClientsQuery : clientsQuery;
+
   return (
-    <div className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-none mx-auto">
+    <div className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl  mx-auto">
       <ClientsHeader
         showDeleted={showDeletedClients}
         setShowDeleted={setShowDeletedClients}
       />
       <DataTableCard<ClientTemplate, { deleted?: boolean }>
-        queryFn={showDeletedClients ? useGetDeletedClients() : useGetClients()}
+        queryFn={queryToUse}
         emptyLabel={
           showDeletedClients
             ? "no deleted clients in the database"

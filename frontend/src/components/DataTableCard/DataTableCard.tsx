@@ -21,7 +21,7 @@ interface DataTableCardProps<T, H> {
   headerProps?: H;
 }
 
-function DataTableCard<T, H extends {} = {}>({
+function DataTableCard<T, H extends object = {}>({
   queryFn,
   title,
   Header,

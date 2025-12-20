@@ -14,4 +14,11 @@ export const clientSchema = z.object({
   phone: z.string().min(7, "Phone is too short").max(15, "Phone is too long"),
 });
 
+// for hook defaults
+export const clientDefaultValues = {
+  name: "",
+  email: "",
+  phone: "",
+};
+
 export type ClientFormData = z.infer<typeof clientSchema>;

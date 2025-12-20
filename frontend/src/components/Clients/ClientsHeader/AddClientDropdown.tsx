@@ -37,13 +37,17 @@ function AddClientDropdown() {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenu>
         <DialogTrigger asChild>
-          <Button type="button" className="cursor-pointer">
+          <Button
+            type="button"
+            className="cursor-pointer"
+            aria-label="Add a new client"
+          >
             <Plus aria-hidden="true" />
             <span>Add Client</span>
           </Button>
         </DialogTrigger>
       </DropdownMenu>
-      <ClientFormDialog form={form} mode="create" onSumbit={onSubmit} />
+      <ClientFormDialog form={form} mode="create" onSubmit={onSubmit} />
     </Dialog>
   );
 }

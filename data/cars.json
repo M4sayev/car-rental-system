@@ -7,17 +7,7 @@
     "car_type": "Sedan",
     "seats": 5,
     "is_available": false,
-    "image_url": "/media/cars/toyota_camry"
-  },
-  {
-    "vehicle_id": "C002",
-    "brand": "bebra",
-    "model": "bebra",
-    "daily_rate": 2000000,
-    "car_type": "PRIUS",
-    "seats": 10,
-    "is_available": true,
-    "image_url": "/media/cars/car_default"
+    "image_url": "/media/cars/toyota_camry.jpg"
   },
   {
     "vehicle_id": "C003",
@@ -26,8 +16,8 @@
     "daily_rate": 100.0,
     "car_type": "Sedan",
     "seats": 5,
-    "is_available": false,
-    "image_url": "/media/cars/bmw320i"
+    "is_available": true,
+    "image_url": "/media/cars/bmw_320i.jpg"
   },
   {
     "vehicle_id": "aa8bdcff-37a1-4728-a69b-8840d40ba78f",
@@ -38,5 +28,25 @@
     "seats": 4,
     "is_available": true,
     "image_url": "/media/cars/08f9fdc6-d07f-4fba-ad62-c1f4625b5f4b_lada_07.jpg"
+  },
+  {
+    "vehicle_id": "fd643998-46b5-4cdb-babb-d3c83777931c",
+    "brand": "Maya",
+    "model": "Kalin",
+    "daily_rate": 124.0,
+    "car_type": "Crazy good",
+    "seats": 10,
+    "is_available": true,
+    "image_url": "/media/cars/ad6012fe-a882-4f3b-85d5-f511fd7a2a70_lada_kalina.jpg"
+  },
+  {
+    "vehicle_id": "15b6fc90-098e-4e9e-bca1-5f87bb41b42c",
+    "brand": "tr",
+    "model": "manattig",
+    "daily_rate": 1,
+    "car_type": "Tegaegae",
+    "seats": 24,
+    "is_available": true,
+    "image_url": "/media/cars/41d3fcd3-9e04-4328-98a8-44bc5ef2fcd0_cybertruck.webp"
   }
 ]

@@ -37,12 +37,12 @@ function ConfirmationDialog({
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose asChild>
-            <Button variant="outline">{closeText}</Button>
-          </DialogClose>
           <Button type="submit" onClick={onDelete}>
             {actionText}
           </Button>
+          <DialogClose asChild>
+            <Button variant="outline">{closeText}</Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

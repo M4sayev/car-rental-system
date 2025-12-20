@@ -1,5 +1,6 @@
 import { Calendar, Car, Users, type LucideIcon } from "lucide-react";
 import type { ColorTheme } from "./colorConstants";
+import type { Status } from "./rentalsTemplates";
 
 export interface CardTemplate {
   text: string;
@@ -32,8 +33,6 @@ export const cardTemplates: CardTemplate[] = [
     description: "Currently in use",
   },
 ];
-
-type Status = "active" | "completed";
 
 export interface RecentRentalTemplate {
   rental_id: string;

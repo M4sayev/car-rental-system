@@ -26,7 +26,7 @@ describe("ClientsHeader", () => {
 
     const button = screen.getByText("Go Back");
     expect(button).toBeInTheDocument();
-    expect(button).toHaveAttribute("aria-label", "Go Back to Clients Table");
+    expect(button).toHaveAttribute("aria-label", "Go back to clients table");
   });
   it("renders h1 and button text, aria-label properly on showDelete false", () => {
     renderClientsHeader(false);
@@ -37,6 +37,6 @@ describe("ClientsHeader", () => {
 
     const button = screen.getByText("Show Deleted");
     expect(button).toBeInTheDocument();
-    expect(button).toHaveAttribute("aria-label", "View Deleted Clients Table");
+    expect(button).toHaveAttribute("aria-label", "View deleted clients table");
   });
 });

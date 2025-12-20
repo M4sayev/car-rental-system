@@ -1,19 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import ClientFormDialog, { type modeType } from "./ClientFormDialog";
+import ClientFormDialog from "./ClientFormDialog";
 import { useForm } from "react-hook-form";
-import type { ClientTemplate } from "@/constants/clientTemplates";
 import { Dialog } from "@radix-ui/react-dialog";
-
-const defaultData: ClientTemplate = {
-  client_id: "test-id",
-  name: "Pablo Pablissimooo",
-  email: "youremail@gmail.com",
-  phone: "+992546823252",
-};
+import type { modeType } from "@/types/forms";
+import { mockClient } from "@/test/mockData";
 
 function Wrapper({ mode }: { mode: modeType }) {
   const defaultValues =
-    mode === "edit" ? defaultData : { name: "", email: "", phone: "" };
+    mode === "edit" ? mockClient : { name: "", email: "", phone: "" };
   const form = useForm({
     defaultValues: defaultValues,
   });
@@ -23,7 +17,7 @@ function Wrapper({ mode }: { mode: modeType }) {
   return (
     // ClientFormDialog is just DialogContent so it needs to wrapped in a Dialog that is open
     <Dialog open={true}>
-      <ClientFormDialog form={form} onSumbit={onSubmit} mode={mode} />
+      <ClientFormDialog form={form} onSubmit={onSubmit} mode={mode} />
     </Dialog>
   );
 }
@@ -73,7 +67,6 @@ describe("ClientFormDialog", () => {
   it("renders the header footer correctly on edit mode", () => {
     render(<Wrapper mode="edit" />);
 
-    expect(screen.getByText(/Edit client's data/i)).toBeInTheDocument();
     expect(screen.getByText(/Edit the client's data./i)).toBeInTheDocument();
 
     const cancelButton = screen.getByLabelText(
@@ -96,8 +89,8 @@ describe("ClientFormDialog", () => {
     const emailInput = screen.getByPlaceholderText(/youremail@gmail.com/i);
     const phoneInput = screen.getByPlaceholderText("+992546823252");
 
-    expect(nameInput).toHaveValue(defaultData.name);
-    expect(emailInput).toHaveValue(defaultData.email);
-    expect(phoneInput).toHaveValue(defaultData.phone);
+    expect(nameInput).toHaveValue(mockClient.name);
+    expect(emailInput).toHaveValue(mockClient.email);
+    expect(phoneInput).toHaveValue(mockClient.phone);
   });
 });

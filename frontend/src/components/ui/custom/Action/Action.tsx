@@ -20,14 +20,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useUpdateClient } from "@/hooks/queryHooks/clients/useUpdateClient";
 import ConfirmationDialog from "../ConfirmDialog";
 
-type forField = "client" | "car";
+// make it reusable later for now skip
 
 interface ActionsProps {
   onDelete: () => void;
-  type: forField;
   defaultData: ClientTemplate;
 }
-export function Actions({ onDelete, type, defaultData }: ActionsProps) {
+export function Actions({ onDelete, defaultData }: ActionsProps) {
   const [showDelete, setShowDelete] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
 
@@ -92,13 +91,9 @@ export function Actions({ onDelete, type, defaultData }: ActionsProps) {
         closeText="Cancel"
       />
 
-      {type === "client" ? (
-        <Dialog open={showEdit} onOpenChange={setShowEdit}>
-          <ClientFormDialog mode="edit" form={form} onSumbit={onSubmit} />
-        </Dialog>
-      ) : (
-        <></>
-      )}
+      <Dialog open={showEdit} onOpenChange={setShowEdit}>
+        <ClientFormDialog mode="edit" form={form} onSubmit={onSubmit} />
+      </Dialog>
     </>
   );
 }
