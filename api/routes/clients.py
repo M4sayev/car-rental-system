@@ -40,7 +40,7 @@ def get_single_client(client_id: str) -> dict:
         "data": data
     }
 
-@router.post("/clients", response_model=dict)
+@router.post("/clients", response_model=ResponseModel[dict])
 def create_client(data: ClientSchema) -> dict:
     # create temp ID to avoid sending id to update 
     temp_client = Client("TEMP", data.name, data.email, data.phone)
@@ -50,7 +50,7 @@ def create_client(data: ClientSchema) -> dict:
     data = result.to_dict()
     return {"message": "Client has been successfully added", "data": data}
 
-@router.patch("/clients/{client_id}", response_model=dict)
+@router.patch("/clients/{client_id}", response_model=ResponseModel[dict])
 def update_client(client_id: str, updated_fields: dict = Body(...)) -> dict:
     result = client_service.update_client(client_id, updated_fields)
     if not result:
@@ -61,7 +61,7 @@ def update_client(client_id: str, updated_fields: dict = Body(...)) -> dict:
         "data": data
     }
 
-@router.delete("/clients/{client_id}", response_model=dict)
+@router.delete("/clients/{client_id}", response_model=ResponseModel[dict])
 def delete_client(client_id: str):
     result = client_service.delete_client(client_id)
     if not result:
