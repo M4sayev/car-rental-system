@@ -36,6 +36,16 @@ def car():
 
 @car.command("list")
 def list_cars():
+    """List all cars"""
+    cars = car_service.get_cars()
+    if not cars:
+        click.echo("No cars.")
+        return
+    for car in cars:
+        click.echo(f"{car.vehicle_id} | {car.brand} {car.model} ({car.car_type}) - ${car.daily_rate}/day")
+
+@car.command("list available")
+def list_cars():
     """List all available cars"""
     cars = car_service.get_available_cars()
     if not cars:
@@ -43,6 +53,16 @@ def list_cars():
         return
     for car in cars:
         click.echo(f"{car.vehicle_id} | {car.brand} {car.model} ({car.car_type}) - ${car.daily_rate}/day")
+
+@car.command("list deleted")
+def list_deleted_cars():
+    """List deleted cars"""
+    cars = car_service.get_deleted_cars()
+    if not cars:
+        click.echo("No deleted cars.")
+        return
+    for car in cars:
+        click.echo(f"{car.vehicle_id} | {car.brand} {car.model} ({car.car_type}) - ${car.daily_rate}/day | deleted: {car.deletion_date}")
 
 @car.command("add")
 @click.option("--brand", prompt="Brand")
@@ -88,12 +108,22 @@ def client():
 @client.command("list")
 def list_clients():
     """List all clients"""
-    all_clients = clients_repo.read_all()
+    all_clients = client_service.get_all_clients()
     if not all_clients:
         click.echo("No clients found.")
         return
     for client_data in all_clients:
         click.echo(f"{client_data['client_id']} | {client_data['name']} - {client_data['email']} - {client_data['phone']}")
+
+@client.command("list deleted")
+def list_deleted_clients():
+    """List deleted clients"""
+    all_clients = client_service.get_deleted_clients()
+    if not all_clients:
+        click.echo("No deleted clients.")
+        return
+    for client_data in all_clients:
+        click.echo(f"{client_data['client_id']} | {client_data['name']} - {client_data['email']} - {client_data['phone']} | deleted: {client_data["deletion_date"]}")
 
 @client.command("add")
 @click.option("--name", prompt="Name")
@@ -141,5 +171,14 @@ def list_rentals():
     for r in rentals:
         click.echo(f"{r.rental_id} | Car: {r.car.brand} {r.car.model} | Client: {r.client.name} | Start: {r.start_date}")
 
+@rental.command("delete")
+@click.argument("rental_id")
+def delete_rental(rental_id):
+    """Delete rental"""
+    if rental_service.delete_rental(rental_id):
+        click.echo(f"Rental {rental_id} been removed")
+    else:
+        click.echo(f"Failed to delete rental {rental_id}.")
+    
 if __name__ == "__main__":
     cli()

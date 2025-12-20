@@ -6,7 +6,7 @@
     "daily_rate": 80.0,
     "car_type": "SUV",
     "seats": 5,
-    "is_available": true,
+    "is_available": false,
     "deletion_date": "2025-11-30"
   },
   {
@@ -16,7 +16,7 @@
     "daily_rate": 12.0,
     "car_type": "egw",
     "seats": 4,
-    "is_available": true,
+    "is_available": false,
     "deletion_date": "2025-11-30"
   },
   {
@@ -26,7 +26,7 @@
     "daily_rate": 200.0,
     "car_type": "PRIUS",
     "seats": 10,
-    "is_available": true,
+    "is_available": false,
     "deletion_date": "2025-11-30"
   }
 ]

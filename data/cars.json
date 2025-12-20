@@ -26,7 +26,7 @@
     "daily_rate": 100.0,
     "car_type": "Sedan",
     "seats": 5,
-    "is_available": true,
+    "is_available": false,
     "image_url": "/media/cars/bmw320i"
   },
   {

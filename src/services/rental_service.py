@@ -21,6 +21,24 @@ class RentalService:
     @staticmethod
     def _generate_id() -> str:
         return str(uuid.uuid4())
+    
+
+    def delete_rental(self, rental_id: str) -> Rental | bool:
+        """Delete an existing rental and update car availability"""
+        rental_dict = self.rentals_repo.find_by_id(rental_id)
+        deleted_rental = self.rentals_repo.delete(rental_id)
+        if not deleted_rental:
+            logger.error(f"Rental not found: {rental_id}")
+            return False
+        
+
+        # set the car's availability to True
+        car = rental_dict["car"]
+        vehicle_id = car.get("vehicle_id")
+
+        self.car_service.update_car(vehicle_id, {"is_available": True})
+
+        return Rental.from_dict(rental_dict)
 
     def create_rental(self, car_id: str, client_id: str,
                      start_date: Optional[datetime] = None) -> Optional[Rental]:

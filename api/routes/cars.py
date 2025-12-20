@@ -52,7 +52,7 @@ def get_single_car(vehicle_id: str) -> dict:
     }
 
 
-@router.post("/cars", response_model=dict)
+@router.post("/cars", response_model=ResponseModel[dict])
 def create_car(brand: str = Form(...),
                model: str = Form(...),
                daily_rate: float = Form(),
@@ -72,7 +72,7 @@ def create_car(brand: str = Form(...),
     data = result.to_dict()
     return {"message": "Car has been successfully created", "data": data}
 
-@router.patch("/cars/{vehicle_id}", response_model=dict)
+@router.patch("/cars/{vehicle_id}", response_model=ResponseModel[dict])
 def update_car(vehicle_id: str, 
                brand: str = Form(None),
                model: str = Form(None),
@@ -102,7 +102,7 @@ def update_car(vehicle_id: str,
     data = result.to_dict()
     return {"message": f"Car updated successfully", "data": data}
 
-@router.delete("/cars/{vehicle_id}", response_model=dict)
+@router.delete("/cars/{vehicle_id}", response_model=ResponseModel[dict])
 def delete_car(vehicle_id: str) -> dict:
     result = car_service.delete_car(vehicle_id)
     if not result:
@@ -110,7 +110,7 @@ def delete_car(vehicle_id: str) -> dict:
     data = result.to_dict()
     return {"message": f"Car deleted successfully", "data": data}
 
-@router.get("/cars/{vehicle_id}/rental-cost", response_model=dict)
+@router.get("/cars/{vehicle_id}/rental-cost", response_model=ResponseModel[dict])
 def get_rental_cost(vehicle_id: str, days: int = Query(..., gt=0)):
     # Calculate the rental cost for a given car and number of days.
     cost = car_service.calculate_rental_cost(vehicle_id, days)
