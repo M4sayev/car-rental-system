@@ -8,9 +8,7 @@ interface RentalDialogItemProps {
   value: string;
 }
 
-interface RentalItemValueProps extends RentalDialogItemProps {}
-
-function RentalItemValue({ placeholder, value }: RentalItemValueProps) {
+function RentalItemValue({ placeholder, value }: RentalDialogItemProps) {
   if (placeholder === "end date" || placeholder === "start date")
     return <DateTime className="font-semibold" date={value} />;
 

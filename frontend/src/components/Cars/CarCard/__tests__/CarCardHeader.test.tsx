@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import CarCardHeader from "../CarCardHeader";
+import { API_BASE_URL } from "@/config";
 
 describe("CarCardHeader", () => {
   beforeEach(() => {
@@ -13,7 +14,7 @@ describe("CarCardHeader", () => {
   });
   it("renders correct image url, alt", () => {
     const img = screen.getByRole("img");
-    expect(img).toHaveAttribute("src", "http://127.0.0.1:8000/media/test");
+    expect(img).toHaveAttribute("src", `${API_BASE_URL}/media/test`);
     expect(img).toHaveAttribute("alt", "Car name");
   });
   it("renders description, name correctly", () => {

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { mockRental } from "@/test/mockData";
+import { mockRecentRental } from "@/test/mockData";
 import RecentRentalRow from "./RentalRecentRow";
 
 describe("RecentRentalRow", () => {
@@ -7,7 +7,7 @@ describe("RecentRentalRow", () => {
     render(
       <table>
         <tbody>
-          <RecentRentalRow rental={mockRental} />
+          <RecentRentalRow rental={mockRecentRental} />
         </tbody>
       </table>
     );

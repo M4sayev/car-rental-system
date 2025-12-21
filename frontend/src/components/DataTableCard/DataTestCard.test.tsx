@@ -26,7 +26,6 @@ const renderDataTableCard = (
           <TableRow key={item.client_id}>{item.client_id}</TableRow>
         )}
         emptyIcon={UserRoundX}
-        emptyLabel="no data"
         emptyTitle="Oops"
         emptyDescription="No data available"
       />

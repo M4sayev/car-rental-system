@@ -33,6 +33,8 @@ function RentalRow({ rental }: { rental: RentalTemplate }) {
         onClick={handleRowClicked}
         tabIndex={0}
         onKeyDown={handleEnterClicked}
+        data-testid="rental-row"
+        aria-label="View rental details"
       >
         <TableCell className="font-medium">
           <ShortID id={rental_id} />

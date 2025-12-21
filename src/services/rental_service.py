@@ -72,6 +72,7 @@ class RentalService:
 
         # Remove vehicle_id to avoid passing it in update
         del car_dict["vehicle_id"]
+        
         self.car_service.update_car(car_id, car_dict)
 
         # Save rental
@@ -101,6 +102,9 @@ class RentalService:
 
         # Remove vehicle_id to avoid passing it in update
         del car_dict["vehicle_id"]
+
+        # To avoid updating image to default
+        del car_dict["image_url"]
 
         self.car_service.update_car(rental.car.vehicle_id, car_dict)
 

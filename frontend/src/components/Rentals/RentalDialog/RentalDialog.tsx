@@ -9,6 +9,8 @@ import EmptyResponse from "@/components/ui/custom/API/EmptyResponse";
 import type { SetStateAction } from "react";
 import { covertFromSnakeCaseToTitle } from "@/utils/utils";
 import { Button } from "@/components/ui/button";
+import { useCompleteRental } from "@/hooks/queryHooks/rentals/useCompleteRental";
+import { useDeleteRental } from "@/hooks/queryHooks/rentals/useDeleteRental";
 
 interface RentalDialogProps {
   rental: RentalTemplate;
@@ -18,6 +20,18 @@ interface RentalDialogProps {
 
 function RentalDialog({ rental, open, setOpen }: RentalDialogProps) {
   const newRental = mapRentalToUI(rental);
+
+  const useCompleteRentalMutation = useCompleteRental();
+  const useDeleteRentalMutation = useDeleteRental();
+
+  const handleCompleteRental = (rentalId: string) => {
+    useCompleteRentalMutation.mutate(rentalId);
+  };
+
+  const handleDeleteRental = (rentalId: string) => {
+    useDeleteRentalMutation.mutate(rentalId);
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="overflow-y-scroll max-h-120 [@media(max-height:400px)]:max-h-75 sm:max-h-screen sm:overflow-auto">
@@ -27,7 +41,7 @@ function RentalDialog({ rental, open, setOpen }: RentalDialogProps) {
           showDescription={true}
         />
         <ul className="flex flex-col gap-2">
-          {!rental ? (
+          {!rental || !rental?.rental_id ? (
             <EmptyResponse className="text-center py-10">
               Failed to load rental data...
             </EmptyResponse>
@@ -48,10 +62,17 @@ function RentalDialog({ rental, open, setOpen }: RentalDialogProps) {
             variant="secondary"
             disabled={newRental.status == "completed"}
             className="cursor-pointer"
+            onClick={() => handleCompleteRental(rental.rental_id)}
+            aria-label="Complete current rental"
           >
             Complete
           </Button>
-          <Button variant="destructive" className="cursor-pointer">
+          <Button
+            variant="destructive"
+            className="cursor-pointer"
+            onClick={() => handleDeleteRental(rental.rental_id)}
+            aria-label="Delete current rental"
+          >
             Delete
           </Button>
         </DialogFooter>
