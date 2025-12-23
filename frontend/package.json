@@ -34,6 +34,7 @@
     "react-router-dom": "^7.9.6",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17",
+    "use-debounce": "^10.0.6",
     "vitest": "^4.0.14",
     "zod": "^4.1.13"
   },

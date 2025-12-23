@@ -36,7 +36,7 @@ def get_all_rentals(search: str = Query("")) -> List[dict]:
         if rental_matches(rental, search=searchQuery):
             search_result.append(rental)
         
-    data = [rental.to_dict() for rental in rentals]
+    data = [rental.to_dict() for rental in search_result]
 
     return {
         "message": "success",

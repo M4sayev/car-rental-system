@@ -3,12 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 export function useGetAvailableCars() {
-  const fetchAvailableCars = async () => {
-    const response = await axios.get(`${API_BASE_URL}/cars/available`);
-    return response.data.data;
-  };
   return useQuery({
     queryKey: ["available-cars"],
-    queryFn: fetchAvailableCars,
+    queryFn: async () => {
+      const response = await axios.get(`${API_BASE_URL}/cars/available`);
+      return response.data.data;
+    },
   });
 }

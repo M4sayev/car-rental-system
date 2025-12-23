@@ -7,9 +7,11 @@ import { CalendarOff } from "lucide-react";
 import { useState } from "react";
 import RentalsTableHeader from "@/components/Rentals/RentalsTable/RentalsTableHeader";
 import RentalsTableSkeleton from "@/components/Rentals/Skeletons/RentalsTableSkeleton";
+import { useDebounce } from "use-debounce";
 
 function Rentals() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery] = useDebounce(searchQuery, 200);
   return (
     <section className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl  mx-auto">
       <RentalsHeader
@@ -17,7 +19,7 @@ function Rentals() {
         setSearchQuery={setSearchQuery}
       />
       <DataTableCard<RentalTemplate>
-        query={useGetRentals()}
+        query={useGetRentals(debouncedSearchQuery)}
         emptyIcon={CalendarOff}
         emptyTitle="Oops..."
         emptyDescription="No rentals in the database."
