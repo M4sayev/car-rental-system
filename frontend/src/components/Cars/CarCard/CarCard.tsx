@@ -23,9 +23,12 @@ import {
 import { Fragment } from "react/jsx-runtime";
 import DateTime from "@/components/A11y/DateTime";
 import StatusSpan from "@/components/ui/custom/StatusSpan";
+import { cn } from "@/lib/utils";
 
 interface CarCardProps extends CarTemplate {
   isDeleted?: boolean;
+  showActions?: boolean;
+  className?: string;
 }
 
 function CarCard({
@@ -40,6 +43,8 @@ function CarCard({
   image_url,
   isDeleted = false,
   deletion_date,
+  showActions = true,
+  className = "",
 }: CarCardProps) {
   const deleteCarMutation = useDeleteCar();
   const updateCarMutation = useUpdateCar();
@@ -55,7 +60,7 @@ function CarCard({
   const color = getStatusColor(availabilityStatus);
 
   return (
-    <Card className="pt-0! overflow-hidden">
+    <Card className={`pt-0! overflow-hidden ${className}`}>
       <CarCardHeader
         name={name}
         description={description}
@@ -76,9 +81,11 @@ function CarCard({
         </CardDescription>
       </CardContent>
       <CardFooter
-        className={`border-t flex justify-end ${
-          isDeleted ? "justify-between" : ""
-        }`}
+        className={cn(
+          "border-t flex justify-end",
+          isDeleted ? "justify-between" : "",
+          showActions ? "" : "hidden"
+        )}
       >
         {isDeleted ? (
           <Fragment>

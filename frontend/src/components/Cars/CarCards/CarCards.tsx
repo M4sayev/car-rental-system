@@ -49,6 +49,14 @@ function CarCards({ availability }: CarCardsProps) {
     return allCars;
   }, [availability, allCars, availableCars]);
 
+  if ((needsAllCars && isLoading) || (needsAvailableCars && avIsLoadings))
+    return (
+      <>
+        <LoadingSR text="loading cars" />
+        <CarCardsSkeleton />
+      </>
+    );
+
   if ((needsAllCars && isError) || (avIsError && needsAvailableCars)) {
     const combinedError = error ?? avError;
 
@@ -58,14 +66,6 @@ function CarCards({ availability }: CarCardsProps) {
       </ErrorMessage>
     );
   }
-
-  if ((needsAllCars && isLoading) || (needsAvailableCars && avIsLoadings))
-    return (
-      <>
-        <LoadingSR text="loading cars" />
-        <CarCardsSkeleton />
-      </>
-    );
 
   if (
     (needsAllCars && !allCars?.length && !isLoading) ||

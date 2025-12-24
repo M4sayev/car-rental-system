@@ -8,10 +8,11 @@ import { useState } from "react";
 import RentalsTableHeader from "@/components/Rentals/RentalsTable/RentalsTableHeader";
 import RentalsTableSkeleton from "@/components/Rentals/Skeletons/RentalsTableSkeleton";
 import { useDebounce } from "use-debounce";
+import { SEARCH_DEBOUNCE_MS } from "@/constants/search";
 
 function Rentals() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [debouncedSearchQuery] = useDebounce(searchQuery, 200);
+  const [debouncedSearchQuery] = useDebounce(searchQuery, SEARCH_DEBOUNCE_MS);
   return (
     <section className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl  mx-auto">
       <RentalsHeader

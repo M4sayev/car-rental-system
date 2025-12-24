@@ -31,7 +31,7 @@ function ClientsRow({
   const { client_id, name, email, phone } = client;
 
   return (
-    <TableRow key={client_id} className="h-12">
+    <TableRow className="h-12">
       <TableCell className="font-medium">
         <ShortID id={client_id} />
       </TableCell>

@@ -8,20 +8,19 @@ import LoadingSR from "@/components/A11y/LoadingSR";
 function Cards() {
   const { data, isError, isLoading, error } = useDashboardOverview();
 
-  if (isError) {
-    return (
-      <ErrorMessage error={error}>
-        <span className="pt-10">Error loading dashboard</span>
-      </ErrorMessage>
-    );
-  }
-
   if (isLoading) {
     return (
       <>
         <LoadingSR text="loading dashboard cards" />
         <CardsSkeleton />
       </>
+    );
+  }
+  if (isError) {
+    return (
+      <ErrorMessage error={error}>
+        <span className="pt-10">Error loading dashboard</span>
+      </ErrorMessage>
     );
   }
 
