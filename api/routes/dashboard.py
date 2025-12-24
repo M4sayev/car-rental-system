@@ -46,7 +46,6 @@ def get_recent_rentals() -> dict:
         } for rental in sorted_rentals 
     ]
 
-
     return {
         "message": "success",
         "data": data

@@ -7,37 +7,17 @@ from datetime import datetime
 from api.schemas.rental import RentalResponse
 from api.schemas.response import ResponseModel
 
-router = APIRouter()
+from api.utils.data_utils import get_searched_data, deserialize
+from api.matchers.matchers import rental_matches
 
-# helper function to check if the search is matched in a rental
-def rental_matches(rental, search: str):
-    return (
-        search in rental.rental_id.lower()
-        or search in rental.car.brand.lower()
-        or search in rental.car.model.lower()
-        or search in rental.client.name.lower()
-    )
+router = APIRouter()
 
 @router.get("/rentals", response_model=ResponseModel[List[RentalResponse]])
 def get_all_rentals(search: str = Query("")) -> List[dict]:
     # deserialize the rentals 
     rentals = rental_service.get_all_rentals()
 
-    if not search.strip():
-        return {
-            "message": "success",
-            "data": [rental.to_dict() for rental in rentals],
-        }
-    
-    searchQuery = search.lower().strip()
-    search_result = []
-
-    for rental in rentals:
-        if rental_matches(rental, search=searchQuery):
-            search_result.append(rental)
-        
-    data = [rental.to_dict() for rental in search_result]
-
+    data = get_searched_data(matcher=rental_matches, items=rentals, search_query=search)
     return {
         "message": "success",
         "data": data
@@ -47,10 +27,9 @@ def get_all_rentals(search: str = Query("")) -> List[dict]:
 def get_active_rentals() -> List[dict]:
     # deserialize the rentals 
     rentals = rental_service.get_active_rentals()
-    data = [rental.to_dict() for rental in rentals]
     return {
         "message": "success",
-        "data": data
+        "data": deserialize(rentals)
     }
 
 
