@@ -8,25 +8,28 @@ from src.models.car import Car
 from api.schemas.car import CarResponse, DeletedCarResponse
 from api.schemas.response import ResponseModel  
 
+# import utils
 from api.utils.file_utils import save_image
+from api.utils.data_utils import get_searched_data, deserialize
+
+from api.matchers.matchers import car_matches
 
 router = APIRouter()
 
 @router.get("/cars", response_model=ResponseModel[List[CarResponse]])
 def get_cars() -> List[dict]:
-    # deserialize the cars 
     cars = car_service.get_cars()
-    data = [car.to_dict() for car in cars]
+    
     return {
         "message": "success",
-        "data" : data
+        "data" : deserialize(cars)
     }
 
 @router.get("/cars/available", response_model=ResponseModel[List[CarResponse]])
-def get_available_cars() -> List[dict]:
+def get_available_cars(search = Query("")) -> List[dict]:
     # get all the available cars 
     cars = car_service.get_available_cars()
-    data = [car.to_dict() for car in cars]
+    data = get_searched_data(matcher=car_matches, items=cars, search_query=search)
     return {
         "message": "success",
         "data" : data

@@ -1,20 +1,26 @@
-from fastapi import APIRouter, HTTPException, Body
+from fastapi import APIRouter, HTTPException, Body, Query
 from api.dependencies import client_service
 from typing import List
 
 from src.models.client import Client
 
-#import schemas
+# schemas
 from api.schemas.client import ClientResponse, ClientSchema, DeletedClientResponse
 from api.schemas.response import ResponseModel
+
+# utils
+from api.utils.data_utils import get_searched_data
+
+from api.matchers.matchers import client_matches
 
 router = APIRouter()
 
 @router.get("/clients", response_model=ResponseModel[List[ClientResponse]])
-def get_clients() -> List[dict]:
+def get_clients(search = Query("")) -> List[dict]:
     # deserialize the clients 
     clients = client_service.get_all_clients()
-    data = [client.to_dict() for client in clients]
+
+    data = get_searched_data(matcher=client_matches, items=clients, search_query=search)
     return {
         "message": "success",
         "data": data
