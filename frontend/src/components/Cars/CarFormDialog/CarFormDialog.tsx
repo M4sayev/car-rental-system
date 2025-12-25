@@ -1,27 +1,23 @@
 import FormDialogFooter from "@/components/FormDialog/FormDialogFooter";
-import FormDialogHeader from "@/components/FormDialog/FormDialogHeader";
+import FormDialogHeader from "@/components/FormDialog/CustomDialogHeader";
 import FormField from "@/components/FormField/FormField";
-import ImageField from "@/components/FormField/ImageField";
+import ImageField from "@/components/ImageField/ImageField";
 import { DialogContent } from "@/components/ui/dialog";
 import { FieldGroup } from "@/components/ui/field";
 import type { CarFormData } from "@/constants/carsTemplates";
-import type { modeType } from "@/types/forms";
-
-import { type UseFormReturn } from "react-hook-form";
-
-interface CarFormDialogProps {
-  form: UseFormReturn<CarFormData>;
-  onSubmit: (data: CarFormData) => void;
-  mode: modeType;
-}
+import type { EntityFormDialogProps } from "@/types/entityTypes";
 
 function CarFormDialog({
   form,
   onSubmit,
   mode = "create",
-}: CarFormDialogProps) {
+  imageSrc,
+}: EntityFormDialogProps<CarFormData>) {
   return (
-    <DialogContent data-testid="car-form-dialog" className="sm:max-w-[425px]">
+    <DialogContent
+      data-testid="car-form-dialog"
+      className="sm:max-w-[425px]  overflow-y-scroll max-h-120 [@media(max-height:400px)]:max-h-75 sm:max-h-screen sm:overflow-auto"
+    >
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormDialogHeader
           title={mode === "edit" ? "Edit car data" : "Add new car"}
@@ -84,6 +80,7 @@ function CarFormDialog({
           name="image_url"
           label="Car Image"
           actionText="Upload an image or drag and drop here"
+          imageSrc={imageSrc}
         />
         <br />
         <FormDialogFooter

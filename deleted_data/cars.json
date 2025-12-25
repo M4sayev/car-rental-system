@@ -1,32 +1,46 @@
 [
   {
-    "vehicle_id": "C004",
-    "brand": "Mazda",
-    "model": "CX-5",
-    "daily_rate": 80.0,
-    "car_type": "SUV",
-    "seats": 5,
-    "is_available": false,
-    "deletion_date": "2025-11-30"
-  },
-  {
-    "vehicle_id": "1a70527e-d8dc-40dd-a71b-80c0198ca4d9",
-    "brand": "Supra",
-    "model": "rgw",
-    "daily_rate": 12.0,
-    "car_type": "egw",
-    "seats": 4,
-    "is_available": false,
-    "deletion_date": "2025-11-30"
-  },
-  {
     "vehicle_id": "df062fbf-912f-414f-b9a9-92b110005dd3",
     "brand": "PRIUS2",
     "model": "PRIUS2",
     "daily_rate": 200.0,
     "car_type": "PRIUS",
     "seats": 10,
-    "is_available": false,
-    "deletion_date": "2025-11-30"
+    "is_available": true,
+    "deletion_date": "2025-11-30",
+    "image_url": "/media/cars/car_default.jpg"
+  },
+  {
+    "vehicle_id": "C002",
+    "brand": "bebra",
+    "model": "bebra",
+    "daily_rate": 2000000,
+    "car_type": "PRIUS",
+    "seats": 10,
+    "is_available": true,
+    "image_url": "/media/cars/car_default.jpg",
+    "deletion_date": "2025-12-09"
+  },
+  {
+    "vehicle_id": "ba3ab4c5-b12e-44aa-a080-8e999d934e3e",
+    "brand": "MAgic",
+    "model": "egw",
+    "daily_rate": 124.0,
+    "car_type": "31rgeg",
+    "seats": 12,
+    "is_available": true,
+    "image_url": "/media/cars/car_default.jpg",
+    "deletion_date": "2025-12-10"
+  },
+  {
+    "vehicle_id": "09daf623-e8e3-4db8-92f4-25574cedaac2",
+    "brand": "dwqf",
+    "model": "egwg",
+    "daily_rate": 134.0,
+    "car_type": "gt2",
+    "seats": 13,
+    "is_available": true,
+    "image_url": "/media/cars/car_default.jpg",
+    "deletion_date": "2025-12-12"
   }
 ]

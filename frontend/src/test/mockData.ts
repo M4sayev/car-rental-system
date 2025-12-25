@@ -1,6 +1,7 @@
 import type { CarTemplate } from "@/constants/carsTemplates";
 import type { ClientTemplate } from "@/constants/clientTemplates";
 import type { RecentRentalTemplate } from "@/constants/dashBoardTemplates";
+import type { RentalTemplate } from "@/constants/rentalsTemplates";
 
 export const mockClient: ClientTemplate = {
   client_id: "test-id",
@@ -15,7 +16,7 @@ export const mockDashBoardOverviewReturn = {
   active_rentals: 2000,
 };
 
-export const mockRental: RecentRentalTemplate = {
+export const mockRecentRental: RecentRentalTemplate = {
   rental_id: "abc123",
   client_name: "John Doe",
   car_name: "Toyota",
@@ -33,10 +34,35 @@ export const mockCar: CarTemplate = {
   model: "Supra",
   car_type: "Sedan",
   image_url: undefined,
+  deletion_date: "21/21/2121",
 };
+
+const mockCarAv: CarTemplate = {
+  ...mockCar,
+  is_available: true,
+  vehicle_id: "car-test-id-two",
+  brand: "KIA",
+  model: "RIO",
+};
+
+export const mockCars: CarTemplate[] = [mockCar, mockCarAv];
+
+export const mockAvCars: CarTemplate[] = [mockCarAv];
+
+export const mockDeletedCars: CarTemplate[] = [
+  { ...mockCar, deletion_date: "test-date" },
+];
 
 export const mockDate = "2024-06-01T08:30";
 export const mockDateIso = "2024-06-01";
 
+export const mockRental: RentalTemplate = {
+  rental_id: "rental-id",
+  client: mockClient,
+  car: mockCar,
+  start_date: mockDateIso,
+  end_date: null,
+  is_active: false,
+};
 // ToggleButtons
 export const mockToggleButtonValues = ["one", "two", "three", "four"];

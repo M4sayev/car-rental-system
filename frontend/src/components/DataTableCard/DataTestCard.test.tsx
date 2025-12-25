@@ -18,7 +18,7 @@ const renderDataTableCard = (
   return render(
     <QueryClientProvider client={queryClient}>
       <DataTableCard<ClientTemplate>
-        queryFn={queryResult}
+        query={queryResult}
         title="Test Table"
         Header={() => <thead data-testid="header"></thead>}
         Skeleton={() => <div data-testid="skeleton"></div>}
@@ -26,7 +26,6 @@ const renderDataTableCard = (
           <TableRow key={item.client_id}>{item.client_id}</TableRow>
         )}
         emptyIcon={UserRoundX}
-        emptyLabel="no data"
         emptyTitle="Oops"
         emptyDescription="No data available"
       />
@@ -35,7 +34,7 @@ const renderDataTableCard = (
 };
 
 describe("DataTableCard", () => {
-  it("renders skeleton loader on isLoading true", () => {
+  it("renders skeleton loader and sr-loading on isLoading true", () => {
     renderDataTableCard({
       data: undefined,
       isLoading: true,
@@ -44,11 +43,12 @@ describe("DataTableCard", () => {
     } as Partial<UseQueryResult<ClientTemplate[]>> as UseQueryResult<ClientTemplate[]>);
 
     expect(screen.getByTestId("skeleton")).toBeInTheDocument();
+    expect(screen.getByTestId("loading-state-sr")).toBeInTheDocument();
   });
 
   it("renders empty response on data falsy", () => {
     renderDataTableCard({
-      data: undefined,
+      data: [],
       isLoading: false,
       isError: false,
       error: null,

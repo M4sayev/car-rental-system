@@ -1,28 +1,20 @@
 import { DialogContent } from "@/components/ui/dialog";
-
-import { type UseFormReturn } from "react-hook-form";
 import type { ClientFormData } from "@/constants/clientTemplates";
 import { FieldGroup } from "@/components/ui/field";
-import type { modeType } from "@/types/forms";
 import FormField from "@/components/FormField/FormField";
 import FormDialogFooter from "@/components/FormDialog/FormDialogFooter";
-import FormDialogHeader from "@/components/FormDialog/FormDialogHeader";
-
-interface ClientFormDialogProps {
-  form: UseFormReturn<ClientFormData>;
-  onSubmit: (data: ClientFormData) => void;
-  mode: modeType;
-}
+import FormDialogHeader from "@/components/FormDialog/CustomDialogHeader";
+import type { EntityFormDialogProps } from "@/types/entityTypes";
 
 function ClientFormDialog({
   form,
   onSubmit,
   mode = "create",
-}: ClientFormDialogProps) {
+}: EntityFormDialogProps<ClientFormData>) {
   return (
     <DialogContent
       data-testid="client-form-dialog"
-      className="sm:max-w-[425px]"
+      className="sm:max-w-[425px] overflow-y-scroll max-h-120 [@media(max-height:400px)]:max-h-75 sm:max-h-screen sm:overflow-auto"
     >
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormDialogHeader

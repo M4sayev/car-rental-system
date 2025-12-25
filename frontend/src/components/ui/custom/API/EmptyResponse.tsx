@@ -1,16 +1,20 @@
 import type { PropsWithChildren } from "react";
 
 interface EmptyResponse extends PropsWithChildren {
-  label?: string;
+  labelledBy?: string;
   className?: string;
 }
 
-function EmptyResponse({ label, children, className = "" }: EmptyResponse) {
+function EmptyResponse({
+  labelledBy,
+  children,
+  className = "",
+}: EmptyResponse) {
   return (
     <div
       data-testid="empty-reponse"
       className={`grid place-items-center py-5 ${className}`}
-      aria-label={label}
+      aria-labelledby={labelledBy}
       role="status"
       aria-live="polite"
     >

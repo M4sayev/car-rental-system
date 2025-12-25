@@ -1,0 +1,38 @@
+import { TableCell, TableRow } from "@/components/ui/table";
+import ShortID from "../../ui/custom/ShortID";
+import type { RecentRentalTemplate } from "@/constants/dashBoardTemplates";
+import { COLOR_MAP } from "@/constants/colorConstants";
+import { formatStringToISO } from "@/utils/utils";
+import DateTime from "@/components/A11y/DateTime";
+import StatusSpan from "@/components/ui/custom/StatusSpan";
+
+function RecentRentalRow({ rental }: { rental: RecentRentalTemplate }) {
+  const { rental_id, client_name, car_name, start_date, end_date, status } =
+    rental;
+  const iconColor = status === "active" ? "green" : "blue";
+  const color = COLOR_MAP[iconColor];
+  return (
+    <TableRow className="h-12">
+      <TableCell className="font-medium">
+        <ShortID id={rental_id} />
+      </TableCell>
+      <TableCell>{client_name}</TableCell>
+      <TableCell className="hidden lg:table-cell">{car_name}</TableCell>
+      <TableCell className="hidden sm:table-cell">
+        <DateTime date={formatStringToISO(start_date)} />
+      </TableCell>
+      <TableCell className="hidden lg:table-cell">
+        {end_date ? (
+          <DateTime date={formatStringToISO(end_date)} />
+        ) : (
+          <span aria-label="No end date for this rental">-</span>
+        )}
+      </TableCell>
+      <TableCell className="text-right w-[10%]">
+        <StatusSpan status={status} color={color} />
+      </TableCell>
+    </TableRow>
+  );
+}
+
+export default RecentRentalRow;

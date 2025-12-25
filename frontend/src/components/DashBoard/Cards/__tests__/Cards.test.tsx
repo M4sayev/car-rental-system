@@ -36,7 +36,7 @@ describe("Cards", () => {
     expect(screen.getByText("Error loading dashboard")).toBeInTheDocument();
   });
 
-  it("renders skeleton if isLoading is true", () => {
+  it("renders skeleton and sr-loading if isLoading is true", () => {
     (useDashboardOverview as Mock).mockReturnValue({
       isLoading: true,
     });
@@ -44,6 +44,7 @@ describe("Cards", () => {
     renderWithQueryProvider();
 
     expect(screen.getByTestId("cards-skeleton")).toBeInTheDocument();
+    expect(screen.getByTestId("loading-state-sr")).toBeInTheDocument();
   });
 
   it("renders cards when data is available", () => {

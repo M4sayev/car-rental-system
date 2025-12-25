@@ -1,7 +1,7 @@
 import ClientsHeader from "@/components/Clients/ClientsHeader/ClientsHeader";
 import ClientsRow from "@/components/Clients/ClientsTable/ClientsRow";
 import ClientsTableHeader from "@/components/Clients/ClientsTable/ClientsTableHeader";
-import ClientsTableSkeleton from "@/components/Clients/ClientsTable/ClientsTableSkeleton";
+import ClientsTableSkeleton from "@/components/Clients/TableSkeleton/ClientsTableSkeleton";
 import DataTableCard from "@/components/DataTableCard/DataTableCard";
 import type { ClientTemplate } from "@/constants/clientTemplates";
 import { useGetClients } from "@/hooks/queryHooks/clients/useGetClients";
@@ -19,25 +19,21 @@ function Clients() {
   const queryToUse = showDeletedClients ? deletedClientsQuery : clientsQuery;
 
   return (
-    <div className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl  mx-auto">
+    <section className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl  mx-auto">
       <ClientsHeader
         showDeleted={showDeletedClients}
         setShowDeleted={setShowDeletedClients}
       />
+
       <DataTableCard<ClientTemplate, { deleted?: boolean }>
-        queryFn={queryToUse}
-        emptyLabel={
-          showDeletedClients
-            ? "no deleted clients in the database"
-            : "no clients in the database"
-        }
+        query={queryToUse}
         emptyTitle={
           showDeletedClients ? "Oops..." : "Oops...No clients in the database."
         }
         emptyDescription={
           showDeletedClients
             ? "No deleted clients in the database."
-            : "Click add a client to add one."
+            : "Click 'Add client' to add one."
         }
         emptyIcon={UserRoundX}
         title={
@@ -55,7 +51,7 @@ function Clients() {
           />
         )}
       />
-    </div>
+    </section>
   );
 }
 

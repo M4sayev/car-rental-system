@@ -1,9 +1,18 @@
 import { TableCell, TableRow } from "@/components/ui/table";
 import ShortID from "@/components/ui/custom/ShortID";
-import type { ClientTemplate } from "@/constants/clientTemplates";
+import {
+  clientSchema,
+  type ClientFormData,
+  type ClientTemplate,
+} from "@/constants/clientTemplates";
 
-import { Actions } from "@/components/ui/custom/Action/Action";
 import { useDeleteClient } from "@/hooks/queryHooks/clients/useDeleteClient";
+import { ActionsButton } from "@/components/ActionsButton/ActionsButton";
+import { useUpdateClient } from "@/hooks/queryHooks/clients/useUpdateClient";
+import ClientFormDialog from "../ClientFormDialog/ClientFormDialog";
+import EmailLink from "@/components/A11y/EmailLink";
+import PhoneLink from "@/components/A11y/PhoneLink";
+import DateTime from "@/components/A11y/DateTime";
 import { formatStringToISO } from "@/utils/utils";
 
 interface ClientsRow {
@@ -17,26 +26,33 @@ function ClientsRow({
   deleted = false,
   deletedAt = "unknown",
 }: ClientsRow) {
+  const deleteClientMutation = useDeleteClient();
+  const updateCLientMutation = useUpdateClient();
   const { client_id, name, email, phone } = client;
 
-  const deleteClientMutation = useDeleteClient();
   return (
-    <TableRow key={client_id} className="h-12">
+    <TableRow className="h-12">
       <TableCell className="font-medium">
         <ShortID id={client_id} />
       </TableCell>
       <TableCell>{name}</TableCell>
-      <TableCell>{email}</TableCell>
-      <TableCell className="hidden sm:table-cell">{phone}</TableCell>
+      <TableCell>
+        <EmailLink email={email} />
+      </TableCell>
+      <TableCell className="hidden sm:table-cell">
+        <PhoneLink phone={phone} />
+      </TableCell>
       <TableCell className="text-right">
         {deleted ? (
-          // convert the date into readable format
-          formatStringToISO(deletedAt)
+          <DateTime date={formatStringToISO(deletedAt)} />
         ) : (
-          <Actions
-            type="client"
-            defaultData={client}
+          <ActionsButton<ClientFormData>
+            defaultData={{ name, email, phone }}
+            id={client_id}
             onDelete={() => deleteClientMutation.mutate(client.client_id)}
+            mutation={updateCLientMutation}
+            schema={clientSchema}
+            EntityFormDialog={ClientFormDialog}
           />
         )}
       </TableCell>

@@ -1,61 +1,35 @@
-import RecentRentalsHeader from "@/components/DashBoard/RecentRentals/RecentRentalsHeader";
-import RecentRentalsSkeleton from "@/components/DashBoard/RecentRentals/RecentRentalsSkeleton";
-import RentalRow from "@/components/DashBoard/RecentRentals/RentalRow";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Table, TableBody } from "@/components/ui/table";
-import { API_BASE_URL } from "@/config";
-
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import DataTableCard from "@/components/DataTableCard/DataTableCard";
+import RentalsHeader from "@/components/Rentals/RentalsHeader/RentalsHeader";
+import RentalRow from "@/components/Rentals/RentalsTable/RentalRow";
+import type { RentalTemplate } from "@/constants/rentalsTemplates";
+import { useGetRentals } from "@/hooks/queryHooks/rentals/useGetRentals";
+import { CalendarOff } from "lucide-react";
+import { useState } from "react";
+import RentalsTableHeader from "@/components/Rentals/RentalsTable/RentalsTableHeader";
+import RentalsTableSkeleton from "@/components/Rentals/Skeletons/RentalsTableSkeleton";
+import { useDebounce } from "use-debounce";
+import { SEARCH_DEBOUNCE_MS } from "@/constants/search";
 
 function Rentals() {
-  // temp to create an mvp for the project to showcase
-
-  const fetchAllRentals = async () => {
-    const response = await axios.get(`${API_BASE_URL}/rentals`);
-    return response.data.data;
-  };
-
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["rentals"],
-    queryFn: fetchAllRentals,
-  });
-
-  if (isError) return <div>error</div>;
-  if (isLoading) return <div>loading...</div>;
-
-  const newData = data.map((rental: any) => {
-    return {
-      ...rental,
-      car_name: `${rental.car.brand} ${rental.car.model} (${rental.car.car_type})`,
-      client_name: rental.client.name,
-      status: rental.is_active ? "active" : "completed",
-    };
-  });
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery] = useDebounce(searchQuery, SEARCH_DEBOUNCE_MS);
   return (
-    <div className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl  mx-auto">
-      <h1 className="font-open text-fluid-2xl text-center md:text-start pt-4 mb-5">
-        Rentals overview page
-      </h1>
-      <Card className="max-h-160 overflow-auto mb-20 md:mb-10">
-        <CardHeader className="">Rentals Overview</CardHeader>
-        <CardContent>
-          {isLoading ? (
-            <RecentRentalsSkeleton />
-          ) : (
-            <Table>
-              <RecentRentalsHeader />
-              <TableBody>
-                {newData?.map((rental: any) => (
-                  <RentalRow key={rental.rental_id} rental={rental} />
-                ))}
-              </TableBody>
-            </Table>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+    <section className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl  mx-auto">
+      <RentalsHeader
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      <DataTableCard<RentalTemplate>
+        query={useGetRentals(debouncedSearchQuery)}
+        emptyIcon={CalendarOff}
+        emptyTitle="Oops..."
+        emptyDescription="No rentals in the database."
+        title="Rental Activities"
+        Skeleton={RentalsTableSkeleton}
+        Row={(rental) => <RentalRow key={rental.rental_id} rental={rental} />}
+        Header={RentalsTableHeader}
+      />
+    </section>
   );
 }
 

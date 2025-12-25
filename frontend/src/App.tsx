@@ -8,6 +8,7 @@ import NavbarMobile from "./components/layout/Navbar/NavbarMobile";
 import NavbarDesktop from "./components/layout/Navbar/NavbarDesktop";
 import TopBanner from "./components/ui/custom/TopBanner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import CreateRental from "./pages/CreateRental";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/cars" element={<Cars />} />
             <Route path="/clients" element={<Clients />} />
             <Route path="/rentals" element={<Rentals />} />
+            <Route path="/rentals/create-rental" element={<CreateRental />} />
           </Routes>
         </main>
       </div>

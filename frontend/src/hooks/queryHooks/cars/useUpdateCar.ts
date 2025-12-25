@@ -1,11 +1,11 @@
 import { API_BASE_URL } from "@/config";
-import type { CarTemplate } from "@/constants/carsTemplates";
+import type { CarFormData, CarTemplate } from "@/constants/carsTemplates";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
 interface UpdateInterface {
   id: CarTemplate["vehicle_id"];
-  data: Omit<CarTemplate, "vehicle_id">;
+  data: CarFormData;
 }
 
 export function useUpdateCar() {

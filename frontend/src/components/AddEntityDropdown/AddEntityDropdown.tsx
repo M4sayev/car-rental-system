@@ -1,63 +1,74 @@
-// TO BE IMPLEMENTED
-// generic type for addCarDropdown and add ClientDropdonw (cannot type it properly)
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm, type FieldValues } from "react-hook-form";
+import { Dialog, DialogTrigger } from "../ui/dialog";
+import { DropdownMenu } from "../ui/dropdown-menu";
+import type { ZodObject } from "zod";
+import type { UseMutationResult } from "@tanstack/react-query";
+import type { AxiosResponse } from "axios";
+import type { EntityFormDialogProps } from "@/types/entityTypes";
+import AddButton from "../ui/custom/AddButton/AddButton";
 
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import type { UseMutationResult } from "@tanstack/react-query";
-// import { useState } from "react";
-// import { useForm, type FieldValues, type UseFormReturn } from "react-hook-form";
-// import { z, ZodObject } from "zod";
-// import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-// import { DropdownMenu } from "@/components/ui/dropdown-menu";
-// import type { modeType } from "@/types/forms";
+interface AddEntityDropdownProps<TForm extends FieldValues> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  formSchema: ZodObject<any>;
+  preTransformData?: (data: TForm) => TForm | FormData;
+  buttonLabel: string;
+  buttonText: string;
 
-// interface EntityFormProps<F extends FieldValues> {
-//   form: UseFormReturn<F>;
-//   mode: modeType;
-//   onSumbit: (data: F) => void;
-//   defaultValues?: F;
-// }
+  mutation: UseMutationResult<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    AxiosResponse<any, any, Record<string, unknown>>,
+    Error,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    any,
+    unknown
+  >;
+  EntityFormDialog: React.ComponentType<EntityFormDialogProps<TForm>>;
+}
 
-// interface AddEntityDropdown<T, F extends FieldValues> {
-//   mutation: UseMutationResult<T[], unknown, T, unknown>;
-//   schema: ZodObject<any>;
-//   defaultValues: F;
-//   EntityForm: React.FC<EntityFormProps<F>>;
-//   DropdownTrigger: React.ReactNode;
-// }
-// function AddEntityDropdown<T, F extends FieldValues>({
-//   mutation,
-//   schema,
-//   defaultValues,
-//   EntityForm,
-//   DropdownTrigger,
-// }: AddEntityDropdown<T, F>) {
-//   const addEntityMutation = mutation;
-//   const [isOpen, setIsOpen] = useState(false);
+function AddEntityDropdown<TForm extends FieldValues>({
+  formSchema,
+  // return the same data to keep the function logic
+  preTransformData = (data: TForm) => data,
+  buttonLabel,
+  buttonText,
+  EntityFormDialog,
+  mutation,
+}: AddEntityDropdownProps<TForm>) {
+  const [isOpen, setIsOpen] = useState(false);
 
-//   const form = useForm<z.infer<typeof schema>>({
-//     resolver: zodResolver(schema),
-//     defaultValues,
-//     mode: "onChange",
-//   });
+  const form = useForm<TForm>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(formSchema as any),
+    mode: "onChange",
+  });
 
-//   const onSubmit = (data: z.infer<typeof schema>) => {
-//     console.log("Validated form data: ", data);
-//     addEntityMutation.mutate(data as any, {
-//       onSuccess: () => {
-//         setIsOpen(false);
-//         form.reset();
-//       },
-//     });
-//   };
+  const onSubmit = (data: TForm) => {
+    console.log("Validated form data:", data);
+    const newData = preTransformData(data);
+    mutation.mutate(newData, {
+      onSuccess: () => {
+        setIsOpen(false);
+        form.reset();
+      },
+    });
+  };
 
-//   return (
-//     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-//       <DropdownMenu>
-//         <DialogTrigger asChild>{DropdownTrigger}</DialogTrigger>
-//       </DropdownMenu>
-//       <EntityForm form={form as any} mode="create" onSumbit={onSubmit} />
-//     </Dialog>
-//   );
-// }
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DropdownMenu>
+        <DialogTrigger asChild>
+          <AddButton
+            ariaLabel={buttonLabel}
+            actionText={buttonText}
+            type="button"
+          />
+        </DialogTrigger>
+        <EntityFormDialog form={form} onSubmit={onSubmit} mode="create" />
+      </DropdownMenu>
+    </Dialog>
+  );
+}
 
-// export default AddEntityDropdown;
+export default AddEntityDropdown;

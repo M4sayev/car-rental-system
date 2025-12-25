@@ -8,7 +8,7 @@ function Cars() {
   const [showDeleted, setShowDeleted] = useState(false);
   const [availability, setAvailability] = useState(availabilityCategories[0]);
   return (
-    <div className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl mx-auto">
+    <section className="min-h-screen px-5 md:px-8 py-2 max-w-md sm:max-w-xl md:max-w-7xl mx-auto">
       <CarsHeader
         showDeleted={showDeleted}
         setShowDeleted={setShowDeleted}
@@ -21,7 +21,7 @@ function Cars() {
       ) : (
         <CarCards availability={availability} />
       )}
-    </div>
+    </section>
   );
 }
 

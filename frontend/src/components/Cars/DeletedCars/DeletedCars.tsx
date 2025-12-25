@@ -7,6 +7,8 @@ import EmptyState from "@/components/ui/custom/EmptyState/EmptyState";
 import EmptyResponse from "@/components/ui/custom/API/EmptyResponse";
 import { Car } from "lucide-react";
 import { useGetDeletedCars } from "@/hooks/queryHooks/cars/useGetDeletedCars";
+import LoadingSR from "@/components/A11y/LoadingSR";
+import CarCardsSkeleton from "../CardSkeleton/CarCardsSkeleton";
 
 function DeletedCarCards() {
   const { data, isError, isLoading, error } = useGetDeletedCars();
@@ -21,22 +23,29 @@ function DeletedCarCards() {
     );
   }
 
-  if (isLoading) return <div>Loading...</div>;
-
-  if (!data && !isLoading)
+  if (isLoading)
     return (
-      <EmptyResponse label={`No deleted cars in the database`}>
+      <>
+        <LoadingSR text="loading deleted cars" />
+        <CarCardsSkeleton />
+      </>
+    );
+
+  if (!data?.length && !isLoading)
+    return (
+      <EmptyResponse labelledBy="empty-deleted-cars">
         <EmptyState
           Icon={Car}
-          title={`Oopss.. No deleted in the database`}
+          title={`Oopss.. No deleted cars in the database`}
           description="Try adding one"
           iconTestId="no-data-icon"
+          titleId="empty-deleted-cars"
         />
       </EmptyResponse>
     );
 
   return (
-    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5 mb-20 md:mb-0">
+    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5 mb-20 md:mb-3">
       {data.map((car: CarTemplate) => (
         <CarCard key={car.vehicle_id} {...car} isDeleted={true} />
       ))}
