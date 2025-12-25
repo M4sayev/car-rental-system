@@ -6,13 +6,13 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6.svg)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-A full-stack car rental management system with intelligent cost calculation, modern UI, and comprehensive API. Built as an OOP course project implementing design patterns, microservices architecture, and best practices.
+A full-stack car rental management system with intelligent cost calculation, modern UI, and comprehensive API. Built as an OOP course project implementing design patterns, monolith architecture, and best practices.
 
 ---
 
 ## 🎯 Overview
 
-**Backend:** FastAPI REST API with microservices, Strategy/Decorator patterns for rental cost calculation, JSON-based repository pattern, and CLI interface.
+**Backend:** FastAPI REST API with modular monolith and service layer pettern, Strategy/Decorator patterns for rental cost calculation, JSON-based repository pattern, and CLI interface.
 
 **Frontend:** React + TypeScript SPA with shadcn/ui components, React Query for data fetching, Zod validation, and comprehensive testing.
 
