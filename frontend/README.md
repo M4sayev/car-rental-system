@@ -14,15 +14,16 @@ A modern frontend application built with React, TypeScript, Vite, TailwindCSS, s
 ### Implemented ✅
 - **Dashboard** - Fully connected to FastAPI `/dashboard` endpoint with real-time statistics
 - **Cars Management** - Complete CRUD operations with image upload, filtering (all/available/rented), soft delete
-- **Clients Management** - Full CRUD with form validation, search, soft delete
+- **Clients Management** - Full CRUD with form validation, soft delete
+- **Rentals Management** - Full UX-friendly creation stage and details dialog  
 - **Form Validation** - Zod schemas with React Hook Form
 - **File Upload** - Drag-and-drop with React Dropzone
 - **Testing** - Comprehensive tests with Vitest and RTL
 
 ### In Development 🚧
-- **Rentals** - Currently mock implementation, real API integration coming soon
-- **Authentication** - JWT-based auth with role-based access control (Admin, Employee, Customer)
+- **AI Assistance** - AI assistance querying most rented car, most active client,...
 - **Dashboard Analytics** - Charts for revenue, statistics, and vehicle utilization
+- **Authentication** - JWT-based auth for the admin
 
 ---
 
@@ -31,8 +32,8 @@ A modern frontend application built with React, TypeScript, Vite, TailwindCSS, s
 **Core:** Vite, React 18, TypeScript, TailwindCSS  
 **UI:** shadcn/ui, Lucide Icons, Radix UI  
 **Routing & State:** React Router v6, React Query (TanStack Query)  
-**Forms:** React Hook Form, Zod, React Dropzone  
-**API:** Axios with configured interceptors  
+**Forms:** React Hook Form, Zod, React Dropzone, use-debounce 
+**API:** Axios 
 **Testing:** Vitest, React Testing Library
 
 ---
@@ -80,6 +81,8 @@ src/
  │   ├── Cars/            # contains car page related components (CarCard, AddCarDropdown,...)
  │   ├── Clients/         # contains client page related components (ClientsTable,...)
  │   ├── DashBoard/       # contains dashboard related components (Cards, RecentRentals,...)
+ │   ├── Rentals/         # contains dashboard related components (CreateRentals, RentalDialog,...)
+ │   ├── A11y/            # accessbility specific components(SRloading,...)
  │   ...                  # generic components (FormDialog, FormField, DataTableCard,...)
  │   ├── ui/              # shadcn/ui components
  │   ├── custom/          # Custom components (CarCard, ErrorMessage, etc.)
@@ -90,7 +93,7 @@ src/
  │   ├── Clients          # Clients management
  │   └── Rentals          # Rentals (mock)
  ├── hooks/               # Custom hooks
- │   └── queryHooks/      # React Query hooks (clients, dashboard, cars) 
+ │   └── queryHooks/      # React Query hooks (clients, dashboard, cars, rentals) 
  ├── lib/                 # Utilities (shadcn auto-generated folder)
  ├── constants/           # Templates, Zod schemas, reusable statics
  ├── test/                # test setup files, mockData for tests
@@ -121,7 +124,7 @@ npm run lint             # Lint code
 - [x] Cars & Clients CRUD
 - [x] Dashboard with API
 - [x] Form validation & file upload
-- [ ] Complete rentals functionality
+- [x] Complete rentals functionality
 - [ ] Authentication system
 
 ### Next Phase
@@ -165,4 +168,4 @@ Ensure tests pass: `npm run test && npm run lint && npm run type-check`
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file
+MIT License
