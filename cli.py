@@ -44,7 +44,7 @@ def list_cars():
     for car in cars:
         click.echo(f"{car.vehicle_id} | {car.brand} {car.model} ({car.car_type}) - ${car.daily_rate}/day")
 
-@car.command("list available")
+@car.command("list-available")
 def list_cars():
     """List all available cars"""
     cars = car_service.get_available_cars()
@@ -115,7 +115,7 @@ def list_clients():
     for client_data in all_clients:
         click.echo(f"{client_data['client_id']} | {client_data['name']} - {client_data['email']} - {client_data['phone']}")
 
-@client.command("list deleted")
+@client.command("list-deleted")
 def list_deleted_clients():
     """List deleted clients"""
     all_clients = client_service.get_deleted_clients()
