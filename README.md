@@ -75,6 +75,7 @@ car-rental-system/
 │   ├── main.py                   # App entry with CORS & static files
 │   ├── routes/                   # API endpoints (cars, clients, rentals, dashboard)
 │   ├── schemas/                  # Pydantic validation models
+│   ├── utils/                    # utility and helper functions (deserialize(), save_image(),...)
 │   ...
 │   └── collections/              # Postman test collections (4 collections)
 │
@@ -89,13 +90,13 @@ car-rental-system/
 │
 ├── frontend/                     # React + TypeScript SPA
 │   ├── src/
-│   │   ├── components/           # UI components (shadcn/ui + custom)
+│   │   ├── components/           # UI components (shadcn/ui + custom + test for each scoped component folder)
 │   │   ├── pages/                # Pages (dashboard, cars, clients, rentals)
 │   │   ├── hooks/                # React Query hooks
 │   │   ...
-│   │   ├── schemas/              # Zod validation
-│   │   └── lib/                  # Utilities (axios, queryClient)
-│   └── tests/                    # Vitest tests
+│   │   ├── constants/            # Model templates, Zod validation schemas, and reusable constants
+│   │   └── utils/                # Utilities formatStringToISO, getStatusColor,... 
+│   └── test/                     # Mock values for testing (MockClient, MockCar,...)
 │
 ├── data/                         # JSON data storage
 │   ├── cars.json
@@ -111,6 +112,7 @@ car-rental-system/
 │   ├── UML.png
 │   ├── ER (for db).png
 │   ├── technical_documentation.md
+│   ...
 │   └── user_guide.md
 │
 ├── tests/                        # Backend tests (Pytest)
@@ -130,20 +132,20 @@ Navigate to **http://localhost:5173** for the full UI:
 - Dashboard with statistics
 - Manage cars (CRUD + image upload)
 - Manage clients (CRUD + validation)
-- View rentals (mock data, integration coming soon)
+- Manage Rentals (CRUD + search option + validation)
 
 ### API
 Access **http://localhost:8000/docs** for interactive API documentation with:
 - 8 car endpoints (including cost calculator)
 - 6 client endpoints
-- 4 rental endpoints
+- 5 rental endpoints
 - 2 dashboard endpoints
 
 ### Command Line
 Quick operations via CLI:
 
 ```bash
-# List available cars
+# List cars (list-available / list-deleted for available / deleted respectively)
 python cli.py car list
 
 # Add a car interactively
@@ -152,7 +154,7 @@ python cli.py car add
 # Delete a car (select from list)
 python cli.py car delete
 
-# List all clients
+# List all clients (list-deleted for deleted clients)
 python cli.py client list
 
 # Add a client
@@ -223,7 +225,8 @@ Detailed documentation available:
 ### Current Status ✅
 - [x] Backend API with microservices
 - [x] Intelligent cost calculation
-- [x] Cars & Clients full CRUD
+- [x] Cars & Clients & Rentals full CRUD
+- [x] Create rental step-by-step selection stage
 - [x] Dashboard with statistics
 - [x] Frontend UI with React + TypeScript
 - [x] Form validation (Zod)
@@ -233,15 +236,14 @@ Detailed documentation available:
 - [x] Comprehensive testing
 
 ### In Progress 🚧
-- [ ] Complete rentals integration (currently mock data)
 - [ ] Authentication & authorization (JWT)
 
 ### Planned 🎯
-- [ ] Dashboard analytics charts
-- [ ] Advanced search & filtering
-- [ ] Export data (PDF/Excel)
-- [ ] AI integration
 - [ ] Database migration (PostgreSQL)
+- [ ] Dashboard analytics charts
+- [ ] Dockeriziation
+- [ ] AI integrationw
+- [ ] Dockeriziation
 
 ---
 
