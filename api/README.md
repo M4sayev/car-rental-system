@@ -16,13 +16,10 @@ REST API built with FastAPI implementing microservices architecture, design patt
 - ✅ **Clients Management** - Complete client lifecycle management
 - ✅ **Rentals System** - Smart rental creation and completion with cost calculation
 - ✅ **Dashboard** - Overview statistics and recent activity tracking
-- ✅ **Soft Delete** - Archive deleted records with history tracking
-- ✅ **CLI Interface** - Command-line tool for system management
 
 ### Technical Features
 
 - ⚡ **FastAPI** - High-performance async framework with auto-generated docs
-- 🏗️ **Microservices** - Separate services for cars, clients, and rentals
 - 🎨 **Design Patterns** - Strategy and Decorator patterns for rental cost calculation
 - 📦 **Repository Pattern** - JSON-based storage with configurable history size
 - 🖼️ **Media Handling** - Static file serving for car images
@@ -55,6 +52,7 @@ API available at: `http://localhost:8000` or whatever host you set in the run_ap
 | -------- | ----------------------------------------- | ------------------------------- |
 | `GET`    | `/cars`                                   | Get all cars                    |
 | `GET`    | `/cars/available`                         | Get available cars only         |
+| `GET`    | `/cars/available?search=Toyota`           | Search for available cars       |
 | `GET`    | `/cars/deleted`                           | Get deleted cars archive        |
 | `GET`    | `/cars/{vehicle_id}`                      | Get specific car                |
 | `GET`    | `/cars/{vehicle_id}/rental-cost?days={n}` | Calculate rental cost           |
@@ -67,6 +65,7 @@ API available at: `http://localhost:8000` or whatever host you set in the run_ap
 | Method   | Endpoint               | Description                 |
 | -------- | ---------------------- | --------------------------- |
 | `GET`    | `/clients`             | Get all clients             |
+| `GET`    | `/clients?search=Isi`  | Search for clients          |
 | `GET`    | `/clients/deleted`     | Get deleted clients archive |
 | `GET`    | `/clients/{client_id}` | Get specific client         |
 | `POST`   | `/clients`             | Add new client              |
@@ -78,9 +77,11 @@ API available at: `http://localhost:8000` or whatever host you set in the run_ap
 | Method  | Endpoint                        | Description             |
 | ------- | ------------------------------- | ----------------------- |
 | `GET`   | `/rentals`                      | Get all rentals         |
+| `GET`   | `/rentals?search=R001`          | Search for a rental     |
 | `GET`   | `/rentals/active`               | Get active rentals only |
 | `POST`  | `/rentals`                      | Create new rental       |
 | `PATCH` | `/rentals/{rental_id}/complete` | Complete rental         |
+| `DELETE` | `/rentals/{rental_id}`         | Delete rental           |
 
 ### Dashboard
 
@@ -277,8 +278,7 @@ SUV + Long-term + Holiday = 20% premium - 15% discount - 10% discount
 ---
 
 ## 🏗️ Architecture
-
-### Microservices Structure
+### Modular Monolith with Service Layer Pattern
 
 ```
 api/
@@ -295,6 +295,11 @@ api/
 │   ├── rental.py
 │   ├── dashboard.py
 │   └── response.py
+├── types/                       # Type aliasing
+│    └── types.py
+├── utils/                       # utility functions (save_image, deserialize,...)
+│   ├── file_utils.py
+│   └── data_utils.py
 └── collections/                 # Postman collections
     ├── Cars.postman_collection.json
     ├── Clients.postman_collection.json
@@ -465,7 +470,7 @@ Common status codes:
 
 ```bash
 # Change port in run_api.py
-uvicorn.run(app, host="0.0.0.0", port=8001)
+uvicorn.run(app, host="0.0.0.0", port=8000)
 ```
 
 **CORS errors:**
@@ -489,4 +494,4 @@ mkdir -p media/cars
 
 ## 📄 License
 
-MIT License - see [LICENSE](../LICENSE) file
+MIT License
