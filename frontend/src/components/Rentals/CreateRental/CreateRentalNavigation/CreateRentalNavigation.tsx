@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useCreateRental } from "@/hooks/queryHooks/rentals/useCreateRental";
+import { cn } from "@/lib/utils";
 import type { RentalSelection, SelectionStage } from "@/pages/CreateRental";
 import { Check, MoveLeft, MoveRight, type LucideIcon } from "lucide-react";
 import type { SetStateAction } from "react";
@@ -9,17 +10,18 @@ interface CreateRentalNavigationProps {
   currentStage: SelectionStage;
   setCurrentStage: React.Dispatch<SetStateAction<SelectionStage>>;
   rentalSelection: RentalSelection;
+  resetSearchBar: () => void;
 }
 
 interface NextBtn {
   text: string;
   Icon: LucideIcon;
-  hoverEffect: string;
 }
 function CreateRentalNavigation({
   currentStage,
   setCurrentStage,
   rentalSelection,
+  resetSearchBar,
 }: CreateRentalNavigationProps) {
   const createRentalMutation = useCreateRental();
   const navigate = useNavigate();
@@ -29,10 +31,11 @@ function CreateRentalNavigation({
   const clientNotSelected = !rentalSelection.client_id && !isCarStage;
 
   const nextBtn: NextBtn = isCarStage
-    ? { Icon: MoveRight, text: "Next", hoverEffect: "translate-x-0.5" }
-    : { text: "create", Icon: Check, hoverEffect: "text-green-400" };
+    ? { Icon: MoveRight, text: "Next" }
+    : { Icon: Check, text: "create" };
 
   const handleGoBack = () => {
+    resetSearchBar();
     if (isCarStage) navigate(-1);
     else setCurrentStage("car");
   };
@@ -40,6 +43,9 @@ function CreateRentalNavigation({
   const handleNext = () => {
     // dont do anything if not selected
     if (carNotSelected || clientNotSelected) return;
+
+    resetSearchBar();
+
     if (isCarStage) setCurrentStage("client");
     else {
       createRentalMutation.mutate(rentalSelection);
@@ -75,7 +81,12 @@ function CreateRentalNavigation({
         <span>{nextBtn.text}</span>
         <nextBtn.Icon
           aria-hidden="true"
-          className={`transition-all duration-200 ease-in-out group-hover:${nextBtn.hoverEffect}`}
+          className={cn(
+            "transition-all duration-200 ease-in-out",
+            nextBtn.text === "Next"
+              ? "group-hover:translate-x-0.5"
+              : "group-hover:text-green-400"
+          )}
         />
       </Button>
     </div>

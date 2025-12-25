@@ -3,7 +3,7 @@ import CreateRentalHeader from "@/components/Rentals/CreateRental/CreateRentalHe
 import { SEARCH_DEBOUNCE_MS } from "@/constants/search";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { useDebounce } from "use-debounce";
-import ClientsSelection from "@/components/Rentals/CreateRental/Selections/ClientsSelection";
+import ClientsSelection from "@/components/Rentals/CreateRental/ClientSelection/ClientsSelection";
 
 export type SelectionStage = "car" | "client";
 
@@ -15,6 +15,7 @@ export interface RentalSelection {
 export interface SelectionProps {
   setRentalSelection: Dispatch<SetStateAction<RentalSelection>>;
   rentalSelection: RentalSelection;
+  searchQuery: string;
 }
 
 function CreateRental() {
@@ -39,11 +40,13 @@ function CreateRental() {
         <CarsSelection
           setRentalSelection={setRentalSelection}
           rentalSelection={rentalSelection}
+          searchQuery={searchQuery}
         />
       ) : (
         <ClientsSelection
           setRentalSelection={setRentalSelection}
           rentalSelection={rentalSelection}
+          searchQuery={searchQuery}
         />
       )}
     </section>

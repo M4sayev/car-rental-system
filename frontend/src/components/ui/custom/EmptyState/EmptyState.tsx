@@ -22,7 +22,7 @@ function EmptyState({
         <h2 id={titleId} className="block font-bold">
           {title}
         </h2>
-        <p>{description}</p>
+        <p data-testid="empty-reponse-description">{description}</p>
       </div>
     </div>
   );

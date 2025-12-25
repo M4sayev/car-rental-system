@@ -1,11 +1,16 @@
 import { render, screen } from "@testing-library/react";
 import RentalsHeader from "./RentalsHeader";
+import { MemoryRouter } from "react-router-dom";
 
 const mockSearch = vi.fn();
 
 describe("RentalsHeader", () => {
   beforeEach(() => {
-    render(<RentalsHeader searchQuery="test" setSearchQuery={mockSearch} />);
+    render(
+      <MemoryRouter>
+        <RentalsHeader searchQuery="test" setSearchQuery={mockSearch} />
+      </MemoryRouter>
+    );
   });
   it("renders the title properly", () => {
     const h1 = screen.getByRole("heading");

@@ -9,13 +9,14 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import type { CarTemplate } from "@/constants/carsTemplates";
 import { useGetAvailableCars } from "@/hooks/queryHooks/cars/useGetAvailableCars";
 import type { SelectionProps } from "@/pages/CreateRental";
-import { Car } from "lucide-react";
+import { Car, Search } from "lucide-react";
 
 function CarsSelection({
   setRentalSelection,
   rentalSelection,
+  searchQuery,
 }: SelectionProps) {
-  const { data, isError, error, isLoading } = useGetAvailableCars();
+  const { data, isError, error, isLoading } = useGetAvailableCars(searchQuery);
 
   const handleCarSelect = (vehicle_id: CarTemplate["vehicle_id"]) => {
     setRentalSelection((prev) => ({ ...prev, vehicle_id }));
@@ -32,7 +33,7 @@ function CarsSelection({
 
   if (isError) {
     return (
-      <ErrorMessage error={error}>
+      <ErrorMessage error={error} className="min-h-[70dvh]">
         <ConnectionError />
       </ErrorMessage>
     );
@@ -42,10 +43,16 @@ function CarsSelection({
     return (
       <EmptyResponse labelledBy="empty-cars-title" className="h-135">
         <EmptyState
-          Icon={Car}
+          Icon={searchQuery ? Search : Car}
           titleId="empty-cars-title"
-          title={`Oopss.. No available cars in the database`}
-          description="Try adding one"
+          title={
+            searchQuery
+              ? "Oopss.."
+              : "Oopss...No available cars in the database"
+          }
+          description={
+            searchQuery ? `No cars matching '${searchQuery}'` : "Try adding one"
+          }
           iconTestId="no-data-icon"
         />
       </EmptyResponse>

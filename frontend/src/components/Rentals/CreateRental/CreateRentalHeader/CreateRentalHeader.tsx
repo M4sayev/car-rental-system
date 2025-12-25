@@ -28,6 +28,7 @@ function CreateRentalHeader({
           setCurrentStage={setCurrentStage}
           currentStage={currentStage}
           rentalSelection={rentalSelection}
+          resetSearchBar={() => setSearchQuery("")}
         />
         <SearchBar
           className="bg-sidebar"

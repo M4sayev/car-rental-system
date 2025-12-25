@@ -3,6 +3,7 @@ import RentalRow from "../RentalRow";
 import { mockRental } from "@/test/mockData";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import userEvent from "@testing-library/user-event";
+import { Table, TableBody } from "@/components/ui/table";
 
 const client = new QueryClient();
 
@@ -10,7 +11,11 @@ describe("RentalRow", () => {
   beforeEach(() => {
     render(
       <QueryClientProvider client={client}>
-        <RentalRow rental={mockRental} />
+        <Table>
+          <TableBody>
+            <RentalRow rental={mockRental} />
+          </TableBody>
+        </Table>
       </QueryClientProvider>
     );
   });
