@@ -1,6 +1,6 @@
 from typing import List, Optional
 from src.models.client import Client
-from src.repositories.base_repository import Repository
+from src.repositories.base_repo import Repository
 import uuid
 import logging
 
@@ -26,7 +26,7 @@ class ClientService:
 
     def get_all_clients(self) -> List[Client]:
         """Get all client"""
-        all_clients = self.clients_repo.read_all()
+        all_clients = self.clients_repo.read_all("clients")
         clients = [Client.from_dict(client) for client in all_clients]
         return clients
 

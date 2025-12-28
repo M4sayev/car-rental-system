@@ -1,6 +1,6 @@
 from typing import List, Optional
 from src.models.car import Car
-from src.repositories.base_repository import Repository
+from src.repositories.base_repo import Repository
 import uuid
 import logging
 import os
@@ -44,7 +44,7 @@ class CarService:
     def delete_car(self, vehicle_id: str) -> Car | bool:
         """Delete car by ID, and the image if provided"""
         # Warn if the car is currently rented 
-        active_rentals = self.rentals_repo.read_all()
+        active_rentals = self.rentals_repo.read_all("cars")
 
         for rental in active_rentals:
             if rental["car"]["vehicle_id"] == vehicle_id and rental.get("is_active", True):
@@ -70,7 +70,7 @@ class CarService:
 
     def get_available_cars(self) -> List[Car]:
         """Get all available cars"""
-        all_cars = self.cars_repo.read_all()
+        all_cars = self.cars_repo.read_all("cars")
         available_cars = []
         for car_dict in all_cars:
             car = Car.from_dict(car_dict)
@@ -80,7 +80,7 @@ class CarService:
     
     def get_cars(self) -> List[Car]:
         """Get all cars"""
-        all_cars = self.cars_repo.read_all()
+        all_cars = self.cars_repo.read_all("cars")
         cars = [Car.from_dict(car) for car in all_cars]
         return cars 
     
