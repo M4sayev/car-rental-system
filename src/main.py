@@ -30,28 +30,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger("src.main")
 
-def seed_data(rental_service: RentalService, car_service: CarService, client_service: ClientService, rentals_repo, cars_repo, clients_repo):
-    """Insert sample data only if JSON files are empty."""
-    
-    # ---------------- CARS -------------------
-    if not cars_repo.read_all():
-        logger.info("Seeding sample cars...")
-        car_service.add_car(Car("Toyota", "Camry", 50.0, "Sedan", 5))
-        car_service.add_car(Car("Honda", "CR-V", 70.0, "SUV", 7))
-        car_service.add_car(Car("BMW", "320i", 100.0, "Sedan", 5))
-
-    # ---------------- CLIENTS ----------------
-    if not clients_repo.read_all():
-        logger.info("Seeding sample clients...")
-        client_service.add_client(Client("John Doe", "john@example.com", "+1234567890"))
-        client_service.add_client(Client("Jane Smith", "jane@example.com", "+0987654321"))
-
-    # ---------------- RENTALS ----------------
-    if not rentals_repo.read_all():
-        logger.info("Creating initial rental...")
-        rental_service.create_rental("C001", "CL001")  # Rents car C001
-
-
 def main():
     logger.info("Starting Car Rental Management System...")
 
@@ -63,11 +41,7 @@ def main():
     # Initialize service layer
     car_service = CarService(cars_repo, rentals_repo)
     client_service = ClientService(clients_repo)
-    rental_service = RentalService(rentals_repo, car_service, client_service)
-    # Seed initial data only once
-    seed_data(rental_service, car_service, client_service, rentals_repo, cars_repo, clients_repo)
-
-   
+    rental_service = RentalService(rentals_repo, car_service, client_service)  
 
     # Display available cars
     logger.info("Available cars:")
