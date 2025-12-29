@@ -23,6 +23,7 @@ A full-stack car rental management system with intelligent cost calculation, mod
 - 💰 Smart cost calculation (SUV premium, long-term discounts, holiday deals)
 - 📊 Dashboard with real-time statistics
 - 🗑️ Soft delete with recovery archives
+- ⚡ Optimized queries with bulk fetching to prevent N+1 problems
 - 🖥️ CLI for system management
 - 🧪 Full test coverage (Pytest + Vitest)
 
@@ -194,6 +195,18 @@ HolidayDiscount      # 10% off on Azerbaijan holidays
 
 ---
 
+## ⚡ Performance Optimizations
+
+### N+1 Query Prevention
+The repository layer implements bulk fetching to avoid N+1 query problems:
+- Rentals are hydrated using bulk `get_by_ids()` operations
+- Cars and clients are fetched in batches and mapped using hashmaps
+- Result: Single query per entity type instead of N queries per rental
+
+**Example:** Loading 100 rentals requires only 3 queries (rentals, cars, clients) instead of 201.
+
+---
+
 ## 🧪 Testing
 
 ### Backend Tests
@@ -270,6 +283,7 @@ Detailed documentation available:
 **Data Storage:**
 - PostgreSQL - database
 - psycopg2 ORM - data manipulation
+- Bulk select operations preventing N+1 query issues
 - Configurable history tracking for deleted items
 - Media storage for uploaded images
 
