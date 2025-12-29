@@ -1,54 +1,19 @@
 from abc import ABC, abstractmethod
 import logging
-import json
 from typing import List, Optional
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 class Repository(ABC):
     """
     Abstract base class representing a generic repository.
 
     This class defines a template for CRUD operations and ensures the underlying
-    JSON file exists.
 
     """
-    def __init__(self, file_path: str):
-        """
-        Initialize the repository.
-
-        Args:
-            file_path (str): Path to the JSON file for storing the entity data.
-
-        This constructor ensures the file exists by calling `_ensure_file_exists()`.
-        """
-        self.file_path = file_path
-        self._ensure_file_exists()
-
-    def _ensure_file_exists(self):
-        """
-        Create the JSON file if it does not exist.
-        
-        Method is called automatically on the initialization. 
-        It ensures that the json file exists if not it creates and empty array.
-        """
-
-        try:
-            with open(self.file_path, 'r', encoding='utf-8'):
-                pass
-        except FileNotFoundError:
-            with open(self.file_path, 'w', encoding='utf-8') as f:
-                json.dump([], f)
-            logger.info(f"Created new file: {self.file_path}")
-
-    def _save(self, items: List[dict]):
-        """
-        Private method to persist the current list of items to the JSON file.
-        """
-        with open(self.file_path, "w", encoding="utf-8") as f:
-            json.dump(items, f, indent=2, ensure_ascii=False)
-
+    
     @abstractmethod
     def create(self, item: dict) -> bool:
         """
@@ -75,13 +40,10 @@ class Repository(ABC):
     @abstractmethod
     def find_by_id(self, item_id: str) -> Optional[dict]:
         """
-        Find an item by its unique identifier.
-
-        Args:
-            item_id (str): The ID of the item to search for.
+        Retrieve all items from the repository.
 
         Returns:
-            Optional[dict]: The matching item as a dictionary, or None if not found.
+            List[dict]: List of dictionaries representing all stored entities.
         """
         pass
 
@@ -96,6 +58,16 @@ class Repository(ABC):
 
         Returns:
             bool: True if update succeeds, False otherwise.
+        """
+        pass
+
+    @abstractmethod
+    def get_by_ids(self, ids: str) -> List[dict]:
+        """
+        Bulk-retrieve all items from the repository for givens ids.
+
+        Returns:
+            List[dict]: List of dictionaries representing all id matched entities.
         """
         pass
 

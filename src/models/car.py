@@ -2,6 +2,7 @@ from src.models.base import Vehicle
 from src.models.strategies.rental_cost_interface import RentalCostStrategy
 from src.models.strategies.cost_strategy import SUVRentalCost, StandardCarCost, LongTermRentalCost, HolidayDiscount
 
+
 class Car(Vehicle):
     """Represents a car in the rental system. SUVs have a higher rental cost."""
 

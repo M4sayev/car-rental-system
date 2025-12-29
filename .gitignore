@@ -27,6 +27,7 @@ share/python-wheels/
 *.egg
 
 # Environments
+.env
 .env/
 venv/
 env/

@@ -156,13 +156,52 @@ class Rental:
         """
         return {
             'rental_id': self._rental_id,
-            'car': self._car.to_dict(),
-            'client': self._client.to_dict(),
-            'start_date': self._start_date.isoformat(),
-            'end_date': self._end_date.isoformat() if self._end_date else None,
+            'car': self.car.to_dict(),
+            'client': self.client.to_dict(),
+            'start_date': self.start_date.isoformat(),
+            'end_date': self.end_date.isoformat() if self._end_date else None,
             'total_cost': self.calculate_total_cost(),
             'is_active': self.is_active
         }
+    
+    def to_db(self) -> dict: 
+        """
+        Convert the Rental object to a dictionary suitable for JSON serialization.
+
+        Returns:
+            dict: Dictionary representation of the rental.
+        """
+        return {
+            'rental_id': self.rental_id,
+            'car_id': self.car.vehicle_id,
+            'client_id': self.client.client_id,
+            'start_date': self.start_date.isoformat(),
+            'end_date': self.end_date.isoformat() if self.end_date else None,
+            'total_cost': self.calculate_total_cost(),
+            'is_active': self.is_active
+        }
+    
+    @classmethod
+    def from_db(cls, data: dict) -> "Rental":
+        """
+        Create a Rental object from a dictionary (JSON deserialization).
+
+        Args:
+            data (dict): Dictionary containing rental data.
+
+        Returns:
+            Rental: Instantiated Rental object.
+        """
+        rental = cls(
+            rental_id=data['rental_id'],
+            car_id=data['car_id'],
+            client_id=data['client_id'],
+            start_date=datetime.fromisoformat(data['start_date']),
+            end_date=datetime.fromisoformat(data['end_date']) if data.get('end_date') else None
+        )
+        rental.calculate_total_cost() # recalculate to ensure consistency
+        return rental
+
 
     @classmethod
     def from_dict(cls, data: dict) -> "Rental":

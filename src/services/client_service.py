@@ -1,6 +1,6 @@
 from typing import List, Optional
 from src.models.client import Client
-from src.repositories.base_repository import Repository
+from src.repositories.base_repo import Repository
 import uuid
 import logging
 
@@ -26,9 +26,13 @@ class ClientService:
 
     def get_all_clients(self) -> List[Client]:
         """Get all client"""
-        all_clients = self.clients_repo.read_all()
+        all_clients = self.clients_repo.read_all("clients")
         clients = [Client.from_dict(client) for client in all_clients]
         return clients
+    
+    def get_clients_by_ids(self, ids: str) -> List[Client]:
+        """Get all id matching clients"""
+        return self.clients_repo.get_by_ids("clients", ids)
 
     def add_client(self, client: Client) -> Client | bool:
         """Add a new client to the system"""
@@ -36,7 +40,7 @@ class ClientService:
         client_id = self._generate_id()
         client = Client(client_id, client.name, client.email, client.phone)
         client_dict = client.to_dict()
-        if self.clients_repo.create(client_dict):
+        if self.clients_repo.create( client_dict, "clients"):
             return client
         return False
     
