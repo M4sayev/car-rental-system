@@ -6,13 +6,13 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6.svg)](https://www.typescriptlang.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-A full-stack car rental management system with intelligent cost calculation, modern UI, and comprehensive API. Built as an OOP course project implementing design patterns, monolith architecture, and best practices.
+A full-stack car rental management system with intelligent cost calculation, modern UI, and comprehensive API, and persistence in data. Built as an OOP course project implementing design patterns, monolith architecture, and best practices.
 
 ---
 
 ## 🎯 Overview
 
-**Backend:** FastAPI REST API with modular monolith and service layer pettern, Strategy/Decorator patterns for rental cost calculation, JSON-based repository pattern, and CLI interface.
+**Backend:** FastAPI REST API with modular monolith and service layer pettern, Strategy/Decorator patterns for rental cost calculation, PostgreSQL-based repository pattern, ORM for data manipulation, and CLI interface.
 
 **Frontend:** React + TypeScript SPA with shadcn/ui components, React Query for data fetching, Zod validation, and comprehensive testing.
 
@@ -85,7 +85,9 @@ car-rental-system/
 │   │   ├── client.py
 │   │   ├── rental.py
 │   │   └── strategies/           # Cost calculation (Strategy + Decorator patterns)
-│   ├── repositories/             # Data access layer (JSON storage)
+│   ├── repositories/             # Data access layer (Postgresql storage)
+│   ├── db/                       # Seed DB, connection to DB, table creation
+│   ├── types/                    # Reusable types for type aliasing
 │   └── services/                 # Business logic (car, client, rental services)
 │
 ├── frontend/                     # React + TypeScript SPA
@@ -98,12 +100,12 @@ car-rental-system/
 │   │   └── utils/                # Utilities formatStringToISO, getStatusColor,... 
 │   └── test/                     # Mock values for testing (MockClient, MockCar,...)
 │
-├── data/                         # JSON data storage
+├── data/                         # JSON data for seeding database
 │   ├── cars.json
 │   ├── clients.json
 │   └── rentals.json
 │
-├── deleted_data/                 # Soft-deleted records archive
+├── deleted_data/                 # Soft-deleted records archive for seeding database
 │
 ├── media/                        # Uploaded car images
 │   └── cars/
@@ -234,16 +236,15 @@ Detailed documentation available:
 - [x] Soft delete with archives
 - [x] CLI interface
 - [x] Comprehensive testing
+- [x] Database migration (PostgreSQL) 
 
 ### In Progress 🚧
 - [ ] Authentication & authorization (JWT)
 
 ### Planned 🎯
-- [ ] Database migration (PostgreSQL)
 - [ ] Dashboard analytics charts
 - [ ] Dockeriziation
 - [ ] AI integrationw
-- [ ] Dockeriziation
 
 ---
 
@@ -267,7 +268,8 @@ Detailed documentation available:
 - Vitest - Testing framework
 
 **Data Storage:**
-- JSON files with repository pattern
+- PostgreSQL - database
+- psycopg2 ORM - data manipulation
 - Configurable history tracking for deleted items
 - Media storage for uploaded images
 
@@ -315,5 +317,6 @@ Built as part of an OOP course project, demonstrating:
 - Microservices architecture
 - Modern web development practices
 - Test-driven development
+- Persisting data in the database
 
 ---
