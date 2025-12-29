@@ -9,16 +9,13 @@ import os
 # Fix import path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.models.car import Car
-from src.models.client import Client
-
 # import business layer 
 from src.services.rental_service import RentalService
 from src.services.car_service import CarService
 from src.services.client_service import ClientService
 
 from src.repositories.constants import CAR_HISTORY_SIZE, CLIENT_HISTORY_SIZE, RENTAL_HISTORY_SIZE
-from src.repositories.concrete_repository import JsonRepository
+from src.repositories.concrete_repo import PostgresRepository
 import logging
 
 # to test validation (for the dev only)
@@ -34,9 +31,9 @@ def main():
     logger.info("Starting Car Rental Management System...")
 
     # Initialize repositories
-    cars_repo = JsonRepository("data/cars.json", "vehicle_id", CAR_HISTORY_SIZE)
-    clients_repo = JsonRepository("data/clients.json", "client_id", CLIENT_HISTORY_SIZE)
-    rentals_repo = JsonRepository("data/rentals.json", "rental_id", RENTAL_HISTORY_SIZE)
+    cars_repo = PostgresRepository("vehicle_id", "cars", CAR_HISTORY_SIZE)
+    clients_repo = PostgresRepository("client_id", "clients", CLIENT_HISTORY_SIZE)
+    rentals_repo = PostgresRepository("rental_id", "rentals", RENTAL_HISTORY_SIZE)
 
     # Initialize service layer
     car_service = CarService(cars_repo, rentals_repo)

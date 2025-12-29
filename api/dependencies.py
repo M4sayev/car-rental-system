@@ -1,4 +1,3 @@
-from src.repositories.concrete_repository import JsonRepository
 from src.repositories.concrete_repo import PostgresRepository
 from src.repositories.constants import CAR_HISTORY_SIZE, CLIENT_HISTORY_SIZE, RENTAL_HISTORY_SIZE
 

@@ -62,6 +62,16 @@ class Repository(ABC):
         pass
 
     @abstractmethod
+    def get_by_ids(self, ids: str) -> List[dict]:
+        """
+        Bulk-retrieve all items from the repository for givens ids.
+
+        Returns:
+            List[dict]: List of dictionaries representing all id matched entities.
+        """
+        pass
+
+    @abstractmethod
     def delete(self, item_id: str) -> bool:
         """
         Delete an item from the repository by its ID.

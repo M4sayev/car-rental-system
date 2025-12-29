@@ -27,36 +27,60 @@ class PostgresRepository(Repository):
         self._deleted_history_size = deleted_history_size
         self.conn = get_connection()    
 
-    def read_all(self, table_name) -> List[dict]:
+    def read_all(self, table_name: TableType) -> List[dict]:
         """Return all items in the repository."""
         try:
             with self.conn.cursor(cursor_factory=extras.RealDictCursor) as cur:
 
                 query = sql.SQL("SELECT * FROM {}").format(sql.Identifier(table_name))
                 cur.execute(query)
-
-                return cur.fetchall()
+                rows = cur.fetchall()
+                return [dict(row) for row in rows]
         except Exception as e:
             logger.error(f"Read error {e}")
             return []
+    def get_by_ids(self, table_name: TableType, ids: List[str]) -> List[dict]:
+        """Return all id-matching items in the repository."""
+        if not ids:
+            return []
+        try:
+            with self.conn.cursor(cursor_factory=extras.RealDictCursor) as cur:
 
+                query = sql.SQL(
+                            """
+                            SELECT *
+                            FROM {}
+                            WHERE {} IN %s
+                            """).format(sql.Identifier(table_name), sql.Identifier(self.id_field))
+                
+                cur.execute(query, (tuple(ids),))
+                rows = cur.fetchall()
+                return [dict(row) for row in rows]
+        except Exception as e:
+            logger.error(f"Error fetching multiple records: {e}")
+        return []
 
     def create(self, item: dict, table_name: TableType) -> bool:
         """Add a new item to the repository."""
         try:
             with self.conn.cursor(cursor_factory=extras.RealDictCursor) as cur:
+
                 columns = item.keys()
                 values = list(item.values())
 
+                
+
                 table_cols = sql.SQL(', ').join(map(sql.Identifier, columns))
-                placeholders = sql.SQL(", ").join(map(sql.Placeholder * len(values)))
+                placeholders = sql.SQL(", ").join(
+                    sql.Placeholder() for _ in values
+                )
 
                 query = sql.SQL("INSERT INTO {} ({}) VALUES({}) RETURNING*").format(sql.Identifier(table_name), table_cols, placeholders)
                 cur.execute(query, values)
                 logger.info(f"Item created: {item.get(self.id_field)}")
                 new_item = cur.fetchone()
                 self.conn.commit()
-                return new_item
+                return  dict(new_item) if new_item else None
 
         except Exception as e:
             logger.error(f"Create error: {e}")
@@ -72,7 +96,8 @@ class PostgresRepository(Repository):
                         WHERE {} = %s
                         """).format(sql.Identifier(self.table_name), sql.Identifier(self.id_field))
             cur.execute(query, (item_id, ))
-            return cur.fetchone()
+            result = cur.fetchone()
+            return dict(result) if result else None
         return None
     
     def update(self, item_id: str, updated_fields: dict) -> bool | dict:
@@ -118,7 +143,7 @@ class PostgresRepository(Repository):
                 return False
             
             self.conn.commit()
-            return result
+            return dict(result)
         except Exception as e:
             logger.error(f"Create error: {e}")
             return False
@@ -133,6 +158,7 @@ class PostgresRepository(Repository):
 
                 result = cur.fetchone()
 
+                
                 if not result:
                     logger.warning(f"Item with id {item_id} not found.")
                     return False
@@ -145,7 +171,7 @@ class PostgresRepository(Repository):
             
                 self.conn.commit()
                 logger.info(f"Item with id {item_id} successfully deleted.")
-                return result
+                return dict(result)
 
         except Exception as e:
             logger.error(f"Delete error: {e}")
@@ -176,7 +202,8 @@ class PostgresRepository(Repository):
             )
                 
                 cur.execute(query)
-                return cur.fetchone()
+                result = cur.fetchone()
+                return dict(result) if result else None
                 
         except Exception as e:
             logger.error(f"Error finding oldest record: {e}")
@@ -190,12 +217,13 @@ class PostgresRepository(Repository):
             )
 
             cur.execute(query)
-            count = cur.fetchone()[0] or 0
+            count = cur.fetchone()["count"] or 0
 
             if (count == self._deleted_history_size):
                 self._delete_oldest_by_date(deleted_table_name)
 
             self.create(item, deleted_table_name)
+            self.conn.commit()
 
     def get_deleted_history(self) -> List[dict]:
         """Return a list of the last deleted items."""

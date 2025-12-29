@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from datetime import datetime
+from decimal import Decimal
+
 
 class Vehicle(ABC):
     """
@@ -28,6 +29,7 @@ class Vehicle(ABC):
         self._model = model
         self._daily_rate = daily_rate
         self._is_available = True
+        
     
     def __str__(self):
         return f"Vehicle[{self._vehicle_id}] {self._brand} {self._model} - ${self._daily_rate}/day | Available: {self._is_available}"
@@ -40,7 +42,7 @@ class Vehicle(ABC):
             raise ValueError("Brand must be a non-empty string")
         if not self._model or not isinstance(self._model, str):
             raise ValueError("Brand must be a non-empty string")
-        if not isinstance(self._daily_rate, (int, float)) or self._daily_rate <= 0:
+        if not isinstance(self._daily_rate, (int, float, Decimal)) or self._daily_rate <= 0:
             raise ValueError("Daily rate must be a positive number")
 
     @abstractmethod
