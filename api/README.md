@@ -21,7 +21,7 @@ REST API built with FastAPI implementing microservices architecture, design patt
 
 - ⚡ **FastAPI** - High-performance async framework with auto-generated docs
 - 🎨 **Design Patterns** - Strategy and Decorator patterns for rental cost calculation
-- 📦 **Repository Pattern** - JSON-based storage with configurable history size
+- 📦 **Repository Pattern** - PostgreSQL-based storage with configurable history size and ORM data manipulation
 - 🖼️ **Media Handling** - Static file serving for car images
 - 🔒 **CORS** - Configured for frontend integration
 - 📝 **Postman Collections** - 4 collections for complete API testing
@@ -315,8 +315,8 @@ src/
 │       ├── rental_cost_interface.py
 │       └── decorator_strategy.py
 ├── repositories/                # Data access layer
-│   ├── concrete_repository.py   # JSON repository
-│   ├── base_repository.py       # abstract base JSON repository
+│   ├── concrete_repo.py         # PostgreSQL repository
+│   ├── base_repo.py             # abstract base PostgreSQL repository
 │   └── constants.py             # History size configs
 └── services/                    # Business logic
     ├── car_service.py
