@@ -1,4 +1,4 @@
-FROM node:22-alpine
+FROM node:22-alpine AS build
 
 WORKDIR /app/frontend
 
@@ -8,6 +8,12 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 5173
+RUN npm run build
 
-CMD ["npm", "run", "dev"]
+EXPOSE 80
+
+FROM nginx:stable-alpine
+
+COPY --from=build app/frontend/dist /usr/share/nginx/html
+
+CMD ["nginx", "-g", "daemon off;"]

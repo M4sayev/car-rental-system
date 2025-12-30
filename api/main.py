@@ -4,9 +4,10 @@ from api.routes import cars, clients, rentals, dashboard
 from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
-    "http://localhost:5173",  
-    "http://127.0.0.1:5173",
-    "http://192.168.100.184:5173"
+    "http://localhost",  
+    "http://127.0.0.1",
+    "http://192.168.100.184",
+    "http://localhost:5173"
 ]
 
 app = FastAPI(title="Car Rental API")
