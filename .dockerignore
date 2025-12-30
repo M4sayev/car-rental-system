@@ -1,0 +1,12 @@
+/docs
+docs
+
+.pytest_cache
+__pycache__
+.vitest_cache
+
+node_modules
+/node_modules
+
+venv 
+/venv
