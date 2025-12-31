@@ -1,32 +1,30 @@
-import { useState } from "react";
-import CountUp from "react-countup";
+import { useEffect, useRef } from "react";
+import { useCountUp } from "react-countup";
 
-interface CountUpProps {
-  start?: number;
+interface Props {
   end: number;
   duration?: number;
   suffix?: string;
 }
 
-function ClientSideCountUp({
-  start = 0,
-  end,
-  duration = 2.0,
-  suffix = "",
-}: CountUpProps) {
-  const [isClient] = useState(() => typeof window !== "undefined");
+function ClientSideCountUp({ end, duration = 2, suffix = "" }: Props) {
+  const spanRef = useRef<HTMLSpanElement>(null);
 
-  if (!isClient) return <span>0</span>;
+  const { start, reset } = useCountUp({
+    ref: spanRef as React.RefObject<HTMLElement>,
+    start: 0,
+    end,
+    duration,
+    suffix,
+    startOnMount: false,
+  });
 
-  return (
-    <CountUp start={start} end={end} suffix={suffix} duration={duration}>
-      {({ countUpRef }) => (
-        <div>
-          <span ref={countUpRef} />
-        </div>
-      )}
-    </CountUp>
-  );
+  useEffect(() => {
+    reset();
+    start();
+  }, [end, reset, start]);
+
+  return <span ref={spanRef} />;
 }
 
 export default ClientSideCountUp;

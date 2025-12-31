@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import CarsHeader from "./CarsHeader";
 
 const setShowDeleted = vi.fn();
+const setAvailability = vi.fn();
 
 const queryClient = new QueryClient();
 
@@ -10,7 +11,12 @@ describe("CarsHeader", () => {
   const renderCarsHeader = (showDeleted: boolean) => {
     render(
       <QueryClientProvider client={queryClient}>
-        <CarsHeader showDeleted={showDeleted} setShowDeleted={setShowDeleted} />
+        <CarsHeader
+          showDeleted={showDeleted}
+          setShowDeleted={setShowDeleted}
+          availability="available"
+          setAvailability={setAvailability}
+        />
       </QueryClientProvider>
     );
   };
