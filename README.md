@@ -5,6 +5,7 @@
 [![React](https://img.shields.io/badge/React-18.x-61DAFB.svg)](https://reactjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688.svg)](https://fastapi.tiangolo.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6.svg)](https://www.typescriptlang.org/)
+[![Docker](https://img.shields.io/badge/Docker-29.1-2496ED.svg)](https://www.docker.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 A full-stack car rental management system with intelligent cost calculation, modern UI, and comprehensive API, and persistence in data. Built as an OOP course project implementing design patterns, monolith architecture, and best practices.
@@ -25,6 +26,7 @@ A full-stack car rental management system with intelligent cost calculation, mod
 - 📊 Dashboard with real-time statistics
 - 🗑️ Soft delete with recovery archives
 - ⚡ Optimized queries with bulk fetching to prevent N+1 problems
+- 🐳 Docker containerization for easy deployment
 - 🖥️ CLI for system management
 - 🧪 Full test coverage (Pytest + Vitest)
 
@@ -32,9 +34,40 @@ A full-stack car rental management system with intelligent cost calculation, mod
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Option 1: Docker Deployment (Recommended)
+
+#### Prerequisites: 
+- Docker 21+
+- Docker Compose
+
+```bash
+# Clone repository
+git clone https://github.com/M4sayev/car-rental-system.git
+cd car-rental-system
+
+# Configure environment
+cp .env.example .env
+# Edit .env with your database credentials
+
+# Start all services
+docker-compose up --build
+
+# View logs
+docker-compose logs -f
+```
+
+### Access the application:
+
+🌐 Frontend: http://localhost
+📚 API Docs: http://localhost:8000/docs
+🔧 Direct Backend: http://localhost:8000
+
+### Option 2: Local Development
+
+#### Prerequisites
 - Python 3.9+
-- Node.js 18+
+- Node.js 22+
+- PostgreSQL 18+
 - pip & npm
 
 ### 1. Clone Repository
@@ -47,6 +80,9 @@ cd car-rental-system
 ```bash
 # Install Python dependencies
 pip install -r requirements.txt
+
+# Configure database connection in .env or environment variables
+(follow .env.example ensure the DB_NAME is localhost)
 
 # Start API server
 python run_api.py
@@ -111,7 +147,8 @@ car-rental-system/
 │
 ├── media/                        # Uploaded car images
 │   └── cars/
-│
+├── nginx/                        # Nginx configuration file 
+│   └── nginx.conf
 ├── docs/                         # Documentation
 │   ├── UML.png
 │   ├── ER (for db).png
@@ -124,6 +161,9 @@ car-rental-system/
 ├── cli.py                        # Command-line interface
 ├── run_api.py                    # API launcher
 ├── run.py                        # CLI launcher
+├── docker-compose.yml            # Docker orchestration configuration
+├── .env.example                  # Environment variables template
+├── .dockerignore                 # Docker ignore patterns
 └── requirements.txt              # Python dependencies
 ```
 
@@ -250,15 +290,15 @@ Detailed documentation available:
 - [x] Soft delete with archives
 - [x] CLI interface
 - [x] Comprehensive testing
-- [x] Database migration (PostgreSQL) 
+- [x] Database migration (PostgreSQL)
+- [x] Dockerization
 
 ### In Progress 🚧
 - [ ] Authentication & authorization (JWT)
 
 ### Planned 🎯
 - [ ] Dashboard analytics charts
-- [ ] Dockeriziation
-- [ ] AI integrationw
+- [ ] AI integration
 
 ---
 
@@ -270,6 +310,7 @@ Detailed documentation available:
 - Pydantic - Data validation
 - Pytest - Testing framework
 - Click - CLI framework
+- Docker 29+ - containeraziation
 
 **Frontend:**
 - React 18 - UI library
