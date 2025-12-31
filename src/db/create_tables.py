@@ -1,5 +1,7 @@
 from connection import get_connection
 
+from src.security.security import hash_password
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -85,6 +87,31 @@ def create_tables():
                         );
                     """
                     )
+            # create users table
+            logger.info("Creating users table")
+
+            cur.execute(
+                    """
+                        CREATE TABLE IF NOT EXISTS users (
+                            id SERIAL PRIMARY KEY
+                            username VARCHAR(255) UNIQUE NOT NULL,
+                            hashed_password TEXT NOT NULL,
+                            is_superuser BOOLEAN DEFAULT FALSE
+                        )
+                    """
+                    )
+        
+            logger.info("Creating default superuser if it does not exist")
+            default_password = hash_password("admin123")
+            cur.execute("SELECT * FROM users WHERE is_superuser = TRUE")
+
+            if cur.rowcount == 0:
+                cur.execute(
+                    "INSERT INTO users (username, hashed_password, is_superuser) VALUES (%s, %s, %s)",
+                    ("admin", default_password, True)
+                )
+                logger.info("Superuser 'admin' created with default password 'admin123'")
+
             conn.commit()
             logger.info("Tables created successfully")
     except Exception as e:
