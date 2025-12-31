@@ -31,6 +31,8 @@ share/python-wheels/
 .env/
 venv/
 env/
+!.env.example
+
 # virtualenv
 .venv/
 bin/
