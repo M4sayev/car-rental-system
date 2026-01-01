@@ -18,10 +18,10 @@ def get_searched_data(matcher: Callable[[EntityType, str], bool], items: List[En
 def create_access_token(data: dict):
     """Generates a signed JWT token."""
     to_encode = data.copy()
-    minutes = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"), 60)
+    minutes = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60))
     expire = datetime.now(timezone.utc) + timedelta(minutes=minutes)
     to_encode.update({"exp": expire})
 
-    encoded_jwt = jwt.encode(to_encode, os.getenv("SECRET_KEY"), algorithm= os.getenv("ALGORITHM"))
+    encoded_jwt = jwt.encode(to_encode, os.getenv("SECRET_KEY"), algorithm=os.getenv("ALGORITHM"))
     return encoded_jwt
 

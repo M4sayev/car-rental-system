@@ -1,6 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
-from api.dependencies import client_service, car_service, rental_service
+from api.dependencies import client_service, car_service, rental_service, get_current_admin
 
 # import schemas 
 from api.schemas.response import ResponseModel
@@ -8,7 +8,10 @@ from api.schemas.dashboard import OverviewResponse, RecentRentalsResponse
 
 from typing import List
 
-router = APIRouter()
+router = APIRouter(
+    tags=["Admin Panel"],
+    dependencies=[Depends(get_current_admin)]
+)
 
 @router.get("/dashboard/overview", response_model=ResponseModel[OverviewResponse])
 def get_overview() -> dict:

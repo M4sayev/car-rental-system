@@ -38,7 +38,7 @@ class User():
         if not isinstance(self._hashed_password, str) or not self._hashed_password:
             raise ValueError("Hashed password must be a non-empty string")
         
-        if not isinstance(self._role, UserRole) or not self._role:
+        if not isinstance(self._role, str) or not self._role:
             raise ValueError("Role of the user must be either 'user' or 'admin'")
     
     @property

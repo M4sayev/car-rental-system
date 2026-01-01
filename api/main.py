@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from api.routes import cars, clients, rentals, dashboard
+from api.routes import cars, clients, rentals, dashboard, auth
 from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
@@ -26,4 +26,5 @@ app.include_router(cars.router)
 app.include_router(clients.router)
 app.include_router(rentals.router)
 app.include_router(dashboard.router)
+app.include_router(auth.router)
 

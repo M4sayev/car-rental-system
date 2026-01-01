@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException, Query
-from api.dependencies import rental_service
+from fastapi import APIRouter, HTTPException, Query, Depends
+from api.dependencies import rental_service, get_current_admin
 from typing import List, Optional
 from datetime import datetime
 
@@ -10,7 +10,10 @@ from api.schemas.response import ResponseModel
 from api.utils.data_utils import get_searched_data, deserialize
 from api.matchers.matchers import rental_matches
 
-router = APIRouter()
+router = APIRouter(
+    tags=["Admin Panel"],
+    dependencies=[Depends(get_current_admin)]
+)
 
 @router.get("/rentals", response_model=ResponseModel[List[RentalResponse]])
 def get_all_rentals(search: str = Query("")) -> List[dict]:

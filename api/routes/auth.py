@@ -1,12 +1,13 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 
 from src.models.user import User
 from api.utils.data_utils import create_access_token
 
 from api.schemas.response import ResponseModel
 
-from api.schemas.user import UserSchema, UserResponse
-from dependencies import auth_service
+from api.schemas.user import UserSchema
+from api.dependencies import auth_service
 
 router = APIRouter()
 
@@ -26,9 +27,10 @@ def signup(data: UserSchema):
         data: True
     }
 
-@router.post("login")
-def login(data: UserSchema):
+@router.post("/login")
+def login(data: OAuth2PasswordRequestForm = Depends()):
     user = auth_service.authenticate(data.username, data.password)
+
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

@@ -13,7 +13,7 @@ class UserRepository(PostgresRepository):
         """
         Initialize a user repository
         """
-        super().__init__(self, id_field="id", table_name="users")
+        super().__init__(id_field="id", table_name="users")
     
     def find_by_username(self, username: str) -> Optional[dict]:
         """
@@ -28,7 +28,7 @@ class UserRepository(PostgresRepository):
                             """
                             )
                 
-                cur.execute(query, username)
+                cur.execute(query, (username, ))
 
                 result = cur.fetchone()
                 return dict(result) if result else None 

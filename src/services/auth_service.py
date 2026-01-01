@@ -50,12 +50,13 @@ class AuthService:
         if not user:
             return None
 
-        if not verify_password(password, user.hashed_password):
+        if not verify_password(password, user["hashed_password"]):
             logger.warning(f"Login attempt failed: Wrong password for {username}")
             return None
         
         logger.info(f"User {username} authenticated successfully")
-        return user
+
+        return User.from_dict(user)
     
     def authenticate_admin(self, username, password) -> Optional[User]:
         user = self.authenticate(username, password)

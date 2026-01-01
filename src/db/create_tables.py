@@ -97,7 +97,7 @@ def create_tables():
                             id VARCHAR(100) PRIMARY KEY,
                             username VARCHAR(255) UNIQUE NOT NULL,
                             hashed_password TEXT NOT NULL,
-                            is_superuser BOOLEAN DEFAULT FALSE
+                            role VARCHAR(100) DEFAULT user
                         )
                     """
                     )
@@ -105,12 +105,12 @@ def create_tables():
             logger.info("Creating default superuser if it does not exist")
             id = generate_id()
             default_password = hash_password("admin123")
-            cur.execute("SELECT * FROM users WHERE is_superuser = TRUE")
+            cur.execute("SELECT * FROM users WHERE role = 'admin'")
 
             if cur.rowcount == 0:
                 cur.execute(
-                    "INSERT INTO users (id, username, hashed_password, is_superuser) VALUES (%s, %s, %s)",
-                    (id ,"admin", default_password, True)
+                    "INSERT INTO users (id, username, hashed_password, role) VALUES (%s, %s, %s, %s)",
+                    (id ,"admin", default_password, "admin")
                 )
                 logger.info("Superuser 'admin' created with default password 'admin123'")
 
