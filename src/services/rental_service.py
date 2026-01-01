@@ -4,13 +4,10 @@ from src.models.rental import Rental
 from src.repositories.base_repo import Repository
 from src.services.car_service import CarService 
 from src.services.client_service import ClientService
-from src.models.car import Car
-from src.models.client import Client
-import uuid
+from src.utils.entity import generate_id
 import logging
 
 logger = logging.getLogger(__name__)
-
 
 class RentalService:
     """Service layer - Business logic"""
@@ -19,12 +16,6 @@ class RentalService:
         self.rentals_repo = rentals_repo
         self.car_service = car_service
         self.client_service = client_service
-    
-    @staticmethod
-    def _generate_id() -> str:
-        """Generate random id"""
-        return str(uuid.uuid4())
-    
 
     def delete_rental(self, rental_id: str) -> Rental | bool:
         """Delete an existing rental and update car availability"""
@@ -64,7 +55,7 @@ class RentalService:
             start_date = datetime.now()
 
         # Set the id dynamically
-        rental_id = self._generate_id()
+        rental_id = generate_id()
 
         # Save rental
         rental = Rental(rental_id, car, client, start_date)
@@ -121,8 +112,8 @@ class RentalService:
         clients_list = self.client_service.get_clients_by_ids(client_ids)
 
         # hashmaps for lookups
-        car_map = {car["vehicle_id"]: car for car in cars_list}
-        client_map = {client["client_id"]: client for client in clients_list}
+        car_map = {car.vehicle_id: car for car in cars_list}
+        client_map = {client.client_id: client for client in clients_list}
 
         result = []
         for rental_dict in rentals_raw:
@@ -132,8 +123,8 @@ class RentalService:
             if car and client:
                 rental = Rental(
                     rental_id=rental_dict["rental_id"],
-                    car=Car.from_dict(car),
-                    client=Client.from_dict(client),
+                    car=car,
+                    client=client,
                     start_date=rental_dict["start_date"],
                     end_date=rental_dict.get("end_date")
                 )

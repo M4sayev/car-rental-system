@@ -1,7 +1,7 @@
 from typing import List, Optional
 from src.models.car import Car
 from src.repositories.base_repo import Repository
-import uuid
+from src.utils.entity import generate_id
 import logging
 import os
 
@@ -12,15 +12,10 @@ class CarService:
         self.cars_repo = cars_repo
         self.rentals_repo = rentals_repo
     
-    @staticmethod
-    def _generate_id() -> str:
-        """Generate random id"""
-        return str(uuid.uuid4())
-    
     def add_car(self, car: Car) -> Car | bool:
         """Add a new car to the system"""
         # Set the id dynamically
-        car_id = self._generate_id()
+        car_id = generate_id()
         car = Car(car_id, car.brand, car.model, car.daily_rate, car.car_type, car.seats, car.is_available, car.image_url)
         car_dict = car.to_dict()
         if self.cars_repo.create(car_dict, "cars"):
@@ -36,7 +31,8 @@ class CarService:
     
     def get_cars_by_ids(self, ids: str) -> List[Car]:
         """Get all id matching cars"""
-        return self.cars_repo.get_by_ids("cars", ids)
+        cars = self.cars_repo.get_by_ids("cars", ids)
+        return [Car.from_dict(car) for car in cars]
     
     def update_car(self, vehicle_id: str, updated_fields: dict) -> Car | bool:
         """Update car by ID"""

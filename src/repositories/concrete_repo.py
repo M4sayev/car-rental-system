@@ -88,17 +88,21 @@ class PostgresRepository(Repository):
         
     def find_by_id(self, item_id: str) -> Optional[dict]:
         """Find a item by item_id."""
-        with self.conn.cursor(cursor_factory=extras.RealDictCursor) as cur:
-            query = sql.SQL(
-                        """
-                        SELECT * 
-                        FROM {}
-                        WHERE {} = %s
-                        """).format(sql.Identifier(self.table_name), sql.Identifier(self.id_field))
-            cur.execute(query, (item_id, ))
-            result = cur.fetchone()
-            return dict(result) if result else None
-        return None
+        try:
+            with self.conn.cursor(cursor_factory=extras.RealDictCursor) as cur:
+                query = sql.SQL(
+                            """
+                            SELECT * 
+                            FROM {}
+                            WHERE {} = %s
+                            """).format(sql.Identifier(self.table_name), sql.Identifier(self.id_field))
+                cur.execute(query, (item_id, ))
+                result = cur.fetchone()
+                return dict(result) if result else None
+            return None
+        except Exception as e:
+            logger.error(f"Error finding user: {e}")
+            return None
     
     def update(self, item_id: str, updated_fields: dict) -> bool | dict:
         """Update a item's fields except the item_id."""

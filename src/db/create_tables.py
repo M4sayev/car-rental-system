@@ -1,6 +1,7 @@
 from src.db.connection import get_connection
 
 from src.auth.security import hash_password
+from src.utils.entity import generate_id
 
 import logging
 
@@ -93,7 +94,7 @@ def create_tables():
             cur.execute(
                     """
                         CREATE TABLE IF NOT EXISTS users (
-                            id SERIAL PRIMARY KEY,
+                            id VARCHAR(100) PRIMARY KEY,
                             username VARCHAR(255) UNIQUE NOT NULL,
                             hashed_password TEXT NOT NULL,
                             is_superuser BOOLEAN DEFAULT FALSE
@@ -102,13 +103,14 @@ def create_tables():
                     )
         
             logger.info("Creating default superuser if it does not exist")
+            id = generate_id()
             default_password = hash_password("admin123")
             cur.execute("SELECT * FROM users WHERE is_superuser = TRUE")
 
             if cur.rowcount == 0:
                 cur.execute(
-                    "INSERT INTO users (username, hashed_password, is_superuser) VALUES (%s, %s, %s)",
-                    ("admin", default_password, True)
+                    "INSERT INTO users (id, username, hashed_password, is_superuser) VALUES (%s, %s, %s)",
+                    (id ,"admin", default_password, True)
                 )
                 logger.info("Superuser 'admin' created with default password 'admin123'")
 
