@@ -61,3 +61,23 @@ class User():
         """Return the hashed password of the user."""
         return self._hashed_password
     
+    
+    def to_dict(self) -> dict:
+        """Convert User object to a dictionary for JSON serialization."""
+        return {
+            'id': self.id,
+            'username': self.username,
+            'hashed_password': self.hashed_password,
+            'role': self.role
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict) -> "User":
+        """Create a User object from a dictionary (JSON deserialization)."""
+        return cls(
+            id=data['id'],
+            username=data['username'],
+            hashed_password=data['hashed_password'],
+            role=data["role"]
+        )
+    

@@ -68,8 +68,6 @@ class PostgresRepository(Repository):
                 columns = item.keys()
                 values = list(item.values())
 
-                
-
                 table_cols = sql.SQL(', ').join(map(sql.Identifier, columns))
                 placeholders = sql.SQL(", ").join(
                     sql.Placeholder() for _ in values
