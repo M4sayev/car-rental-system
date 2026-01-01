@@ -1,6 +1,6 @@
-from connection import get_connection
+from src.db.connection import get_connection
 
-from src.security.security import hash_password
+from src.auth.security import hash_password
 
 import logging
 
@@ -93,7 +93,7 @@ def create_tables():
             cur.execute(
                     """
                         CREATE TABLE IF NOT EXISTS users (
-                            id SERIAL PRIMARY KEY
+                            id SERIAL PRIMARY KEY,
                             username VARCHAR(255) UNIQUE NOT NULL,
                             hashed_password TEXT NOT NULL,
                             is_superuser BOOLEAN DEFAULT FALSE

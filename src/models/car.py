@@ -1,4 +1,4 @@
-from src.models.base import Vehicle
+from src.models.vehicle import Vehicle
 from src.models.strategies.rental_cost_interface import RentalCostStrategy
 from src.models.strategies.cost_strategy import SUVRentalCost, StandardCarCost, LongTermRentalCost, HolidayDiscount
 

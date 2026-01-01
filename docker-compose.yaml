@@ -39,6 +39,7 @@ services:
       db:
         condition: service_healthy
     environment:
+      - PYTHONPATH=/app
       - DB_HOSTNAME=${DB_HOSTNAME}
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
