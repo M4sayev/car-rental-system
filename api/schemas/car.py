@@ -9,13 +9,8 @@ class CarSchema(BaseModel):
     car_type: str
     seats: int
 
-class CarResponse(BaseModel):
+class CarResponse(CarSchema):
     vehicle_id: str
-    brand: str
-    model: str
-    daily_rate: float
-    car_type: str
-    seats: int
     is_available: bool
     image_url: str
 
