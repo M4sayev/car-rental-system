@@ -12,13 +12,13 @@ import FormField from "@/components/FormField/FormField";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { userSchema, type userFormData } from "@/constants/userTemplates";
-import { loginHook } from "@/hooks/queryHooks/auth/loginHook";
+import { useLoginHook } from "@/hooks/queryHooks/auth/loginHook";
 import { useAuth } from "@/context/AuthContext/useAuth";
 import { toast } from "sonner";
 
 function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const { login } = useAuth();
-  const loginMutate = loginHook();
+  const loginMutate = useLoginHook();
   const form = useForm<userFormData>({
     resolver: zodResolver(userSchema),
     defaultValues: {
