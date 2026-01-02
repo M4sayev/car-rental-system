@@ -90,6 +90,13 @@ API available at: `http://localhost:8000` or whatever host you set in the run_ap
 | `GET`  | `/dashboard/overview`       | Get statistics (available cars, total clients, active rentals) |
 | `GET`  | `/dashboard/recent-rentals` | Get 5 most recent rentals with details                         |
 
+### Authentication
+
+| Method | Endpoint                    | Description                                                    |
+| ------ | --------------------------- | -------------------------------------------------------------- |
+| `POST`  | `/login`                   | Admin login                                                    |
+| `POST`  | `/singup`                  | create a new user                                              |
+
 ### Media
 
 | Method | Endpoint                 | Description      |
@@ -221,6 +228,27 @@ GET /dashboard/overview
 }
 ```
 
+### Authentication
+
+**Request:**
+
+```http
+POST /login
+url search params: 
+  username: admin
+  password: admin123
+```
+
+**Response:**
+
+```json
+{
+  "message": "Login successfull",
+  "access_token": fq13r1t.124515.ft331 (just a short dummy JWT)
+  "token_type": "bearer"
+}
+```
+
 ---
 
 ## 🎨 Design Patterns
@@ -283,8 +311,9 @@ SUV + Long-term + Holiday = 20% premium - 15% discount - 10% discount
 ```
 api/
 ├── main.py                      # FastAPI app with CORS & static files
-├── dependencies.py              # Service instances
+├── dependencies.py              # Service instances and get_current_admin helper function
 ├── routes/                      # Route handlers
+│   ├── auth.py                  # Authentication endpoints
 │   ├── cars.py                  # Cars endpoints
 │   ├── clients.py               # Clients endpoints
 │   ├── rentals.py               # Rentals endpoints
@@ -299,7 +328,7 @@ api/
 │    └── types.py
 ├── utils/                       # utility functions (save_image, deserialize,...)
 │   ├── file_utils.py
-│   └── data_utils.py
+│   └── data_utils.py            # data utils + create_access_token()
 └── collections/                 # Postman collections
     ├── Cars.postman_collection.json
     ├── Clients.postman_collection.json
@@ -357,6 +386,7 @@ Frontend origins configured in `main.py`:
 
 ```python
 origins = [
+    "http://localhost",        # docker 
     "http://localhost:5173",   # Vite dev server
     "http://127.0.0.1:5173",
 ]
