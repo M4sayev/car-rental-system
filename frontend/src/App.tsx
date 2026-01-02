@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import DashBoard from "./pages/Dashboard";
 import Cars from "./pages/Cars";
 import Clients from "./pages/Clients";
@@ -15,10 +15,10 @@ import {
 } from "@tanstack/react-query";
 import CreateRental from "./pages/CreateRental";
 import Auth from "./pages/Auth";
-import { useEffect } from "react";
 import axios from "axios";
 import { handleSessionExpired } from "./utils/utils";
 import { useAuth } from "./context/AuthContext/useAuth";
+import ProtectedRoute from "./auth/Protector/ProtectedRoute";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -38,7 +38,8 @@ const queryClient = new QueryClient({
 function App() {
   const { isAuthenticated } = useAuth();
   const location = useLocation();
-  const showAdminUI = isAuthenticated && location.pathname !== "/auth/login";
+  const isAuthPage = location.pathname === "/auth/login";
+  const showAdminUI = isAuthenticated && !isAuthPage;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -52,12 +53,14 @@ function App() {
         <main className="font-sans w-full bg-sidebar-accent">
           {showAdminUI && <TopBanner />}
           <Routes>
-            <Route path="/" element={<DashBoard />} />
             <Route path="/auth/login" element={<Auth />} />
-            <Route path="/cars" element={<Cars />} />
-            <Route path="/clients" element={<Clients />} />
-            <Route path="/rentals" element={<Rentals />} />
-            <Route path="/rentals/create-rental" element={<CreateRental />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<DashBoard />} />
+              <Route path="/cars" element={<Cars />} />
+              <Route path="/clients" element={<Clients />} />
+              <Route path="/rentals" element={<Rentals />} />
+              <Route path="/rentals/create-rental" element={<CreateRental />} />
+            </Route>
           </Routes>
         </main>
       </div>

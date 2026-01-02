@@ -9,21 +9,28 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldGroup } from "@/components/ui/field";
 import FormField from "@/components/FormField/FormField";
-import z from "zod";
+import { z } from "zod";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const userSchema = z.object({
-    username: z.string("Invalid username").min(2, "Username is too short"),
-    password: z.string("Invalid password").min(4, "Password is too short"),
+    username: z.string().min(2, "Username is too short"),
+    password: z.string().min(4, "Password is too short"),
   });
 
   type userFormData = z.infer<typeof userSchema>;
 
-  const form = useForm<userFormData>();
+  const form = useForm<userFormData>({
+    resolver: zodResolver(userSchema),
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
 
   return (
     <div
