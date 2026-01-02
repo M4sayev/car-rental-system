@@ -1,4 +1,7 @@
-from connection import get_connection
+from src.db.connection import get_connection
+
+from src.auth.security import hash_password
+from src.utils.entity import generate_id
 
 import logging
 
@@ -85,6 +88,32 @@ def create_tables():
                         );
                     """
                     )
+            # create users table
+            logger.info("Creating users table")
+
+            cur.execute(
+                    """
+                        CREATE TABLE IF NOT EXISTS users (
+                            id VARCHAR(100) PRIMARY KEY,
+                            username VARCHAR(255) UNIQUE NOT NULL,
+                            hashed_password TEXT NOT NULL,
+                            role VARCHAR(100) DEFAULT user
+                        )
+                    """
+                    )
+        
+            logger.info("Creating default superuser if it does not exist")
+            id = generate_id()
+            default_password = hash_password("admin123")
+            cur.execute("SELECT * FROM users WHERE role = 'admin'")
+
+            if cur.rowcount == 0:
+                cur.execute(
+                    "INSERT INTO users (id, username, hashed_password, role) VALUES (%s, %s, %s, %s)",
+                    (id ,"admin", default_password, "admin")
+                )
+                logger.info("Superuser 'admin' created with default password 'admin123'")
+
             conn.commit()
             logger.info("Tables created successfully")
     except Exception as e:

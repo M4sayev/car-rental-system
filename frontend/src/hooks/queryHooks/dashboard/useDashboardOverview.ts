@@ -1,12 +1,11 @@
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { API_BASE_URL } from "@/config";
+import apiClient from "@/auth/client";
 
 export function useDashboardOverview() {
   return useQuery({
     queryKey: ["dashboard-overview"],
     queryFn: async () => {
-      const response = await axios.get(`${API_BASE_URL}/dashboard/overview`);
+      const response = await apiClient.get("/dashboard/overview");
       return response.data.data;
     },
   });

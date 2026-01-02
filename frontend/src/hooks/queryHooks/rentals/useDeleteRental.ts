@@ -1,15 +1,12 @@
-import { API_BASE_URL } from "@/config";
+import apiClient from "@/auth/client";
 import type { RentalTemplate } from "@/constants/rentalsTemplates";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 
 export function useDeleteRental() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (rental_id: RentalTemplate["rental_id"]) => {
-      const response = await axios.delete(
-        `${API_BASE_URL}/rentals/${rental_id}`
-      );
+      const response = await apiClient.delete(`/rentals/${rental_id}`);
       return response.data.data;
     },
     onSuccess: (data) => {

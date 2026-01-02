@@ -1,7 +1,6 @@
-import { API_BASE_URL } from "@/config";
+import apiClient from "@/auth/client";
 import type { CarFormData, CarTemplate } from "@/constants/carsTemplates";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 
 interface UpdateInterface {
   id: CarTemplate["vehicle_id"];
@@ -13,10 +12,7 @@ export function useUpdateCar() {
 
   return useMutation({
     mutationFn: async ({ id: vehicle_id, data }: UpdateInterface) => {
-      const response = await axios.patch(
-        `${API_BASE_URL}/cars/${vehicle_id}`,
-        data
-      );
+      const response = await apiClient.patch(`/cars/${vehicle_id}`, data);
       return response.data.data;
     },
     onSuccess: (data) => {

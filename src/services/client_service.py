@@ -1,7 +1,7 @@
 from typing import List, Optional
 from src.models.client import Client
 from src.repositories.base_repo import Repository
-import uuid
+from src.utils.entity import generate_id
 import logging
 
 
@@ -11,11 +11,6 @@ class ClientService:
     def __init__(self, clients_repo: Repository):
         self.clients_repo = clients_repo
     logger = logging.getLogger(__name__)
-
-    @staticmethod
-    def _generate_id() -> str:
-        """Generate random id"""
-        return str(uuid.uuid4())
     
     def get_client(self, client_id: str) -> Optional[Client]:
         """Get client by ID"""
@@ -32,12 +27,13 @@ class ClientService:
     
     def get_clients_by_ids(self, ids: str) -> List[Client]:
         """Get all id matching clients"""
-        return self.clients_repo.get_by_ids("clients", ids)
+        clients = self.clients_repo.get_by_ids("clients", ids)
+        return [Client.from_dict(client) for client in clients]
 
     def add_client(self, client: Client) -> Client | bool:
         """Add a new client to the system"""
         # Set the id dynamically
-        client_id = self._generate_id()
+        client_id = generate_id()
         client = Client(client_id, client.name, client.email, client.phone)
         client_dict = client.to_dict()
         if self.clients_repo.create( client_dict, "clients"):

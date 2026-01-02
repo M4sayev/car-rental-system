@@ -6,13 +6,10 @@ class ClientSchema(BaseModel):
     email: str
     phone: str
 
-class ClientResponse(BaseModel):
+class ClientResponse(ClientSchema):
     client_id: str
-    name: str  
-    email: str
-    phone: str
 
-class DeletedClientSchema(ClientResponse):
+class DeletedClientSchema(ClientSchema):
     deletion_date: datetime
 
 class DeletedClientResponse(ClientResponse):

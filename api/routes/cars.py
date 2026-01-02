@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException, Query, Form, File, UploadFile
-from api.dependencies import car_service
+from fastapi import APIRouter, HTTPException, Query, Form, File, UploadFile, Depends
+from api.dependencies import car_service, get_current_admin
 from typing import List
 
 from src.models.car import Car
@@ -14,7 +14,10 @@ from api.utils.data_utils import get_searched_data, deserialize
 
 from api.matchers.matchers import car_matches
 
-router = APIRouter()
+router = APIRouter(
+    tags=["Admin Panel"],
+    dependencies=[Depends(get_current_admin)]
+)
 
 @router.get("/cars", response_model=ResponseModel[List[CarResponse]])
 def get_cars() -> List[dict]:

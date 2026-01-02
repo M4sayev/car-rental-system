@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { ClientTemplate } from "../../../constants/clientTemplates";
-import axios from "axios";
-import { API_BASE_URL } from "@/config";
+import apiClient from "@/auth/client";
 
 interface UpdateInterface {
   id: ClientTemplate["client_id"];
@@ -14,7 +13,7 @@ export function useUpdateClient() {
 
   return useMutation({
     mutationFn: async ({ id, data }: UpdateInterface) => {
-      const response = await axios.patch(`${API_BASE_URL}/clients/${id}`, data);
+      const response = await apiClient.patch(`/clients/${id}`, data);
       return response.data.data;
     },
     onSuccess: (data) => {

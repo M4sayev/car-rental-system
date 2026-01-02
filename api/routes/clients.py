@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException, Body, Query
-from api.dependencies import client_service
+from fastapi import APIRouter, HTTPException, Body, Query, Depends
+from api.dependencies import client_service, get_current_admin
 from typing import List
 
 from src.models.client import Client
@@ -13,7 +13,10 @@ from api.utils.data_utils import get_searched_data
 
 from api.matchers.matchers import client_matches
 
-router = APIRouter()
+router = APIRouter(
+    tags=["Admin Panel"],
+    dependencies=[Depends(get_current_admin)]
+)
 
 @router.get("/clients", response_model=ResponseModel[List[ClientResponse]])
 def get_clients(search = Query("")) -> List[dict]:

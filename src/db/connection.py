@@ -11,9 +11,9 @@ def get_connection():
     """
     try:
         conn = psycopg2.connect(
-            host=os.getenv("DB_HOSTNAME"),
+            # host=os.getenv("DB_HOSTNAME"),
             # for local running
-            # host="localhost",
+            host="localhost",
             database=os.getenv("DB_NAME"),
             user=os.getenv("DB_USER"),
             password=os.getenv("DB_PASSWORD"),
