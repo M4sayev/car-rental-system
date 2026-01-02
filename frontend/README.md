@@ -19,11 +19,11 @@ A modern frontend application built with React, TypeScript, Vite, TailwindCSS, s
 - **Form Validation** - Zod schemas with React Hook Form
 - **File Upload** - Drag-and-drop with React Dropzone
 - **Testing** - Comprehensive tests with Vitest and RTL
+- **Authentication** - JWT-based auth for the admin
 
 ### In Development 🚧
 - **AI Assistance** - AI assistance querying most rented car, most active client,...
 - **Dashboard Analytics** - Charts for revenue, statistics, and vehicle utilization
-- **Authentication** - JWT-based auth for the admin
 
 ---
 
@@ -76,8 +76,8 @@ App runs at: `http://localhost:5173`
 
 ```
 src/
+ ├── auth/                # Authentication components (LoginForm, RouteProtector, client.ts)
  ├── components/          # UI components
-
  │   ├── Cars/            # contains car page related components (CarCard, AddCarDropdown,...)
  │   ├── Clients/         # contains client page related components (ClientsTable,...)
  │   ├── DashBoard/       # contains dashboard related components (Cards, RecentRentals,...)
@@ -125,11 +125,10 @@ npm run lint             # Lint code
 - [x] Dashboard with API
 - [x] Form validation & file upload
 - [x] Complete rentals functionality
-- [ ] Authentication system
+- [x] Authentication system
 
 ### Next Phase
 - [ ] Dashboard charts & analytics
-- [ ] Export data (PDF/Excel)
 - [ ] AI intergration
 
 ---
