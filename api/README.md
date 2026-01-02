@@ -23,8 +23,9 @@ REST API built with FastAPI implementing microservices architecture, design patt
 - 🎨 **Design Patterns** - Strategy and Decorator patterns for rental cost calculation
 - 📦 **Repository Pattern** - PostgreSQL-based storage with configurable history size and ORM data manipulation
 - 🖼️ **Media Handling** - Static file serving for car images
-- 🔒 **CORS** - Configured for frontend integration
+- 🔒 **CORS** - Configured for frontend integration 
 - 📝 **Postman Collections** - 4 collections for complete API testing
+- 👤 **Authentication** - admin login and user singup(for future expansion)
 
 ---
 
