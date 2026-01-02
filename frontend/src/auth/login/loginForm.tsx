@@ -1,0 +1,70 @@
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Field, FieldGroup } from "@/components/ui/field";
+import FormField from "@/components/FormField/FormField";
+import z from "zod";
+import { useForm } from "react-hook-form";
+
+export function LoginForm({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  const userSchema = z.object({
+    username: z.string("Invalid username").min(2, "Username is too short"),
+    password: z.string("Invalid password").min(4, "Password is too short"),
+  });
+
+  type userFormData = z.infer<typeof userSchema>;
+
+  const form = useForm<userFormData>();
+
+  return (
+    <div
+      className={cn(
+        "flex flex-col gap-6 max-w-xl m-auto translate-y-1/2",
+        className
+      )}
+      {...props}
+    >
+      <Card>
+        <CardHeader>
+          <CardTitle>Login to your account</CardTitle>
+          <CardDescription>
+            Enter your username below to login to your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form>
+            <FieldGroup>
+              <FormField<userFormData>
+                name="username"
+                control={form.control}
+                label="username"
+                placeholder="your username"
+                type="text"
+              />
+              <FormField<userFormData>
+                name="password"
+                control={form.control}
+                label="password"
+                placeholder="password"
+                type="password"
+              />
+
+              <Field>
+                <Button type="submit">Login</Button>
+              </Field>
+            </FieldGroup>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

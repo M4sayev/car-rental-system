@@ -61,3 +61,9 @@ export function getStatusColor(
       return COLOR_MAP.blue;
   }
 }
+
+export const handleSessionExpired = () => {
+  localStorage.removeItem("access_token");
+  console.error("Session expired.");
+  window.location.href = "/auth/login";
+};
