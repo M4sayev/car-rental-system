@@ -8,7 +8,7 @@ interface AuthReponseInterface {
   token_type: string;
 }
 
-export function loginHook() {
+export function useLoginHook() {
   return useMutation({
     mutationFn: async (
       user: URLSearchParams
