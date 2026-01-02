@@ -9,21 +9,16 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldGroup } from "@/components/ui/field";
 import FormField from "@/components/FormField/FormField";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { userSchema, type userFormData } from "@/constants/userTemplates";
+import { loginHook } from "@/hooks/queryHooks/auth/loginHook";
+import { useAuth } from "@/context/AuthContext/useAuth";
+import { toast } from "sonner";
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
-  const userSchema = z.object({
-    username: z.string().min(2, "Username is too short"),
-    password: z.string().min(4, "Password is too short"),
-  });
-
-  type userFormData = z.infer<typeof userSchema>;
-
+function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
+  const { login } = useAuth();
+  const loginMutate = loginHook();
   const form = useForm<userFormData>({
     resolver: zodResolver(userSchema),
     defaultValues: {
@@ -31,6 +26,23 @@ export function LoginForm({
       password: "",
     },
   });
+
+  const onSubmit = (data: userFormData) => {
+    const formData = new URLSearchParams();
+    formData.append("username", data.username);
+    formData.append("password", data.password);
+
+    loginMutate.mutate(formData, {
+      onSuccess: (data) => {
+        login(data.access_token);
+      },
+      onError: () => {
+        toast("Wrong credentials", {
+          description: "User does not exist or password does not match",
+        });
+      },
+    });
+  };
 
   return (
     <div
@@ -48,7 +60,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
             <FieldGroup>
               <FormField<userFormData>
                 name="username"
@@ -64,7 +76,6 @@ export function LoginForm({
                 placeholder="password"
                 type="password"
               />
-
               <Field>
                 <Button type="submit">Login</Button>
               </Field>
@@ -75,3 +86,5 @@ export function LoginForm({
     </div>
   );
 }
+
+export default LoginForm;

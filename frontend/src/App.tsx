@@ -19,6 +19,7 @@ import axios from "axios";
 import { handleSessionExpired } from "./utils/utils";
 import { useAuth } from "./context/AuthContext/useAuth";
 import ProtectedRoute from "./auth/Protector/ProtectedRoute";
+import { Toaster } from "@/components/ui/sonner";
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -27,10 +28,12 @@ const queryClient = new QueryClient({
         handleSessionExpired();
     },
   }),
+
   mutationCache: new MutationCache({
     onError: (error) => {
-      if (axios.isAxiosError(error) && error.response?.status === 401)
-        handleSessionExpired();
+      const is401 = axios.isAxiosError(error) && error.response?.status === 401;
+      const isLoginPage = window.location.pathname === "/auth/login";
+      if (is401 && !isLoginPage) handleSessionExpired();
     },
   }),
 });
@@ -62,6 +65,7 @@ function App() {
               <Route path="/rentals/create-rental" element={<CreateRental />} />
             </Route>
           </Routes>
+          <Toaster richColors position="top-center" />
         </main>
       </div>
       {showAdminUI && (

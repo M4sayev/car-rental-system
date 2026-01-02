@@ -1,12 +1,11 @@
-import { API_BASE_URL } from "@/config";
+import apiClient from "@/auth/client";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 export function useGetDeletedCars() {
   return useQuery({
     queryKey: ["deleted-cars"],
     queryFn: async () => {
-      const response = await axios.get(`${API_BASE_URL}/cars/deleted`);
+      const response = await apiClient.get("/cars/deleted");
       return response.data.data;
     },
   });

@@ -1,12 +1,11 @@
-import { API_BASE_URL } from "@/config";
+import apiClient from "@/auth/client";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 export function useGetAllCars() {
   return useQuery({
     queryKey: ["cars"],
     queryFn: async () => {
-      const response = await axios.get(`${API_BASE_URL}/cars`);
+      const response = await apiClient.get("/cars");
       return response.data.data;
     },
   });

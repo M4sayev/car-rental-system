@@ -1,4 +1,4 @@
-import { LoginForm } from "@/auth/login/loginForm";
+import LoginForm from "@/auth/login/loginForm";
 
 function Auth() {
   return (

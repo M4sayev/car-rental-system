@@ -1,11 +1,10 @@
-import { API_BASE_URL } from "@/config";
+import apiClient from "@/auth/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 
 export function useAddCar() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (data: FormData) => axios.post(`${API_BASE_URL}/cars`, data),
+    mutationFn: (data: FormData) => apiClient.post("/cars", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["cars"] });
     },
