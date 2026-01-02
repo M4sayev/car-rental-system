@@ -29,6 +29,7 @@ A full-stack car rental management system with intelligent cost calculation, mod
 - 🐳 Docker containerization for easy deployment
 - 🖥️ CLI for system management
 - 🧪 Full test coverage (Pytest + Vitest)
+- 🔒 JWT-based authentication
 
 ---
 
@@ -177,6 +178,7 @@ Navigate to **http://localhost:5173** for the full UI:
 - Manage cars (CRUD + image upload)
 - Manage clients (CRUD + validation)
 - Manage Rentals (CRUD + search option + validation)
+- handle login form authentication
 
 ### API
 Access **http://localhost:8000/docs** for interactive API documentation with:
@@ -184,6 +186,7 @@ Access **http://localhost:8000/docs** for interactive API documentation with:
 - 6 client endpoints
 - 5 rental endpoints
 - 2 dashboard endpoints
+- 2 authentication endpoints (login and signup)
 
 ### Command Line
 Quick operations via CLI:
@@ -292,9 +295,7 @@ Detailed documentation available:
 - [x] Comprehensive testing
 - [x] Database migration (PostgreSQL)
 - [x] Dockerization
-
-### In Progress 🚧
-- [ ] Authentication & authorization (JWT)
+- [x] Authentication (JWT)
 
 ### Planned 🎯
 - [ ] Dashboard analytics charts
