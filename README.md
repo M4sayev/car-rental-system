@@ -31,6 +31,17 @@ A full-stack car rental management system with intelligent cost calculation, mod
 - 🧪 Full test coverage (Pytest + Vitest)
 - 🔒 JWT-based authentication
 
+## 📸 App Preview
+
+| 📱 Mobile Flow | 🖥️ Desktop Flow |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/c69ffd62-3ecd-44e9-9748-010c94b57c89" width="220" /> | <img src="https://github.com/user-attachments/assets/20eaa051-c12e-4993-a7b7-457b7e391e20" width="550" /> | 
+
+| 📱 Rental Workflow Demo |
+| :---: |
+| <img src="docs/rental_creation_demo.gif" width="300" alt="Car Rental Process GIF" /> |
+| *Stage-based selection: Car search → Client lookup → Confirmation* |
+
 ---
 
 ## 🎬 Interactive Demo
