@@ -38,6 +38,15 @@ A modern frontend application built with React, TypeScript, Vite, TailwindCSS, s
 
 ---
 
+## 🎬 Interactive Demo
+Experience the system in action without installing anything!
+
+[![Product Tour](https://img.shields.io/badge/Launch-Interactive_Desktop_Demo-blueviolet?style=for-the-badge&logo=rocket)](https://app.supademo.com/demo/cmjy72x390hn3gmn8p549ojq2?utm_source=link)
+
+[![Product Tour](https://img.shields.io/badge/Launch-Interactive_Mobile_Demo-blue?style=for-the-badge&logo=rocket)](https://app.supademo.com/demo/cmjy7zeww0i33gmn8yozcmea7?utm_source=link)
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
