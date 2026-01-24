@@ -38,6 +38,21 @@ A modern frontend application built with React, TypeScript, Vite, TailwindCSS, s
 
 ---
 
+## 📸 App Preview
+
+| 📱 Mobile Flow | 🖥️ Desktop Flow |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/c69ffd62-3ecd-44e9-9748-010c94b57c89" width="250" /> | <img src="https://github.com/user-attachments/assets/20eaa051-c12e-4993-a7b7-457b7e391e20" width="700" /> | 
+
+| 📱 Rental Workflow (Logic) | 🖥️ Car Creation (UX/Validation) |
+| :---: | :---: |
+| <img src="../docs/rental_creation_demo.gif" width="350" alt="Car Rental Process GIF" /> | <img src="../docs/add_car_demo.gif" width="600" alt="Car Creation Process GIF" /> |
+| **Stage-based selection:** <br> Car search → Client lookup → Confirmation | **Inventory Flow:** <br> Zod validation & Drag-and-drop upload |
+
+---
+
+---
+
 ## 🎬 Interactive Demo
 Experience the system in action without installing anything!
 
